@@ -1,7 +1,6 @@
 "use client"
 import React from 'react'
 import { Chooseticket } from '../../components/Chooseticket'
-import '../../../reset.css'
 
 const ChoseTicketPage = () => {
   return (
