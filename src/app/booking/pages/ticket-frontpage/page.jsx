@@ -22,7 +22,7 @@ const Page = () => {
           camping="Standard camping"
           bath="Standard bath"
           toilets="Box toilets"
-          price="799,-"
+          price="1299,-"
         />
       </div>
     </div>
