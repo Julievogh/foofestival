@@ -2,11 +2,11 @@
 import React from 'react'
 import { Chooseticket } from '../../components/Chooseticket'
 
-const ChoseTicketPage = () => {
+const ChoseTicketPage = ({ ticketType }) => {
   return (
   <>
     <h1>booking page</h1>
-    <Chooseticket />
+    <Chooseticket ticketType={ticketType}/>
     </>
     )
 }

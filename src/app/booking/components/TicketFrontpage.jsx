@@ -20,7 +20,9 @@ import Link from 'next/link';
             <p>{props.price}</p>
         </div>
         <div class="flex justify-center">
-        <Link href="../pages/choose-ticket">
+        <Link href={`../pages/choose-ticket?type=${props.ticketType}`}>
+
+
   <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-2">
     Buy ticket
   </button>

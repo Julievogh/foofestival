@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export const Chooseticket = () => {
+export const Chooseticket = ({ticketType}) => {
   const [spots, setSpots] = useState([]);
   const [error, setError] = useState(null);
 
