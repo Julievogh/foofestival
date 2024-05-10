@@ -9,7 +9,7 @@ const Page = () => {
       </div>
       <div className="flex justify-center">
         <TicketFrontpage
-          ticketType="Regular Ticket"
+          ticketType="Regular"
           camping="Standard camping"
           bath="Standard baths"
           toilets="Box toilets"
@@ -18,7 +18,7 @@ const Page = () => {
       </div>
       <div className="flex justify-center">
         <TicketFrontpage
-          ticketType="VIP Ticket"
+          ticketType="VIP"
           camping="Luxus camping"
           bath="Great baths"
           toilets="Golden toilets"

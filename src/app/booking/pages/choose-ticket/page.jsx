@@ -1,14 +1,14 @@
 "use client"
 import React from 'react'
-import { Chooseticket } from '../../components/Chooseticket'
+import Chooseticket from '../../components/Chooseticket'
 
-const ChoseTicketPage = ({ ticketType }) => {
+const ChooseTicketPage = ({ ticketType }) => {
   return (
   <>
     <h1>booking page</h1>
-    <Chooseticket ticketType={ticketType}/>
+    <Chooseticket ticketType={ticketType} />    
     </>
     )
 }
 
-export default ChoseTicketPage
+export default ChooseTicketPage

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export const Chooseticket = ({ticketType}) => {
+const Chooseticket = ({ticketType}) => {
   const [spots, setSpots] = useState([]);
   const [error, setError] = useState(null);
 
@@ -19,7 +19,20 @@ export const Chooseticket = ({ticketType}) => {
 
   return (
     <div>
-      <h2>Choose Ticket</h2>
+      {ticketType === "Regular" ? 
+      (<h2>Regular Ticket</h2>
+      ) : (
+        <h2>VIP ticket</h2>
+      )}
+
+      {ticketType === "Regular" ? (
+        <p>Standard bathing</p>
+      ) : (
+        <p>Luxury bathing</p>
+      )}
+
+
+
       <button onClick={fetchAvailableSpots}>Fetch Available Spots</button>
       {error && <p>Error: {error}</p>}
       <ul>
@@ -38,3 +51,5 @@ export const Chooseticket = ({ticketType}) => {
     </div>
   );
 };
+
+export default Chooseticket
