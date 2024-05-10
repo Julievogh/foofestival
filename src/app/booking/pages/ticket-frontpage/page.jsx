@@ -11,17 +11,17 @@ const Page = () => {
         <TicketFrontpage
           ticketType="Regular Ticket"
           camping="Standard camping"
-          bath="Standard bath"
+          bath="Standard baths"
           toilets="Box toilets"
           price="799,-"
         />
       </div>
       <div className="flex justify-center">
         <TicketFrontpage
-          ticketType="Regular Ticket"
-          camping="Standard camping"
-          bath="Standard bath"
-          toilets="Box toilets"
+          ticketType="VIP Ticket"
+          camping="Luxus camping"
+          bath="Great baths"
+          toilets="Golden toilets"
           price="1299,-"
         />
       </div>
