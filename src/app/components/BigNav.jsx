@@ -5,21 +5,23 @@ export default function Header() {
   return (
     <Navbar shouldHideOnScroll>
       <NavbarBrand>
-        <p className="font-bold text-inherit">FooFest</p>
+        <Link className="font-bold text-inherit" href="/">
+          FooFest
+        </Link>
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
-          <Link color="foreground" href="#">
+          <Link color="foreground" href="festival">
             Bands
           </Link>
         </NavbarItem>
         <NavbarItem isActive>
-          <Link href="#" aria-current="page">
+          <Link href="schedule" aria-current="page">
             Schedule
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="#">
+          <Link color="foreground" href="map">
             Map
           </Link>
         </NavbarItem>

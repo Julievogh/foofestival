@@ -24,7 +24,9 @@ export default function App() {
 
       <NavbarContent className="sm:hidden pr-3" justify="center">
         <NavbarBrand>
-          <p className="font-bold text-inherit">FooFest</p>
+          <Link className="font-bold text-inherit" href="/">
+            FooFest
+          </Link>
         </NavbarBrand>
       </NavbarContent>
 
@@ -33,18 +35,18 @@ export default function App() {
           <p className="font-bold text-inherit">FooFest</p>
         </NavbarBrand>
         <NavbarItem>
-          <Link color="foreground" href="#">
-            Features
+          <Link color="foreground" href="festival">
+            Bands
           </Link>
         </NavbarItem>
         <NavbarItem isActive>
-          <Link href="#" aria-current="page">
-            Customers
+          <Link href="schedule" aria-current="page">
+            Schedule
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="#">
-            Integrations
+          <Link color="foreground" href="map">
+            Map
           </Link>
         </NavbarItem>
       </NavbarContent>
@@ -54,8 +56,8 @@ export default function App() {
           <Link href="#">Login</Link>
         </NavbarItem>
         <NavbarItem>
-          <Button as={Link} color="warning" href="#" variant="flat">
-            TICKETS
+          <Button as={Link} color="warning" href="booking" variant="flat">
+            Tickets
           </Button>
         </NavbarItem>
       </NavbarContent>

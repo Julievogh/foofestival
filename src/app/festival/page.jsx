@@ -5,16 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "../page.module.css";
 
-import {
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  NavbarMenuToggle,
-  NavbarMenu,
-  NavbarMenuItem,
-} from "@nextui-org/navbar";
-
 export default function ResultPage({ searchParams }) {
   const [bands, setBands] = useState([]);
 
@@ -42,10 +32,10 @@ export default function ResultPage({ searchParams }) {
 
   return (
     <>
-      <main className={styles.main}>
+      <main className={styles.mainBand}>
         <div>
-          <h1>BANDS</h1>
-          <div>
+          <h1 className="ml-4">BANDS</h1>
+          <div className={styles.sortBar}>
             <p>Sort</p>
             <p>Favorites</p>
           </div>

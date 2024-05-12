@@ -8,6 +8,22 @@ body {
   --background-glitch-img: url("../../public/aesthetic-abstract-chromatography-art-element.jpg");
 }
 
+h1 {
+  font-size: 4rem;
+}
+
+h2 {
+  font-size: 3rem;
+}
+
+h3 {
+  font-size: 2.2rem;
+}
+
+p {
+  font-size: 1.1rem;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
