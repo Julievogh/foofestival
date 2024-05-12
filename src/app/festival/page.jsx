@@ -45,8 +45,10 @@ export default function ResultPage({ searchParams }) {
       <main className={styles.main}>
         <div>
           <h1>BANDS</h1>
-          <h3>Bands der spiller</h3>
-
+          <div>
+            <p>Sort</p>
+            <p>Favorites</p>
+          </div>
           <ul className={styles.grid}>
             {bands.map((band, index) => (
               <li key={index} className={styles.bandItem}>
