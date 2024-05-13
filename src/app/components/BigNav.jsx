@@ -1,5 +1,12 @@
 import React from "react";
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button } from "@nextui-org/react";
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  Link,
+  Button,
+} from "@nextui-org/react";
 
 export default function Header() {
   return (
@@ -31,7 +38,12 @@ export default function Header() {
           <Link href="#">Favorites</Link>
         </NavbarItem>
         <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat">
+          <Button
+            as={Link}
+            color="primary"
+            href="/booking/pages/ticket-frontpage"
+            variant="flat"
+          >
             Tickets
           </Button>
         </NavbarItem>
