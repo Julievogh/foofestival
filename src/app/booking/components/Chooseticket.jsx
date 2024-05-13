@@ -16,6 +16,7 @@ const Chooseticket = ({ticketType}) => {
       setError(error.message);
     }
   };
+  console.log(ticketType)
 
   return (
     <div>
