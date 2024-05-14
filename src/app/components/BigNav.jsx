@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  Link,
-  Button,
-} from "@nextui-org/react";
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button } from "@nextui-org/react";
 
 export default function Header() {
   return (
@@ -18,17 +11,17 @@ export default function Header() {
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
-          <Link color="foreground" href="festival">
+          <Link color="foreground" href="pages/festival">
             Bands
           </Link>
         </NavbarItem>
         <NavbarItem isActive>
-          <Link href="schedule" aria-current="page">
+          <Link href="schedule" aria-current="pages/schedule">
             Schedule
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="map">
+          <Link color="foreground" href="pages/map">
             Map
           </Link>
         </NavbarItem>
