@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link';
 
 
- const TicketFrontpage = (props) => {
+ const TicketComponent = (props) => {
 
   return (
     <>
@@ -33,4 +33,4 @@ import Link from 'next/link';
     </>
   )
 }
-export default TicketFrontpage
+export default TicketComponent

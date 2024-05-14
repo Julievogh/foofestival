@@ -1,5 +1,5 @@
 import React from 'react';
-import TicketFrontpage from '../../components/TicketFrontpage';
+import TicketComponent from '../../components/TicketComponent';
 
 const Page = () => {
   return (
@@ -8,7 +8,7 @@ const Page = () => {
         <h1 className="text-center text-3xl font-bold">Tickets</h1>
       </div>
       <div className="flex justify-center">
-        <TicketFrontpage
+        <TicketComponent
           ticketType="Regular"
           camping="Standard camping"
           bath="Standard baths"
@@ -17,7 +17,7 @@ const Page = () => {
         />
       </div>
       <div className="flex justify-center">
-        <TicketFrontpage
+        <TicketComponent
           ticketType="VIP"
           camping="Luxus camping"
           bath="Great baths"
