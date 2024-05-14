@@ -25,7 +25,7 @@ export default function BandPage({ slug }) {
         <h1>{band.name}</h1>
         <Image src={`http://localhost:8080/logos/${band.logo}`} alt={band.name} width={200} height={200} />
         <p>{band.bio}</p>
-        {/* Render other band details here */}
+
         <ul></ul>
       </div>
     </main>
