@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import Chooseticket from '../../components/Chooseticket'
+import Chooseticket from '../../components/chooseTicket'
 
 const ChooseTicketPage = ({ ticketType }) => {
   return (
