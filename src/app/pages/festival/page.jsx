@@ -25,7 +25,7 @@ export default function ResultPage({ searchParams }) {
         <ul className={styles.grid}>
           {bands.map((band) => (
             <li className={styles.bandItem} key={band.slug}>
-              <Link href={`/festival/band/${encodeURIComponent(band.slug)}`}>
+              <Link href={`band/${encodeURIComponent(band.slug)}`}>
                 <div className={styles.imageContainer}>
                   <Image
                     src={band.logo.startsWith("https://") ? band.logo : `http://localhost:8080/logos/${band.logo}`}
