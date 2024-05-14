@@ -66,12 +66,7 @@ export default function App() {
           <Link href="#">Login</Link>
         </NavbarItem>
         <NavbarItem>
-          <Button
-            as={Link}
-            color="warning"
-            href="booking/pages/ticket-frontpage"
-            variant="flat"
-          >
+          <Button as={Link} color="warning" href="../pages/ticket-frontpage" variant="flat">
             Tickets
           </Button>
         </NavbarItem>

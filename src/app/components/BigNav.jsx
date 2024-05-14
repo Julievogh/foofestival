@@ -38,12 +38,7 @@ export default function Header() {
           <Link href="#">Favorites</Link>
         </NavbarItem>
         <NavbarItem>
-          <Button
-            as={Link}
-            color="primary"
-            href="/booking/pages/ticket-frontpage"
-            variant="flat"
-          >
+          <Button as={Link} color="primary" href="../pages/ticket-frontpage" variant="flat">
             Tickets
           </Button>
         </NavbarItem>
