@@ -1,20 +1,25 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
-import styles from "../../page.module.css";
+import Link from "next/link";
+import styles from "../page.module.css";
 
-export default function ResultPage({ searchParams }) {
-  const [bands, setBands] = useState([]);
+export const metadata = {
+  title: "Bands",
+  description: "An overlook of all the bands",
+};
 
-  useEffect(() => {
-    fetch(`http://localhost:8080/bands`)
-      .then((response) => response.json())
-      .then((data) => setBands(data));
-  }, []);
+export default async function Home() {
+  const url = "http://localhost:8080/bands";
+  const res = await fetch(url);
+  const bands = await res.json();
 
   return (
     <main className={styles.mainBand}>
+      <p>TEST SIDE:</p>
+      <div className={styles.buttonContainer}>
+        <Link href="/a-perfect-circle/">
+          <button className={styles.button}>Go to A perfect circle</button>
+        </Link>
+      </div>
       <div>
         <h1 className="ml-4">BANDS</h1>
         <div className={styles.sortBar}>
@@ -25,7 +30,7 @@ export default function ResultPage({ searchParams }) {
         <ul className={styles.grid}>
           {bands.map((band) => (
             <li className={styles.bandItem} key={band.slug}>
-              <Link href={`band/${encodeURIComponent(band.slug)}`}>
+              <Link href={`/festival/${band.slug}`}>
                 <div className={styles.imageContainer}>
                   <Image
                     src={band.logo.startsWith("https://") ? band.logo : `http://localhost:8080/logos/${band.logo}`}
