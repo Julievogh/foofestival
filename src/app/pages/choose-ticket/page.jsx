@@ -1,18 +1,22 @@
-"use client"
-import React from 'react'
-import Chooseticket from '../../components/chooseTicket'
-import TicketHeader from '@/app/components/TicketHeader'
+"use client";
+import React from "react";
+import Chooseticket from "../../components/chooseTicket";
+import TicketHeader from "@/app/components/TicketHeader";
 
 const ChooseTicketPage = ({ ticketType }) => {
   return (
     <>
-    <TicketHeader ticketType={ticketType}/>
-<div className="flex flex-col w-3/4 items-center justify-center mx-auto">
-    <h1>Booking</h1>
-    <Chooseticket ticketType={ticketType} />    
-    </div>
+<article className="w-full bg-white">
+      <TicketHeader ticketType={ticketType} />
+      <h3 className="pt-2 pl-2">
+        <strong>Choose tickets</strong>
+      </h3>
+      <div className="flex flex-col w-full justify-start mx-auto">
+        <Chooseticket ticketType={ticketType} />
+      </div>
+    </article>
     </>
-    )
-}
+  );
+};
 
-export default ChooseTicketPage
+export default ChooseTicketPage;
