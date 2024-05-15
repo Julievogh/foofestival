@@ -32,6 +32,13 @@
   margin: 20px;
 }
 
+.imageContainerFront {
+  position: relative;
+  width: 80%;
+  max-width: 600px;
+  margin-bottom: 2rem;
+}
+
 .bandName {
   position: absolute;
   top: 50%;
@@ -74,6 +81,10 @@
   .grid li img {
     width: 140px;
     height: 140px;
+  }
+
+  .imageContainerFront {
+    width: 90%;
   }
 
   .bandItem {
