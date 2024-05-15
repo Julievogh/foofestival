@@ -6,12 +6,15 @@ import TicketSelector from "./TicketSelector"
 const Chooseticket = () => {
   const searchParams = useSearchParams();
   const ticketType = searchParams.get("type");
-  const [ticketAmount, SetTicketAmount] = useState(0);
+  const [ticketAmount, SetTicketAmount] = useState(1);
 
   const handleIncrement = () => {
     SetTicketAmount(prevAmount => prevAmount + 1);
   }
   const handleDecrement = () => {
+    if (ticketAmount === 1) {
+      return;
+    }
     SetTicketAmount(prevAmount => Math.max(prevAmount - 1, 0) );
   }
 
