@@ -29,11 +29,13 @@ const Chooseticket = () => {
         <>
           <h2>Regular Ticket</h2>
           <p>Standard bathing</p>
+          <p>Box toilets</p>
         </>
       ) : (
         <>
           <h2>VIP ticket</h2>
           <p>Luxury bathing</p>
+          <p>Golden toilets</p>
         </>
       )}
 
