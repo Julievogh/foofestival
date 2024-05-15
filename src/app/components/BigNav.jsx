@@ -28,7 +28,7 @@ export default function Header() {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
-          <Link href="#">Favorites</Link>
+          <Link href="favorites">Favorites</Link>
         </NavbarItem>
         <NavbarItem>
           <Button as={Link} color="primary" href="../pages/ticket-frontpage" variant="flat">

@@ -1,8 +1,10 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "../page.module.css";
 import Breadcrumbs from "../components/Breadcrumbs"; // Import Breadcrumbs component
+import LikeButton from "../components/LikeButton"; // Import LikeButton component
 
 export default async function FestivalPage() {
   const url = "http://localhost:8080/bands";

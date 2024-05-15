@@ -53,7 +53,7 @@ export default function App() {
 
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
-          <Link href="#">Login</Link>
+          <Link href="favorites">Favorites</Link>
         </NavbarItem>
         <NavbarItem>
           <Button as={Link} color="warning" href="../pages/ticket-frontpage" variant="flat">
