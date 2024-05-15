@@ -16,7 +16,11 @@ export default async function Page({ params }) {
   return (
     <main>
       <h1>{data.name}</h1>
-      <p>Genre: {data.genre}</p>
+      <div>
+        <p>Favorite</p> <Image src="/icons/heart.png" width={20} height={20} />
+        <Image src="/icons/like.png" width={20} height={20} />
+      </div>
+
       <div>
         <Image
           src={data.logo.startsWith("https://") ? data.logo : `http://localhost:8080/logos/${data.logo}`}
@@ -26,9 +30,15 @@ export default async function Page({ params }) {
         />
       </div>
       <div>
+        <p>Genre: {data.genre}</p>
+
         <p>{data.bio}</p>
         <h5>Members:</h5>
         <p>{data.members.map((member) => member).join(", ")}</p>
+      </div>
+      <div>
+        <p>When are they playing?</p>
+        <p>INFO FROM SCHEDULE API</p>
       </div>
     </main>
   );
