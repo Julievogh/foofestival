@@ -6,7 +6,8 @@ const TicketComponent2 = ({ title, price }) => {
     <p className="text-xl self-center">&bull;</p>
     <div className="p-2">
       <p><strong>{title}</strong></p>
-      <p>{price}</p>
+      <p>Price: {price},-</p>
+      <p className='text-sm'>Price includes one time booking fee of 100,-</p>
     </div>
   </div>
   )

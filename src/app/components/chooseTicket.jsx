@@ -6,8 +6,24 @@ import TicketSelector from "./TicketSelector"
 const Chooseticket = () => {
   const searchParams = useSearchParams();
   const ticketType = searchParams.get("type");
+  
+  const regularPrice = 799;
+  const vipPrice = 1299;
+  const bookingFee = 100;
+  
   const [ticketAmount, SetTicketAmount] = useState(1);
 
+  const calculateTotalPrice = () => {
+    let totalPrice = 0;
+
+    if (ticketType === "Regular") {
+      totalPrice = ticketAmount * regularPrice + bookingFee;
+    } else {
+      totalPrice = ticketAmount * vipPrice + bookingFee;
+    }
+
+    return totalPrice;
+  }
   const handleIncrement = () => {
     SetTicketAmount(prevAmount => prevAmount + 1);
   }
@@ -39,15 +55,11 @@ const Chooseticket = () => {
     <article>
       <div className="flex justify-between p-3">
         <div>
-          {ticketType === "Regular" ? (
             <>
-            <TicketComponent2 title="Regular ticket" price="899,-"/>
+            <TicketComponent2 
+            title={ticketType === "Regular" ? "Regular ticket" : "VIP ticket"} 
+            price={calculateTotalPrice()}/>
             </>
-          ) : (
-            <>
-            <TicketComponent2 title="VIP ticket" price="1399,-"/>
-            </>
-          )}
         </div>
         <TicketSelector 
         value={ticketAmount}
