@@ -24,7 +24,7 @@ const Chooseticket = () => {
   console.log(ticketType);
 
   return (
-    <div>
+    <article className="border-solid border-2 border-black">
       {ticketType === "Regular" ? (
         <>
           <h2>Regular Ticket</h2>
@@ -54,7 +54,7 @@ const Chooseticket = () => {
           </li>
         ))}
       </ul>
-    </div>
+    </article>
   );
 };
 

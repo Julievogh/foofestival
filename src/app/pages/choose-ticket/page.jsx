@@ -1,13 +1,17 @@
 "use client"
 import React from 'react'
 import Chooseticket from '../../components/chooseTicket'
+import TicketHeader from '@/app/components/TicketHeader'
 
 const ChooseTicketPage = ({ ticketType }) => {
   return (
-<div className="flex flex-col w-3/4 items-center justify-center border-solid border-2 border-black mx-auto">
+    <>
+    <TicketHeader ticketType={ticketType}/>
+<div className="flex flex-col w-3/4 items-center justify-center mx-auto">
     <h1>Booking</h1>
     <Chooseticket ticketType={ticketType} />    
     </div>
+    </>
     )
 }
 
