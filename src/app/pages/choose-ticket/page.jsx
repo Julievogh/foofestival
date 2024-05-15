@@ -8,7 +8,7 @@ const ChooseTicketPage = ({ ticketType }) => {
     <>
 <article className="w-full bg-white">
       <TicketHeader ticketType={ticketType} />
-      <h3>
+      <h3 className="pt-2 pl-2">
         <strong>Choose tickets</strong>
       </h3>
       <div className="flex flex-col w-full justify-start mx-auto">

@@ -1,9 +1,19 @@
 import React, { useState } from "react";
 import { useSearchParams } from "next/navigation";
+import TicketComponent2 from "./TicketComponent2"
+import TicketSelector from "./TicketSelector"
 
 const Chooseticket = () => {
   const searchParams = useSearchParams();
   const ticketType = searchParams.get("type");
+  const [ticketAmount, SetTicketAmount] = useState(0);
+
+  const handleIncrement = () => {
+    SetTicketAmount(prevAmount => prevAmount + 1);
+  }
+  const handleDecrement = () => {
+    SetTicketAmount(prevAmount => Math.max(prevAmount - 1, 0) );
+  }
 
   const [spots, setSpots] = useState([]);
   const [error, setError] = useState(null);
@@ -28,34 +38,18 @@ const Chooseticket = () => {
         <div>
           {ticketType === "Regular" ? (
             <>
-              <div className="flex justify-start">
-                <p className="text-xl self-center">&bull;</p>
-                <div className="p-2">
-                  <p><strong>Regular ticket</strong></p>
-                  <p>Price including fee:</p>
-                  <p>899,-</p>
-                </div>
-              </div>
+            <TicketComponent2 title="Regular ticket" price="899,-"/>
             </>
           ) : (
             <>
-              <div className="flex justify-start">
-                <p className="text-xl self-center">&bull;</p>
-                <div className="p-2">
-                  <p className="text-lg"><strong>VIP ticket</strong></p>
-                  <p>Price including fee:</p>
-                  <p>1399,-</p>
-                </div>
-              </div>
+            <TicketComponent2 title="VIP ticket" price="1399,-"/>
             </>
           )}
         </div>
-        <div className="flex items-center">
-  <button className="bg-blue-500 text-white rounded-full w-12 h-12 flex items-center justify-center">+</button>
-  <p className="mx-4">0</p>
-  <button className="w-12 h-12 rounded-full flex items-center justify-center border border-gray-400">-</button>
-</div>
-
+        <TicketSelector 
+        value={ticketAmount}
+        onIncrement={handleIncrement}
+        onDecrement={handleDecrement}/>
       </div>
 
       <div className="border border-blue-500 border-solid border-2">
