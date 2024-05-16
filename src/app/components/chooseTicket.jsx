@@ -77,6 +77,7 @@ const Chooseticket = () => {
               <ul className="flex justify-between">
                 {Object.entries(spot).map(([key, value]) => (
                   <li key={key}>
+                    {/* if you want to remove the key just delete key underneath */}
                     <strong>{key}:</strong> {value}
                   </li>
                 ))}
