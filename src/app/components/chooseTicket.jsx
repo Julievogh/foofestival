@@ -54,29 +54,35 @@ const Chooseticket = () => {
       </div>
 
       <div className="p-3">
-        <h3><strong>Choose camping area</strong></h3>
-        <FetchCampingSpots>
-          {({ spots, error }) => (
-            <>
-              {error && <p>Error: {error}</p>}
-              <div className="grid grid-cols-3 gap-4">
-                <h4><strong>Areas</strong></h4>
-                <h4><strong>Spots</strong></h4>
-                <h4><strong>Available Spots</strong></h4>
-                {spots.map((spot, index) => (
-                  <React.Fragment key={index}>
-                    {Object.values(spot).map((value, i) => (
-                      <span key={i}>
-                        {value}
-                      </span>
-                    ))}
-                  </React.Fragment>
-                ))}
+  <h3><strong>Choose camping area</strong></h3>
+  <FetchCampingSpots>
+    {({ spots, error }) => (
+      <>
+        {error && <p>Error: {error}</p>}
+        <div className="grid grid-cols-4 gap-4">
+          <h4><strong>Select</strong></h4>
+          <h4><strong>Areas</strong></h4>
+          <h4><strong>Spots</strong></h4>
+          <h4><strong>Available Spots</strong></h4>
+          {spots.map((spot, index) => (
+            <React.Fragment key={index}>
+              <div>
+                <label htmlFor="campingArea"></label>
+                  <input type="radio" name="campingArea" value={spot.area} className="w-6 h-6" />
               </div>
-            </>
-          )}
-        </FetchCampingSpots>
-      </div>
+              {Object.values(spot).map((value, i) => (
+                <span key={i}>
+                  {value}
+                </span>
+              ))}
+            </React.Fragment>
+          ))}
+        </div>
+      </>
+    )}
+  </FetchCampingSpots>
+</div>
+
     </article>
   );
 };
