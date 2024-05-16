@@ -20,7 +20,7 @@ const TicketHeader = () => {
         </h4>
       </div>
       <div className="w-full bg-[hsla(232,6%,0%,1)] text-white">
-        <p className="text-sm">Each purchase includes an additional one-time fee of 100,-</p>
+        <p className="text-sm">Each purchase includes an additional one-time fee of 99,-</p>
       </div>
     </>
   );
