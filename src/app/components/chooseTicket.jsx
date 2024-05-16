@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { useSearchParams } from "next/navigation";
-import TicketComponent2 from "./TicketComponent2"
-import TicketSelector from "./TicketSelector"
+import TicketComponent2 from "./TicketComponent2";
+import TicketSelector from "./TicketSelector";
+import FetchCampingSpots from "./FetchCampingSpots";
 
 const Chooseticket = () => {
   const searchParams = useSearchParams();
   const ticketType = searchParams.get("type");
-  
+
   const regularPrice = 799;
   const vipPrice = 1299;
   const bookingFee = 100;
-  
+
   const [ticketAmount, SetTicketAmount] = useState(1);
 
   const calculateTotalPrice = () => {
@@ -23,69 +24,58 @@ const Chooseticket = () => {
     }
 
     return totalPrice;
-  }
+  };
+
   const handleIncrement = () => {
-    SetTicketAmount(prevAmount => prevAmount + 1);
-  }
+    SetTicketAmount((prevAmount) => prevAmount + 1);
+  };
+
   const handleDecrement = () => {
     if (ticketAmount === 1) {
       return;
     }
-    SetTicketAmount(prevAmount => Math.max(prevAmount - 1, 0) );
-  }
-
-  const [spots, setSpots] = useState([]);
-  const [error, setError] = useState(null);
-
-  const fetchAvailableSpots = async () => {
-    try {
-      const response = await fetch("http://localhost:8080/available-spots");
-      if (!response.ok) {
-        throw new Error("Failed to fetch available spots");
-      }
-      const data = await response.json();
-      setSpots(data);
-    } catch (error) {
-      setError(error.message);
-    }
+    SetTicketAmount((prevAmount) => Math.max(prevAmount - 1, 0));
   };
-  console.log(ticketType);
 
   return (
     <article>
       <div className="flex justify-between p-3">
         <div>
-            <>
-            <TicketComponent2 
-            title={ticketType === "Regular" ? "Regular ticket" : "VIP ticket"} 
-            price={calculateTotalPrice()}/>
-            </>
+          <TicketComponent2
+            title={ticketType === "Regular" ? "Regular ticket" : "VIP ticket"}
+            price={calculateTotalPrice()}
+          />
         </div>
-        <TicketSelector 
-        value={ticketAmount}
-        onIncrement={handleIncrement}
-        onDecrement={handleDecrement}/>
+        <TicketSelector
+          value={ticketAmount}
+          onIncrement={handleIncrement}
+          onDecrement={handleDecrement}
+        />
       </div>
 
-      <div className="border border-blue-500 border-solid border-2">
-        <h3>Choose camping area:</h3>
-        <button onClick={fetchAvailableSpots}>Fetch Available Spots</button>
-        {error && <p>Error: {error}</p>}
-        <ul>
-          {spots.map((spot, index) => (
-            <li key={index}>
-              <ul className="flex justify-between">
-                {Object.entries(spot).map(([key, value]) => (
-                  <li key={key}>
-                    {/* if you want to remove the key just delete key underneath */}
-                    <strong>{key}:</strong> {value}
-                  </li>
+      <div className="p-3">
+        <h3><strong>Choose camping area</strong></h3>
+        <FetchCampingSpots>
+          {({ spots, error }) => (
+            <>
+              {error && <p>Error: {error}</p>}
+              <div className="grid grid-cols-3 gap-4">
+                <h4><strong>Areas</strong></h4>
+                <h4><strong>Spots</strong></h4>
+                <h4><strong>Available Spots</strong></h4>
+                {spots.map((spot, index) => (
+                  <React.Fragment key={index}>
+                    {Object.values(spot).map((value, i) => (
+                      <span key={i}>
+                        {value}
+                      </span>
+                    ))}
+                  </React.Fragment>
                 ))}
-                <p>&bull;</p>
-              </ul>
-            </li>
-          ))}
-        </ul>
+              </div>
+            </>
+          )}
+        </FetchCampingSpots>
       </div>
     </article>
   );
