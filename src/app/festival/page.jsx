@@ -3,12 +3,13 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "../page.module.css";
+
 import Breadcrumbs from "../components/Breadcrumbs";
 import { Pagination } from "antd";
 export default function FestivalPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [allBands, setAllBands] = useState([]);
-  const bandsPerPage = 16;
+  const bandsPerPage = 12;
 
   useEffect(() => {
     async function fetchData() {
@@ -37,7 +38,11 @@ export default function FestivalPage() {
         <Breadcrumbs paths={paths} />
       </div>
       <div className={styles.mainBand}>
-        <h1>Bands playing</h1>
+        <h1 className="ml-4">BANDS</h1>
+        <div className={styles.sortBar}>
+          <p>Sort</p>
+          <p>Favorites</p>
+        </div>
         <ul className={styles.grid}>
           {bands.map((band) => (
             <li className={styles.bandItem} key={band.slug}>
