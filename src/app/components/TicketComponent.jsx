@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link';
+import BlueButton from './BlueButton';
 
 
  const TicketComponent = (props) => {
@@ -21,11 +22,7 @@ import Link from 'next/link';
         </div>
         <div className="flex justify-center">
         <Link href={`../pages/choose-ticket?type=${props.ticketType}`}>
-
-
-  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-2">
-    Buy ticket
-  </button>
+          <BlueButton text="Buy ticket"/>
     </Link>
 </div>
 

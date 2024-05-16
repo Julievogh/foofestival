@@ -5,6 +5,7 @@ import TicketSelector from "./TicketSelector";
 import FetchCampingSpots from "./FetchCampingSpots";
 import GreenCamping from "./GreenCamping";
 import TentAddOn from "./TentAddOn";
+import BlueButton from "./BlueButton";
 
 const Chooseticket = () => {
   const searchParams = useSearchParams();
@@ -105,13 +106,18 @@ const Chooseticket = () => {
         buy="Add"
       />
 
-      <TentAddOn 
-              title="Tent set up"
-              description="Have a tent already set up for you"
-              description2="2 person tent: 299,-"
-              description3="3 person tent: 399,-"
-              buy2person="Buy tent for 2"
-              buy3person="Buy tent for 3"/>
+      <TentAddOn
+        title="Tent set up"
+        description="Have a tent already set up for you"
+        description2="2 person tent: 299,-"
+        description3="3 person tent: 399,-"
+        buy2person="Buy tent for 2"
+        buy3person="Buy tent for 3"
+      />
+
+      <div className="flex justify-center p-3">
+        <BlueButton text="Reserve" />
+      </div>
     </article>
   );
 };
