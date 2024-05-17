@@ -18,11 +18,12 @@ const Chooseticket = () => {
   const tent2PersonPrice = 299;
   const tent3PersonPrice = 399;
 
-  const [ticketAmount, SetTicketAmount] = useState(1);
+  const [ticketAmount, setTicketAmount] = useState(1);
   const [isGreenCamping, setIsGreenCamping] = useState(false);
   const [isTent2Person, setIsTent2Person] = useState(false);
   const [isTent3Person, setIsTent3Person] = useState(false);
-  
+  const [warningMessage, setWarningMessage] = useState("");
+
   const calculateTotalPrice = () => {
     let totalPrice = 0;
 
@@ -31,7 +32,7 @@ const Chooseticket = () => {
     } else {
       totalPrice = ticketAmount * vipPrice + bookingFee;
     }
-    
+
     if (isGreenCamping) totalPrice += greenCampingPrice;
     if (isTent2Person) totalPrice += tent2PersonPrice;
     if (isTent3Person) totalPrice += tent3PersonPrice;
@@ -40,14 +41,14 @@ const Chooseticket = () => {
   };
 
   const handleIncrement = () => {
-    SetTicketAmount((prevAmount) => prevAmount + 1);
+    setTicketAmount((prevAmount) => prevAmount + 1);
   };
 
   const handleDecrement = () => {
     if (ticketAmount === 1) {
       return;
     }
-    SetTicketAmount((prevAmount) => Math.max(prevAmount - 1, 0));
+    setTicketAmount((prevAmount) => Math.max(prevAmount - 1, 0));
   };
 
   const handleCheckboxChange = (type, isChecked) => {
@@ -55,15 +56,38 @@ const Chooseticket = () => {
       case "greenCamping":
         setIsGreenCamping(isChecked);
         break;
-        case "tent2Person":
+      case "tent2Person":
+        if (ticketAmount === 2) {
           setIsTent2Person(isChecked);
+        }
         break;
-        case "tent3Person":
+      case "tent3Person":
+        if (ticketAmount === 3) {
           setIsTent3Person(isChecked);
-          default:
-            break;
+        }
+        break;
+      default:
+        break;
     }
-  }
+  };
+
+  const handleCheckboxClick = (type) => {
+    switch (type) {
+      case "tent2Person":
+        if (ticketAmount !== 2) {
+          setWarningMessage("You need to purchase 2 tickets to select this option.");
+        }
+        break;
+      case "tent3Person":
+        if (ticketAmount !== 3) {
+          setWarningMessage("You need to purchase 3 tickets to select this option.");
+        }
+        break;
+      default:
+        break;
+    }
+    setTimeout(() => setWarningMessage(""), 3000); // Clear the warning message after 3 seconds
+  };
 
   return (
     <article>
@@ -140,9 +164,19 @@ const Chooseticket = () => {
         description3="3 person tent: 399,-"
         buy2person="Buy tent for 2"
         buy3person="Buy tent for 3"
+        checked2Person={isTent2Person}
+        checked3Person={isTent3Person}
+        onCheckboxClick2Person={() => handleCheckboxClick("tent2Person")}
+        onCheckboxClick3Person={() => handleCheckboxClick("tent3Person")}
         onCheckboxChange2Person={(isChecked) => handleCheckboxChange("tent2Person", isChecked)}
         onCheckboxChange3Person={(isChecked) => handleCheckboxChange("tent3Person", isChecked)}
       />
+
+      {warningMessage && (
+        <div className="p-3 text-red-500">
+          {warningMessage}
+        </div>
+      )}
 
       <div className="flex justify-center p-3">
         <BlueButton text="Reserve" />
