@@ -29,8 +29,10 @@ export default async function Page({ params }) {
       <div className={styles.mainBand}>
         <h1>{data.name}</h1>
         <div>
-          <LikeButton />
+          <LikeButton slug={data.slug} />
         </div>
+
+        <div></div>
 
         <div>
           <Image

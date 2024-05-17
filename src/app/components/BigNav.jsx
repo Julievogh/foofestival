@@ -16,8 +16,13 @@ export default function Header() {
           </Link>
         </NavbarItem>
         <NavbarItem isActive>
-          <Link href="schedule" aria-current="schedule">
+          <Link href="schedule" aria-current="calender">
             Schedule
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link color="foreground" href="schedule">
+            Stages
           </Link>
         </NavbarItem>
         <NavbarItem>
@@ -28,7 +33,7 @@ export default function Header() {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
-          <Link href="#">Favorites</Link>
+          <Link href="favorites">Favorites</Link>
         </NavbarItem>
         <NavbarItem>
           <Button as={Link} color="primary" href="../pages/ticket-frontpage" variant="flat">

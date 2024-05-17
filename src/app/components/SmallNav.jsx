@@ -39,9 +39,15 @@ export default function App() {
             Bands
           </Link>
         </NavbarItem>
+
         <NavbarItem isActive>
-          <Link href="schedule" aria-current="schedule">
+          <Link href="schedule" aria-current="calender">
             Schedule
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link color="foreground" href="schedule">
+            Stages
           </Link>
         </NavbarItem>
         <NavbarItem>
@@ -53,7 +59,7 @@ export default function App() {
 
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
-          <Link href="#">Login</Link>
+          <Link href="favorites">Favorites</Link>
         </NavbarItem>
         <NavbarItem>
           <Button as={Link} color="warning" href="../pages/ticket-frontpage" variant="flat">
