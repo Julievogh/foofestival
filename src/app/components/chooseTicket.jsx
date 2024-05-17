@@ -14,9 +14,15 @@ const Chooseticket = () => {
   const regularPrice = 799;
   const vipPrice = 1299;
   const bookingFee = 99;
+  const greenCampingPrice = 249;
+  const tent2PersonPrice = 299;
+  const tent3PersonPrice = 399;
 
   const [ticketAmount, SetTicketAmount] = useState(1);
-
+  const [isGreenCamping, setIsGreenCamping] = useState(false);
+  const [isTent2Person, setIsTent2Person] = useState(false);
+  const [isTent3Person, setIsTent3Person] = useState(false);
+  
   const calculateTotalPrice = () => {
     let totalPrice = 0;
 
@@ -25,6 +31,10 @@ const Chooseticket = () => {
     } else {
       totalPrice = ticketAmount * vipPrice + bookingFee;
     }
+    
+    if (isGreenCamping) totalPrice += greenCampingPrice;
+    if (isTent2Person) totalPrice += tent2PersonPrice;
+    if (isTent3Person) totalPrice += tent3PersonPrice;
 
     return totalPrice;
   };
@@ -39,6 +49,21 @@ const Chooseticket = () => {
     }
     SetTicketAmount((prevAmount) => Math.max(prevAmount - 1, 0));
   };
+
+  const handleCheckboxChange = (type, isChecked) => {
+    switch (type) {
+      case "greenCamping":
+        setIsGreenCamping(isChecked);
+        break;
+        case "tent2Person":
+          setIsTent2Person(isChecked);
+        break;
+        case "tent3Person":
+          setIsTent3Person(isChecked);
+          default:
+            break;
+    }
+  }
 
   return (
     <article>
@@ -104,6 +129,8 @@ const Chooseticket = () => {
         description="Help save the planet"
         description2="buy green camping for 249,-"
         buy="Add"
+        checked={isGreenCamping}
+        onCheckboxChange={(isChecked) => handleCheckboxChange("greenCamping", isChecked)}
       />
 
       <TentAddOn
@@ -113,6 +140,8 @@ const Chooseticket = () => {
         description3="3 person tent: 399,-"
         buy2person="Buy tent for 2"
         buy3person="Buy tent for 3"
+        onCheckboxChange2Person={(isChecked) => handleCheckboxChange("tent2Person", isChecked)}
+        onCheckboxChange3Person={(isChecked) => handleCheckboxChange("tent3Person", isChecked)}
       />
 
       <div className="flex justify-center p-3">
