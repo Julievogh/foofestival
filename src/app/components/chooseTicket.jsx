@@ -41,14 +41,32 @@ const Chooseticket = () => {
   };
 
   const handleIncrement = () => {
-    setTicketAmount((prevAmount) => prevAmount + 1);
+    setTicketAmount((prevAmount) => {
+      const newAmount = prevAmount + 1;
+      if (newAmount !== 2) {
+        setIsTent2Person(false);
+      }
+      if (newAmount !== 3) {
+        setIsTent3Person(false);
+      }
+      return newAmount;
+    });
   };
 
   const handleDecrement = () => {
     if (ticketAmount === 1) {
       return;
     }
-    setTicketAmount((prevAmount) => Math.max(prevAmount - 1, 0));
+    setTicketAmount((prevAmount) => {
+      const newAmount = Math.max(prevAmount - 1, 0);
+      if (newAmount !== 2) {
+        setIsTent2Person(false);
+      }
+      if (newAmount !== 3) {
+        setIsTent3Person(false);
+      }
+      return newAmount;
+  });
   };
 
   const handleCheckboxChange = (type, isChecked) => {
@@ -75,12 +93,16 @@ const Chooseticket = () => {
     switch (type) {
       case "tent2Person":
         if (ticketAmount !== 2) {
-          setWarningMessage("You need to purchase 2 tickets to select this option.");
+          setWarningMessage(
+            "You need to purchase 2 tickets to select this option."
+          );
         }
         break;
       case "tent3Person":
         if (ticketAmount !== 3) {
-          setWarningMessage("You need to purchase 3 tickets to select this option.");
+          setWarningMessage(
+            "You need to purchase 3 tickets to select this option."
+          );
         }
         break;
       default:
@@ -154,7 +176,9 @@ const Chooseticket = () => {
         description2="buy green camping for 249,-"
         buy="Add"
         checked={isGreenCamping}
-        onCheckboxChange={(isChecked) => handleCheckboxChange("greenCamping", isChecked)}
+        onCheckboxChange={(isChecked) =>
+          handleCheckboxChange("greenCamping", isChecked)
+        }
       />
 
       <TentAddOn
@@ -168,14 +192,16 @@ const Chooseticket = () => {
         checked3Person={isTent3Person}
         onCheckboxClick2Person={() => handleCheckboxClick("tent2Person")}
         onCheckboxClick3Person={() => handleCheckboxClick("tent3Person")}
-        onCheckboxChange2Person={(isChecked) => handleCheckboxChange("tent2Person", isChecked)}
-        onCheckboxChange3Person={(isChecked) => handleCheckboxChange("tent3Person", isChecked)}
+        onCheckboxChange2Person={(isChecked) =>
+          handleCheckboxChange("tent2Person", isChecked)
+        }
+        onCheckboxChange3Person={(isChecked) =>
+          handleCheckboxChange("tent3Person", isChecked)
+        }
       />
 
       {warningMessage && (
-        <div className="p-3 text-red-500">
-          {warningMessage}
-        </div>
+        <div className="p-3 text-red-500">{warningMessage}</div>
       )}
 
       <div className="flex justify-center p-3">
