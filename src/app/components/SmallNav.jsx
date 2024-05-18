@@ -46,7 +46,7 @@ export default function App() {
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="schedule">
+          <Link color="foreground" href="stages">
             Stages
           </Link>
         </NavbarItem>

@@ -16,12 +16,12 @@ export default function Header() {
           </Link>
         </NavbarItem>
         <NavbarItem isActive>
-          <Link href="schedule" aria-current="calender">
+          <Link href="calender" aria-current="calender">
             Schedule
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="schedule">
+          <Link color="foreground" href="stages">
             Stages
           </Link>
         </NavbarItem>
