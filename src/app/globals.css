@@ -5,7 +5,7 @@
 body {
   color: rgb(var(--foreground-rgb));
   background: var(--background-glitch-img) center/cover fixed;
-  --background-glitch-img: url("../../public/aesthetic-abstract-chromatography-background-colorful-tone.jpg");
+  --background-glitch-img: url("../../public/abstractglitch.jpg");
 }
 
 h1 {
