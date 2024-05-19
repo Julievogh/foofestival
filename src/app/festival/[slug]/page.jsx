@@ -18,7 +18,7 @@ export default async function Page({ params }) {
   const paths = [
     { href: "/", label: "Home" },
     { href: "/festival", label: "Festival" },
-    { href: `/festival/${slug}`, label: data.name }, // Dynamically set href and label
+    { href: `/festival/${slug}`, label: data.name },
   ];
 
   return (
@@ -28,15 +28,14 @@ export default async function Page({ params }) {
       </div>
       <div className={styles.mainBand}>
         <h1>{data.name}</h1>
-        <div>
-          <LikeButton slug={data.slug} />
-        </div>
-
-        <div></div>
-
-        <div>
+        <div className={styles.imageContainer}>
+          <LikeButton slug={data.slug} className={styles.likeButton} />
           <Image
-            src={data.logo.startsWith("https://") ? data.logo : `http://localhost:8080/logos/${data.logo}`}
+            src={
+              data.logo.startsWith("https://")
+                ? data.logo
+                : `http://localhost:8080/logos/${data.logo}`
+            }
             alt={data.logoCredits}
             width={200}
             height={200}
@@ -44,7 +43,6 @@ export default async function Page({ params }) {
         </div>
         <div>
           <p>Genre: {data.genre}</p>
-
           <p>{data.bio}</p>
           <h5>Members:</h5>
           <p>{data.members.map((member) => member).join(", ")}</p>
