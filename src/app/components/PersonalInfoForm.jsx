@@ -1,9 +1,10 @@
 import React from "react";
+import BlueButton from "./BlueButton";
 
 const PersonalInfo = () => {
   return (
     <section className="w-full bg-white">
-      <form action="" className="w-3/4 pl-5 pt-5">
+      <form action="" className="p-5">
         <section className="flex flex-col">
           <h3>Name</h3>
           <label htmlFor="first-name">First Name:</label>
@@ -65,6 +66,10 @@ const PersonalInfo = () => {
             <label htmlFor="fax">Fax:</label>
             <input type="text" id="fax" name="fax" className="border border-gray-300 rounded-md" />
           </section>
+
+          <div className="flex justify-center mt-2">
+            <BlueButton text="Submit"/>
+          </div>
       </form>
     </section>
   );
