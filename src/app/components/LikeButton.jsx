@@ -1,18 +1,18 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import styles from "../page.module.css"; // Assuming styles are imported from the same file
 
-const LikeButton = ({ slug }) => {
+const LikeButton = ({ slug, className }) => {
   const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
-    // Check if the band is already liked when the component mounts
     const likedBands = JSON.parse(localStorage.getItem("likedBands")) || [];
     setIsLiked(likedBands.includes(slug));
   }, [slug]);
 
   const handleLike = () => {
-    setIsLiked((prevIsLiked) => !prevIsLiked); // Toggle isLiked based on previous state
+    setIsLiked((prevIsLiked) => !prevIsLiked);
     if (!isLiked) {
       addLikedBand(slug);
     } else {
@@ -24,7 +24,6 @@ const LikeButton = ({ slug }) => {
     let likedBands = JSON.parse(localStorage.getItem("likedBands")) || [];
     likedBands.push(slug);
     localStorage.setItem("likedBands", JSON.stringify(likedBands));
-    console.log(`Added ${slug} to liked bands:`, likedBands);
   };
 
   const removeLikedBand = (slug) => {
@@ -33,23 +32,25 @@ const LikeButton = ({ slug }) => {
     if (index !== -1) {
       likedBands.splice(index, 1);
       localStorage.setItem("likedBands", JSON.stringify(likedBands));
-      console.log(`Removed ${slug} from liked bands:`, likedBands);
     }
   };
 
-  console.log("isLiked:", isLiked);
-
   return (
-    <div>
-      <button onClick={handleLike}>
-        {isLiked ? (
-          <Image src="/icons/like.png" alt="Liked" width={20} height={20} />
-        ) : (
-          <Image src="/icons/heart.png" alt="Not Liked" width={20} height={20} />
-        )}
-      </button>
-      <span>{isLiked ? "Added to Favorites!" : "Favorite?"}</span>
-    </div>
+    <button
+      onClick={handleLike}
+      className={`${styles.likeButton} ${className}`}
+    >
+      {isLiked ? (
+        <Image src="/icons/heartline.svg" alt="Liked" width={20} height={20} />
+      ) : (
+        <Image
+          src="/icons/heartfill-blue.svg"
+          alt="Not Liked"
+          width={20}
+          height={20}
+        />
+      )}
+    </button>
   );
 };
 

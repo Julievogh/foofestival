@@ -5,35 +5,25 @@ import Link from "next/link";
 import styles from "../page.module.css";
 import LikeButton from "../components/LikeButton";
 import Breadcrumbs from "../components/Breadcrumbs";
-import { Pagination, Input, Select } from "antd";
+import { Pagination, Select, Input } from "antd";
 
-const { Search } = Input;
 const { Option } = Select;
+const { Search } = Input;
 
 export default function FestivalPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [allBands, setAllBands] = useState([]);
   const [showFavorites, setShowFavorites] = useState(false);
+  const [sortMethod, setSortMethod] = useState("name-asc");
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedStage, setSelectedStage] = useState("All");
   const bandsPerPage = 12;
-  const [scheduleData, setScheduleData] = useState({});
 
   useEffect(() => {
     async function fetchData() {
-      const bandsUrl = "http://localhost:8080/bands";
-      const scheduleUrl = "http://localhost:8080/schedule";
-
-      const [bandsRes, scheduleRes] = await Promise.all([
-        fetch(bandsUrl),
-        fetch(scheduleUrl),
-      ]);
-
-      const bandsData = await bandsRes.json();
-      const scheduleData = await scheduleRes.json();
-
-      setAllBands(bandsData);
-      setScheduleData(scheduleData);
+      const url = "http://localhost:8080/bands";
+      const res = await fetch(url);
+      const allBandsData = await res.json();
+      setAllBands(allBandsData);
     }
     fetchData();
   }, []);
@@ -46,37 +36,21 @@ export default function FestivalPage() {
   const indexOfLastBand = currentPage * bandsPerPage;
   const indexOfFirstBand = indexOfLastBand - bandsPerPage;
   const likedBands = JSON.parse(localStorage.getItem("likedBands")) || [];
-
-  const getStageForBand = (bandName) => {
-    for (const stage in scheduleData) {
-      for (const day in scheduleData[stage]) {
-        const acts = scheduleData[stage][day];
-        for (const act of acts) {
-          if (act.act === bandName) {
-            return stage;
-          }
-        }
-      }
-    }
-    return null;
-  };
-
   const filteredBands = showFavorites
     ? allBands.filter((band) => likedBands.includes(band.slug))
     : allBands.filter((band) =>
         band.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
 
-  const sortedBands = [...filteredBands]
-    .filter((band) => {
-      const stage = getStageForBand(band.name);
-      return selectedStage === "All" || stage === selectedStage;
-    })
-    .sort((a, b) => {
-      const stageA = getStageForBand(a.name) || "";
-      const stageB = getStageForBand(b.name) || "";
-      return stageA.localeCompare(stageB);
-    });
+  const sortedBands = [...filteredBands].sort((a, b) => {
+    if (sortMethod === "name-asc") {
+      return a.name.localeCompare(b.name);
+    } else if (sortMethod === "name-desc") {
+      return b.name.localeCompare(a.name);
+    } else {
+      return 0;
+    }
+  });
 
   const bands = sortedBands.slice(indexOfFirstBand, indexOfLastBand);
 
@@ -84,17 +58,17 @@ export default function FestivalPage() {
 
   const toggleFavorites = () => {
     setShowFavorites((prevShowFavorites) => !prevShowFavorites);
-    setCurrentPage(1);
+    setCurrentPage(1); // Reset to the first page when toggling
+  };
+
+  const handleSortChange = (value) => {
+    setSortMethod(value);
+    setCurrentPage(1); // Reset to the first page when sorting changes
   };
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
-    setCurrentPage(1);
-  };
-
-  const handleStageSelect = (value) => {
-    setSelectedStage(value);
-    setCurrentPage(1);
+    setCurrentPage(1); // Reset to the first page when searching
   };
 
   return (
@@ -105,6 +79,14 @@ export default function FestivalPage() {
       <div className={styles.mainBand}>
         <h1 className="ml-4">BANDS</h1>
         <div className={styles.sortBar}>
+          <Select
+            defaultValue="name-asc"
+            style={{ width: 120 }}
+            onChange={handleSortChange}
+          >
+            <Option value="name-asc">Name A-Z</Option>
+            <Option value="name-desc">Name Z-A</Option>
+          </Select>
           <p onClick={toggleFavorites} style={{ cursor: "pointer" }}>
             Favorites
           </p>
@@ -113,16 +95,6 @@ export default function FestivalPage() {
             onChange={handleSearchChange}
             style={{ width: 200 }}
           />
-          <Select
-            defaultValue="All"
-            onChange={handleStageSelect}
-            style={{ width: 200, marginLeft: "1rem" }}
-          >
-            <Option value="All">All Stages</Option>
-            <Option value="Midgard">Midgard</Option>
-            <Option value="Vanaheim">Vanaheim</Option>
-            <Option value="Jotunheim">Jotunheim</Option>
-          </Select>
         </div>
         <ul className={styles.grid}>
           {bands.map((band) => (
@@ -141,7 +113,6 @@ export default function FestivalPage() {
                     height={200}
                   />
                   <h5 className={styles.bandName}>{band.name}</h5>
-                  <p>{getStageForBand(band.name)}</p>
                 </Link>
               </div>
             </li>
