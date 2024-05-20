@@ -11,7 +11,12 @@ export default function App() {
         <h1 className={styles.foofest}>FOOFEST</h1>
       </div>
       <div className={styles.imageContainer}>
-        <Image src="/foofestpaint.png" alt="flyer-foofest" width={800} height={800} />
+        <Image
+          src="/foofestpaint.png"
+          alt="flyer-foofest"
+          width={800}
+          height={800}
+        />
       </div>
       <Link href="/pages/ticket-frontpage" className={styles.buttonLink}>
         Tickets
