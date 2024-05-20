@@ -5,6 +5,7 @@ import Link from "next/link";
 
 export default function SchedulePage() {
   const [scheduleData, setScheduleData] = useState({});
+
   useEffect(() => {
     async function fetchData() {
       const url = "http://localhost:8080/schedule";
@@ -14,7 +15,7 @@ export default function SchedulePage() {
           throw new Error("Failed to fetch data");
         }
         const data = await res.json();
-        // Convert "act" to lowercase, remove symbols, and replace spaces with hyphens
+
         const formattedData = formatScheduleData(data);
         setScheduleData(formattedData);
       } catch (error) {
@@ -32,17 +33,17 @@ export default function SchedulePage() {
       for (const day in data[stage]) {
         formattedData[stage][day] = data[stage][day].map((band) => ({
           ...band,
-          act: band.act
+          originalAct: band.act,
+          formattedAct: band.act
             .toLowerCase()
             .replace(/[^\w\s-]/g, "")
-            .replace(/[-\s]+/g, "-"), // Replace consecutive spaces and hyphens with a single hyphen
+            .replace(/[-\s]+/g, "-"),
         }));
       }
     }
     return formattedData;
   }
 
-  // Render the SchedulePage component
   return (
     <main>
       <div className={styles.mainBand}>
@@ -57,13 +58,16 @@ export default function SchedulePage() {
                   <p className="text-lg font-bold">{day}</p>
                   <ul>
                     {scheduleData[stage][day].map((band) => (
-                      <li key={band.act}>
-                        {band.act.toLowerCase() !== "break" ? (
-                          <Link href={`/festival/${band.act}`} className={styles.bandLink}>
-                            <strong>{band.act}</strong>
+                      <li key={band.formattedAct}>
+                        {band.formattedAct.toLowerCase() !== "break" ? (
+                          <Link
+                            href={`/festival/${band.formattedAct}`}
+                            className={styles.bandLink}
+                          >
+                            <strong>{band.originalAct}</strong>
                           </Link>
                         ) : (
-                          <strong>{band.act}</strong>
+                          <strong>{band.originalAct}</strong>
                         )}
                         <p>
                           {band.start} - {band.end}
