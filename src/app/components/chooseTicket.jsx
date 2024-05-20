@@ -108,7 +108,7 @@ const Chooseticket = () => {
       default:
         break;
     }
-    setTimeout(() => setWarningMessage(""), 3000); // Clear the warning message after 3 seconds
+    setTimeout(() => setWarningMessage(""), 5000);
   };
 
   return (
@@ -205,10 +205,11 @@ const Chooseticket = () => {
       )}
 
       <div className="flex justify-center p-3">
-        <BlueButton text="Reserve" />
+        <BlueButton
+        text="Reserve"
+        link="personal-info" />
       </div>
     </article>
   );
 };
-
 export default Chooseticket;
