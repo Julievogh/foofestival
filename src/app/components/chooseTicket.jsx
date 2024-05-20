@@ -6,6 +6,7 @@ import FetchCampingSpots from "./FetchCampingSpots";
 import GreenCamping from "./GreenCamping";
 import TentAddOn from "./TentAddOn";
 import BlueButton from "./BlueButton";
+import Link from "next/link";
 
 const Chooseticket = () => {
   const searchParams = useSearchParams();
@@ -205,7 +206,9 @@ const Chooseticket = () => {
       )}
 
       <div className="flex justify-center p-3">
-        <BlueButton text="Reserve" />
+        <Link href="personal-info">
+          <BlueButton text="Reserve" />
+        </Link>
       </div>
     </article>
   );
