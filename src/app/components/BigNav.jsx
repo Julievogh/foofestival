@@ -46,7 +46,7 @@ export default function BigNav() {
           <Button
             as={Link}
             color="primary"
-            href="../pages/ticket-frontpage"
+            href="ticket-frontpage"
             variant="flat"
           >
             Tickets

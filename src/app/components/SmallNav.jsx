@@ -75,7 +75,7 @@ export default function SmallNav() {
           <Button
             as={Link}
             color="warning"
-            href="../pages/ticket-frontpage"
+            href="ticket-frontpage"
             variant="flat"
           >
             Tickets

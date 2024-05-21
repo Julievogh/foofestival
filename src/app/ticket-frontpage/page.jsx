@@ -1,5 +1,5 @@
-import React from 'react';
-import TicketComponent from '../../components/TicketComponent';
+import React from "react";
+import TicketComponent from "../components/TicketComponent";
 
 const Page = () => {
   return (
