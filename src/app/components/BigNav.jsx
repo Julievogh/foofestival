@@ -1,7 +1,14 @@
 import React from "react";
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button } from "@nextui-org/react";
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  Link,
+  Button,
+} from "@nextui-org/react";
 
-export default function Header() {
+export default function BigNav() {
   return (
     <Navbar shouldHideOnScroll>
       <NavbarBrand>
@@ -16,7 +23,7 @@ export default function Header() {
           </Link>
         </NavbarItem>
         <NavbarItem isActive>
-          <Link href="calender" aria-current="calender">
+          <Link href="calender" aria-current="page">
             Schedule
           </Link>
         </NavbarItem>
@@ -36,7 +43,12 @@ export default function Header() {
           <Link href="favorites">Favorites</Link>
         </NavbarItem>
         <NavbarItem>
-          <Button as={Link} color="primary" href="../pages/ticket-frontpage" variant="flat">
+          <Button
+            as={Link}
+            color="primary"
+            href="../pages/ticket-frontpage"
+            variant="flat"
+          >
             Tickets
           </Button>
         </NavbarItem>
