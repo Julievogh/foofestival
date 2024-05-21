@@ -57,7 +57,7 @@ export default function FavoritePage() {
                         : `http://localhost:8080/logos/${band.logo}`
                     }
                     alt={band.name}
-                    layout="fill" // Ensure the image fills the container
+                    layout="fill" 
                   />
                 </Link>
               </div>
