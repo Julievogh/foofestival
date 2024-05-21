@@ -6,23 +6,31 @@ import styles from "../page.module.css";
 import LikeButton from "../components/LikeButton";
 import Breadcrumbs from "../components/Breadcrumbs";
 import { Pagination } from "antd";
+import { fetchBands } from "../../lib/api/bands";
 
 export default function FavoritePage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [favoriteBands, setFavoriteBands] = useState([]);
   const bandsPerPage = 12;
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchFavoriteBands() {
       if (typeof window !== "undefined") {
-        const likedBands = JSON.parse(localStorage.getItem("likedBands")) || [];
-        const url = "http://localhost:8080/bands";
-        const res = await fetch(url);
-        const allBands = await res.json();
-        const favoriteBandsData = allBands.filter((band) =>
-          likedBands.includes(band.slug)
-        );
-        setFavoriteBands(favoriteBandsData);
+        try {
+          setLoading(true);
+          const likedBands =
+            JSON.parse(localStorage.getItem("likedBands")) || [];
+          const allBands = await fetchBands();
+          const favoriteBandsData = allBands.filter((band) =>
+            likedBands.includes(band.slug)
+          );
+          setFavoriteBands(favoriteBandsData);
+        } catch (error) {
+          console.error("Error fetching favorite bands:", error);
+        } finally {
+          setLoading(false);
+        }
       }
     }
     fetchFavoriteBands();
@@ -38,6 +46,10 @@ export default function FavoritePage() {
   const bands = favoriteBands.slice(indexOfFirstBand, indexOfLastBand);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <main>

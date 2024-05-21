@@ -6,6 +6,7 @@ import styles from "../page.module.css";
 import LikeButton from "../components/LikeButton";
 import Breadcrumbs from "../components/Breadcrumbs";
 import { Pagination, Input, Select } from "antd";
+import { fetchBandsAndSchedule } from "../../lib/api/bands";
 
 const { Search } = Input;
 const { Option } = Select;
@@ -22,21 +23,7 @@ export default function FestivalPage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const bandsUrl = "http://localhost:8080/bands";
-        const scheduleUrl = "http://localhost:8080/schedule";
-
-        const [bandsRes, scheduleRes] = await Promise.all([
-          fetch(bandsUrl),
-          fetch(scheduleUrl),
-        ]);
-
-        if (!bandsRes.ok || !scheduleRes.ok) {
-          throw new Error("Failed to fetch data");
-        }
-
-        const bandsData = await bandsRes.json();
-        const scheduleData = await scheduleRes.json();
-
+        const { bandsData, scheduleData } = await fetchBandsAndSchedule();
         setAllBands(bandsData);
         setScheduleData(scheduleData);
       } catch (error) {

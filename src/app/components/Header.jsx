@@ -1,4 +1,4 @@
-"use client"; // Ensure this is at the very top
+"use client";
 import { useState, useEffect } from "react";
 import BigNav from "./BigNav";
 import SmallNav from "./SmallNav";

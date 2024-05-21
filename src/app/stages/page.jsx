@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "../page.module.css";
 import Link from "next/link";
+import { fetchBandsAndSchedule } from "../../lib/api/bands"; // Import the API function
 
 export default function SchedulePage() {
   const [scheduleData, setScheduleData] = useState({});
@@ -11,15 +12,10 @@ export default function SchedulePage() {
 
   useEffect(() => {
     async function fetchData() {
-      const url = "http://localhost:8080/schedule";
       try {
-        const res = await fetch(url);
-        if (!res.ok) {
-          throw new Error("Failed to fetch data");
-        }
-        const data = await res.json();
-
-        const formattedData = formatScheduleData(data);
+        const { bandsData, scheduleData } = await fetchBandsAndSchedule(); // Fetch both bands and schedule data
+        // Format schedule data if necessary
+        const formattedData = formatScheduleData(scheduleData);
         setScheduleData(formattedData);
         const days = Object.keys(formattedData);
         setDayList(days);
