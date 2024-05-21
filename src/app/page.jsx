@@ -18,7 +18,7 @@ export default function App() {
           height={800}
         />
       </div>
-      <Link href="/pages/ticket-frontpage" className={styles.buttonLink}>
+      <Link href="/ticket-frontpage" className={styles.buttonLink}>
         Tickets
       </Link>
     </main>
