@@ -1,8 +1,11 @@
+/**
+ * @type {import('next').NextConfig}
+ */
 const nextConfig = {
   images: {
-    domains: ["localhost", "source.unsplash.com"], // Add "source.unsplash.com" here
+    domains: ["localhost", "source.unsplash.com"],
   },
   plugins: ["tailwindcss", "autoprefixer"],
 };
 
-export default nextConfig;
+module.export = nextConfig;
