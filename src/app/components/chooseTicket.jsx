@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useSearchParams } from "next/navigation";
 import TicketComponent2 from "./TicketComponent2";
 import TicketSelector from "./TicketSelector";
 import FetchCampingSpots from "./FetchCampingSpots";
@@ -8,9 +7,8 @@ import TentAddOn from "./TentAddOn";
 import BlueButton from "./BlueButton";
 import Link from "next/link";
 
-const Chooseticket = () => {
-  const searchParams = useSearchParams();
-  const ticketType = searchParams.get("type");
+const Chooseticket = ({ ticketType }) => {
+  // Remove the useSearchParams hook from here
 
   const regularPrice = 799;
   const vipPrice = 1299;
@@ -67,7 +65,7 @@ const Chooseticket = () => {
         setIsTent3Person(false);
       }
       return newAmount;
-  });
+    });
   };
 
   const handleCheckboxChange = (type, isChecked) => {

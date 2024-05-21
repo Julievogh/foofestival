@@ -21,22 +21,53 @@ export default function FestivalPage() {
 
   useEffect(() => {
     async function fetchData() {
-      const bandsUrl = "http://localhost:8080/bands";
-      const scheduleUrl = "http://localhost:8080/schedule";
+      try {
+        const bandsUrl = "http://localhost:8080/bands";
+        const scheduleUrl = "http://localhost:8080/schedule";
 
-      const [bandsRes, scheduleRes] = await Promise.all([
-        fetch(bandsUrl),
-        fetch(scheduleUrl),
-      ]);
+        const [bandsRes, scheduleRes] = await Promise.all([
+          fetch(bandsUrl),
+          fetch(scheduleUrl),
+        ]);
 
-      const bandsData = await bandsRes.json();
-      const scheduleData = await scheduleRes.json();
+        if (!bandsRes.ok || !scheduleRes.ok) {
+          throw new Error("Failed to fetch data");
+        }
 
-      setAllBands(bandsData);
-      setScheduleData(scheduleData);
+        const bandsData = await bandsRes.json();
+        const scheduleData = await scheduleRes.json();
+
+        setAllBands(bandsData);
+        setScheduleData(scheduleData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        // Handle error (e.g., show an error message to the user)
+      }
     }
     fetchData();
   }, []);
+
+  // Check if likedBands and scheduleData are defined
+  const likedBands =
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("likedBands")) || []
+      : [];
+
+  // Check if allBands and scheduleData are empty before using them
+  if (allBands.length === 0 || Object.keys(scheduleData).length === 0) {
+    return <div>Loading...</div>;
+  }
+
+  // Define handleSearchChange and handleStageSelect functions
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    setCurrentPage(1);
+  };
+
+  const handleStageSelect = (value) => {
+    setSelectedStage(value);
+    setCurrentPage(1);
+  };
 
   const paths = [
     { href: "/", label: "Home" },
@@ -45,7 +76,6 @@ export default function FestivalPage() {
 
   const indexOfLastBand = currentPage * bandsPerPage;
   const indexOfFirstBand = indexOfLastBand - bandsPerPage;
-  const likedBands = JSON.parse(localStorage.getItem("likedBands")) || [];
 
   const getStageForBand = (bandName) => {
     for (const stage in scheduleData) {
@@ -84,16 +114,6 @@ export default function FestivalPage() {
 
   const toggleFavorites = () => {
     setShowFavorites((prevShowFavorites) => !prevShowFavorites);
-    setCurrentPage(1);
-  };
-
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-    setCurrentPage(1);
-  };
-
-  const handleStageSelect = (value) => {
-    setSelectedStage(value);
     setCurrentPage(1);
   };
 

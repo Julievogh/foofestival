@@ -1,9 +1,14 @@
 "use client";
-import React from "react";
+
+import React, { Suspense } from "react";
 import Chooseticket from "../components/chooseTicket";
 import TicketHeader from "@/app/components/TicketHeader";
+import { useSearchParams } from "next/navigation";
 
-const ChooseTicketPage = ({ ticketType }) => {
+const ChooseTicketPageWrapper = () => {
+  const searchParams = useSearchParams();
+  const ticketType = searchParams.get("type");
+
   return (
     <>
       <article className="w-full bg-white">
@@ -18,5 +23,11 @@ const ChooseTicketPage = ({ ticketType }) => {
     </>
   );
 };
+
+const ChooseTicketPage = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <ChooseTicketPageWrapper />
+  </Suspense>
+);
 
 export default ChooseTicketPage;

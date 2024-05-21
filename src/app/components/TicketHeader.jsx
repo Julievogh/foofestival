@@ -1,10 +1,6 @@
 import React from "react";
-import { useSearchParams } from "next/navigation";
 
-const TicketHeader = () => {
-  const searchParams = useSearchParams();
-  const ticketType = searchParams.get("type");
-
+const TicketHeader = ({ ticketType }) => {
   return (
     <>
       {/* Brødkrummesti placeholder */}
@@ -20,7 +16,9 @@ const TicketHeader = () => {
         </h4>
       </div>
       <div className="w-full bg-[hsla(232,6%,0%,1)] text-white">
-        <p className="text-sm">Each purchase includes an additional one-time fee of 99,-</p>
+        <p className="text-sm">
+          Each purchase includes an additional one-time fee of 99,-
+        </p>
       </div>
     </>
   );
