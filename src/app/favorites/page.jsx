@@ -14,14 +14,16 @@ export default function FavoritePage() {
 
   useEffect(() => {
     async function fetchFavoriteBands() {
-      const likedBands = JSON.parse(localStorage.getItem("likedBands")) || [];
-      const url = "http://localhost:8080/bands";
-      const res = await fetch(url);
-      const allBands = await res.json();
-      const favoriteBandsData = allBands.filter((band) =>
-        likedBands.includes(band.slug)
-      );
-      setFavoriteBands(favoriteBandsData);
+      if (typeof window !== "undefined") {
+        const likedBands = JSON.parse(localStorage.getItem("likedBands")) || [];
+        const url = "http://localhost:8080/bands";
+        const res = await fetch(url);
+        const allBands = await res.json();
+        const favoriteBandsData = allBands.filter((band) =>
+          likedBands.includes(band.slug)
+        );
+        setFavoriteBands(favoriteBandsData);
+      }
     }
     fetchFavoriteBands();
   }, []);
@@ -57,7 +59,7 @@ export default function FavoritePage() {
                         : `http://localhost:8080/logos/${band.logo}`
                     }
                     alt={band.name}
-                    layout="fill" 
+                    layout="fill"
                   />
                 </Link>
               </div>
