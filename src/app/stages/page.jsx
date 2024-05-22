@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import styles from "../page.module.css";
+import styles from "./stages.module.css";
 import Link from "next/link";
 import { fetchBandsAndSchedule } from "../../lib/api/bands"; // Import the API function
 
