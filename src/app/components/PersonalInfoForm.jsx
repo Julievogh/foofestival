@@ -56,7 +56,7 @@ const PersonalInfo = () => {
           <h3>Date of Birth</h3>
           <label htmlFor="day">Day:</label>
           <input
-            type="number"
+            type="numeric"
             id="day"
             {...register("day", {
               required: {
@@ -105,7 +105,7 @@ const PersonalInfo = () => {
 
           <label htmlFor="year">Year:</label>
           <input
-            type="number"
+            type="numeric"
             id="year"
             {...register("year", {
               required: {
