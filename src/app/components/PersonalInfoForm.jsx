@@ -1,5 +1,6 @@
 import React from "react";
 import BlueButton from "./BlueButton";
+import Countries from "./Countries"; // Ensure this path is correct
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 
@@ -184,9 +185,10 @@ const PersonalInfo = () => {
             })}
             className="border border-gray-300 rounded-md"
           >
-            <option value="Denmark">Denmark</option>
-            <option value="Sweden">Sweden</option>
-            <option value="Germany">Germany</option>
+            <option value="">Select a country</option>
+            {Countries.map((country, index) => (
+              <option key={index} value={country.name}>{country.name}</option>
+            ))}
           </select>
           <p className="text-red-500 m-2">{errors.country?.message}</p>
         </section>
@@ -225,7 +227,6 @@ const PersonalInfo = () => {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                 message: "Invalid email address",
               },
-              // custom validation
               validate: {
                 notAdmin: (fieldValue) => {
                   return (
