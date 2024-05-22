@@ -1,8 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { motion, useAnimation, useScroll } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import styles from "../page.module.css";
+import styles from "./favorites.module.css";
 import LikeButton from "../components/LikeButton";
 import Breadcrumbs from "../components/Breadcrumbs";
 import { Pagination } from "antd";
@@ -60,23 +61,40 @@ export default function FavoritePage() {
         <h1 className="ml-4">FAVORITES</h1>
         <ul className={styles.grid}>
           {bands.map((band) => (
-            <li className={styles.bandItem} key={band.slug}>
-              <div className={styles.imageContainer}>
-                <LikeButton slug={band.slug} className={styles.likeButton} />
-                <Link href={`/festival/${band.slug}`}>
-                  <Image
-                    src={
-                      band.logo.startsWith("https://")
-                        ? band.logo
-                        : `https://abyssinian-aeolian-gazelle.glitch.me/logos/${band.logo}`
-                    }
-                    alt={band.name}
-                    layout="fill"
-                  />
-                </Link>
-              </div>
-              <h5 className={styles.bandName}>{band.name}</h5>
-            </li>
+            <motion.li
+              className={styles.bandItem}
+              key={band.slug}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <motion.div
+                className={styles.imageContainer}
+                whileHover={{ scale: 1.05 }}
+              >
+                <li className={styles.bandItem} key={band.slug}>
+                  <div className={styles.imageContainer}>
+                    <LikeButton
+                      slug={band.slug}
+                      className={styles.likeButton}
+                    />
+                    <Link href={`/festival/${band.slug}`}>
+                      <Image
+                        src={
+                          band.logo.startsWith("https://")
+                            ? band.logo
+                            : `https://abyssinian-aeolian-gazelle.glitch.me/logos/${band.logo}`
+                        }
+                        alt={band.name}
+                        layout="fill"
+                      />
+                    </Link>
+                  </div>
+                  <h5 className={styles.bandName}>{band.name}</h5>
+                </li>
+              </motion.div>
+            </motion.li>
           ))}
         </ul>
         <Pagination

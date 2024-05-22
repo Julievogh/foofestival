@@ -4,8 +4,8 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: var(--background-glitch-img) center/cover fixed;
-  --background-glitch-img: url("../../public/aesthetic-abstract-chromatography-art-element.jpg");
+  background: rgb(240, 245, 220) center/cover fixed;
+  --background-glitch-img: url("../../public/imgs/iStock-1329410603.jpg");
 }
 
 h1 {

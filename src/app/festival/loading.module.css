@@ -1,0 +1,33 @@
+/* loading.module.css */
+
+.loadingContainer {
+  background-color: #000;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.glitchText {
+  font-family: "Arial", sans-serif;
+  font-size: 48px;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  animation: glitch 1s linear infinite;
+}
+
+@keyframes glitch {
+  2%,
+  64% {
+    transform: translate(2px, 0) skew(0deg);
+  }
+  4%,
+  60% {
+    transform: translate(-2px, 0) skew(0deg);
+  }
+  62% {
+    transform: translate(0, 0) skew(5deg);
+  }
+}

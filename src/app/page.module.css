@@ -1,6 +1,6 @@
 .main {
   background: var(--background-glitch-img) center/cover fixed;
-  padding: 6rem;
+  padding: 0rem;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -36,6 +36,35 @@
   object-fit: cover;
 }
 
+.parallaxContainer {
+  text-align: center;
+  margin-top: 2rem;
+}
+.parallax {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.scroller {
+  display: inline-flex;
+  white-space: nowrap;
+}
+
+.scroller span {
+  font-size: 2rem;
+  padding: 0 1rem;
+}
+
+.otherBackground {
+  background-color: rgb(184, 202, 184);
+  width: 100%;
+  padding: 8px;
+  margin: 2rem 0;
+  box-sizing: border-box;
+}
+
 .likeButton {
   position: absolute;
   top: 10px;
@@ -44,8 +73,8 @@
   border: none;
   cursor: pointer;
   z-index: 100;
-  width: 24px; /* Ensure the button has a consistent size */
-  height: 24px; /* Ensure the button has a consistent size */
+  width: 24px;
+  height: 24px;
   padding: 0;
 }
 
