@@ -3,7 +3,11 @@
  */
 const nextConfig = {
   images: {
-    domains: ["localhost", "source.unsplash.com"],
+    domains: [
+      "localhost",
+      "source.unsplash.com",
+      "abyssinian-aeolian-gazelle.glitch.me",
+    ],
   },
 };
 
