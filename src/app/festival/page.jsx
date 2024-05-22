@@ -28,24 +28,20 @@ export default function FestivalPage() {
         setScheduleData(scheduleData);
       } catch (error) {
         console.error("Error fetching data:", error);
-        // Handle error (e.g., show an error message to the user)
       }
     }
     fetchData();
   }, []);
 
-  // Check if likedBands and scheduleData are defined
   const likedBands =
     typeof window !== "undefined"
       ? JSON.parse(localStorage.getItem("likedBands")) || []
       : [];
 
-  // Check if allBands and scheduleData are empty before using them
   if (allBands.length === 0 || Object.keys(scheduleData).length === 0) {
     return <div>Loading...</div>;
   }
 
-  // Define handleSearchChange and handleStageSelect functions
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
     setCurrentPage(1);
@@ -141,7 +137,7 @@ export default function FestivalPage() {
                     src={
                       band.logo.startsWith("https://")
                         ? band.logo
-                        : `http://localhost:8080/logos/${band.logo}`
+                        : `https://abyssinian-aeolian-gazelle.glitch.me/logos/${band.logo}`
                     }
                     alt={band.name}
                     width={200}

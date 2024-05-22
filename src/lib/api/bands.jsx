@@ -1,6 +1,6 @@
 export const fetchBandsAndSchedule = async () => {
-  const bandsUrl = "http://localhost:8080/bands";
-  const scheduleUrl = "http://localhost:8080/schedule";
+  const bandsUrl = "https://abyssinian-aeolian-gazelle.glitch.me/bands";
+  const scheduleUrl = "https://abyssinian-aeolian-gazelle.glitch.me/schedule";
 
   try {
     const [bandsRes, scheduleRes] = await Promise.all([
@@ -23,7 +23,7 @@ export const fetchBandsAndSchedule = async () => {
 };
 
 export const fetchBands = async () => {
-  const bandsUrl = "http://localhost:8080/bands";
+  const bandsUrl = "https://abyssinian-aeolian-gazelle.glitch.me/bands";
 
   try {
     const bandsRes = await fetch(bandsUrl);

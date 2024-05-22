@@ -68,7 +68,7 @@ export default function FavoritePage() {
                     src={
                       band.logo.startsWith("https://")
                         ? band.logo
-                        : `http://localhost:8080/logos/${band.logo}`
+                        : `https://abyssinian-aeolian-gazelle.glitch.me/logos/${band.logo}`
                     }
                     alt={band.name}
                     layout="fill"
