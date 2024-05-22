@@ -1,5 +1,6 @@
+// app/page.jsx
 import React from "react";
-import styles from "./page.module.css";
+import styles from "./page.module.css"; // Adjusted import path for page module CSS
 import Image from "next/image";
 import Link from "next/link";
 
