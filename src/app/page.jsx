@@ -61,8 +61,10 @@ export default function App() {
             Tickets
           </Link>
         </div>
-        <div className={styles.parallaxContainer}>
-          <ParallaxText baseVelocity={-5}>WELCOME TO THE PARTY!</ParallaxText>
+      </div>
+      <div className={styles.parallaxContainer}>
+        <div className={styles.parallaxOverlay}>
+          <ParallaxText></ParallaxText>
         </div>
       </div>
       <div className={styles.otherBackground}>
@@ -101,6 +103,14 @@ export default function App() {
               </motion.div>
             </motion.li>
           ))}
+        </div>
+      </div>
+
+      <div className={styles.bottom}>
+        <div>
+          <Link href="/ticket-frontpage" className={styles.buttonLink}>
+            Tickets
+          </Link>
         </div>
       </div>
     </main>

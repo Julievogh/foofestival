@@ -1,5 +1,3 @@
-// Effect.jsx
-
 import React, { useRef } from "react";
 import {
   useMotionValue,
@@ -14,7 +12,7 @@ import {
 import { wrap } from "@motionone/utils";
 import styles from "./Effect.module.css"; // Import CSS module
 
-function ParallaxText({ children, baseVelocity = 100 }) {
+function ParallaxText({ children, baseVelocity = 100, index }) {
   const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
@@ -45,7 +43,10 @@ function ParallaxText({ children, baseVelocity = 100 }) {
 
   return (
     <div className={styles.parallax}>
-      <motion.div className={styles.scroller} style={{ x }}>
+      <motion.div
+        className={`${styles.scroller} ${index === 1 ? styles.purpleText : ""}`}
+        style={{ x }}
+      >
         <span>{children}</span>
         <span>{children}</span>
         <span>{children}</span>
@@ -58,8 +59,12 @@ function ParallaxText({ children, baseVelocity = 100 }) {
 export default function Effect() {
   return (
     <section>
-      <ParallaxText baseVelocity={-5}>Framer Motion</ParallaxText>
-      <ParallaxText baseVelocity={5}>Scroll velocity</ParallaxText>
+      <ParallaxText baseVelocity={-5} index={0}>
+        MUSIC - FUN - FOOD -
+      </ParallaxText>
+      <ParallaxText baseVelocity={5} index={1}>
+        PARTY 24 / 7 ALL WEEK -
+      </ParallaxText>
     </section>
   );
 }
