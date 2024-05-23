@@ -115,7 +115,7 @@ export default function App() {
           <Link href="/stages" className={styles.buttonLink}>
             Schedule
           </Link>
-          <p>(Link til api and show who is playing now?)</p>
+          <p>(Link til api and show who is playing now?) Add Image?</p>
         </div>
 
         <div>
