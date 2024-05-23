@@ -107,7 +107,7 @@ const Chooseticket = ({ ticketType }) => {
       default:
         break;
     }
-    setTimeout(() => setWarningMessage(""), 3000); // Clear the warning message after 3 seconds
+    setTimeout(() => setWarningMessage(""), 6000); // Clear the warning message after 6 seconds
   };
 
   return (

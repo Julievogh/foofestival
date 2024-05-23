@@ -14,7 +14,7 @@ const PersonalInfo = () => {
   };
 
   const normalizePhoneNumber = (value) => {
-    // Remove spaces and hyphens
+    // Removes spaces and hyphens
     return value.replace(/[\s-]/g, "");
   };
 
