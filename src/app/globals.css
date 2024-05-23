@@ -1,11 +1,17 @@
+/* globals.css */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(240, 245, 220) center/cover fixed;
+:root {
+  --header-height: 0px;
   --background-glitch-img: url("../../public/imgs/iStock-1329410603.jpg");
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
 }
 
 h1 {

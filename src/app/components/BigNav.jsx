@@ -1,4 +1,4 @@
-"use client"; // Add this at the top if it's a client component
+"use client";
 import React from "react";
 import {
   Navbar,
