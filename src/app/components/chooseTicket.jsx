@@ -4,7 +4,6 @@ import TicketSelector from "./TicketSelector";
 import FetchCampingSpots from "./FetchCampingSpots";
 import GreenCamping from "./GreenCamping";
 import TentAddOn from "./TentAddOn";
-import BlueButton from "./BlueButton";
 import Link from "next/link";
 
 const Chooseticket = ({ ticketType }) => {
@@ -108,7 +107,7 @@ const Chooseticket = ({ ticketType }) => {
       default:
         break;
     }
-    setTimeout(() => setWarningMessage(""), 6000); // Clear the warning message after 6 seconds
+    setTimeout(() => setWarningMessage(""), 6000);
   };
 
   const handleFormSubmit = (event) => {
@@ -121,7 +120,6 @@ const Chooseticket = ({ ticketType }) => {
       totalPrice: calculateTotalPrice(),
       campingArea: formData.campingArea,
     });
-    // Additional submission logic here
   };
 
   const handleInputChange = (event) => {
