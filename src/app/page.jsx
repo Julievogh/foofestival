@@ -111,9 +111,15 @@ export default function App() {
 
       <div className={styles.bottom}>
         <div>
-          <Link href="/ticket-frontpage" className={styles.buttonLink}>
-            Tickets
+          <h4>Who is playing right now?</h4>
+          <Link href="/stages" className={styles.buttonLink}>
+            Schedule
           </Link>
+          <p>(Link til api and show who is playing now?)</p>
+        </div>
+
+        <div>
+          <p>Add news if anyone has cancelled /events</p>
         </div>
       </div>
     </main>
