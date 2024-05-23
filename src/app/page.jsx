@@ -60,6 +60,9 @@ export default function App() {
           <Link href="/ticket-frontpage" className={styles.buttonLink}>
             Tickets
           </Link>
+          <Link href="/festival" className={styles.buttonLink2}>
+            Bands
+          </Link>
         </div>
       </div>
       <div className={styles.parallaxContainer}>

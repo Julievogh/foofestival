@@ -263,6 +263,26 @@
   background-color: #005bb5;
 }
 
+.buttonLink2 {
+  margin-left: 1rem;
+  display: inline-block;
+  padding: 10px 20px;
+  margin-top: 20px;
+  font-size: 16px;
+  color: blue;
+  background-color: rgb(228, 140, 58);
+  border: blue 2px solid;
+  border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.buttonLink2:hover {
+  background-color: #b67118;
+}
+
 .mainBand {
   display: flex;
   flex-direction: column;
