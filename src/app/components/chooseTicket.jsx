@@ -22,6 +22,7 @@ const Chooseticket = ({ ticketType }) => {
   const [formData, setFormData] = useState({
     campingArea: "",
   });
+  const [formSubmitted, setFormSubmitted] = useState(false); 
 
   const calculateTotalPrice = () => {
     let totalPrice = 0;
@@ -120,6 +121,7 @@ const Chooseticket = ({ ticketType }) => {
       totalPrice: calculateTotalPrice(),
       campingArea: formData.campingArea,
     });
+    setFormSubmitted(true);
   };
 
   const handleInputChange = (event) => {
@@ -225,15 +227,29 @@ const Chooseticket = ({ ticketType }) => {
           <div className="p-3 text-red-500">{warningMessage}</div>
         )}
 
-        <div className="flex justify-center p-3">
-          <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded">
-            Reserve
-          </button>
-        </div>
+<div className="flex flex-col items-center p-3">
+  <div>
+    <button
+      type="submit"
+      className="bg-blue-500 text-white py-2 px-4 rounded mb-3"
+    >
+      Reserve
+    </button>
+  </div>
+  {formSubmitted ? (
+    <Link href="personal-info">
+      <button className="bg-blue-500 text-white py-2 px-4 rounded">
+        Next page
+      </button>
+    </Link>
+  ) : (
+    <div className="text-red-500">Please submit the form to proceed.</div>
+  )}
+</div>
+
       </article>
     </form>
   );
 };
 
 export default Chooseticket;
-
