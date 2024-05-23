@@ -1,14 +1,62 @@
+/* page.module.css */
+
 .main {
-  background: var(--background-glitch-img) center/cover fixed;
-  padding: 6rem;
+  padding: 0;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #181717;
+}
+
+.hero {
+  background: var(--background-glitch-img) center/cover no-repeat;
+  width: 100%;
+  height: calc(100vh - var(--header-height));
+  position: relative;
+  top: var(--header-height);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /*
+ FIXED IMAGE EFFECT - does it look good?
+  background-attachment: fixed; 
+  background-size: cover; */
+}
+
+.hero h1 {
+  font-size: 3.8rem;
+  font-weight: 700;
+  margin: 0;
+  text-transform: uppercase;
+  color: #181717;
+  position: relative;
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.7);
+  letter-spacing: 10px;
+}
+
+.hero h1::before,
+.hero h1::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 40%;
+  height: 2px;
+  background-color: white;
+}
+
+.hero h1::before {
+  left: 0;
+}
+
+.hero h1::after {
+  right: 0;
 }
 
 .header {
-  margin-bottom: 2rem;
+  margin-top: 4rem;
+  padding: 2rem;
 }
 
 .welcome {
@@ -23,17 +71,162 @@
   margin: 0;
 }
 
-.imageContainer {
-  position: relative;
-  width: 200px;
-  height: 200px;
-  margin: 20px;
+.apiImageContainer {
+  width: 250px;
+  height: 250px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.imageContainer img {
+.apiImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.bandItem {
+  width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  box-sizing: border-box;
+  margin: 0 auto;
+  margin-top: 1.4rem;
+  text-align: center;
+}
+
+.bandItem h3 {
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 2.2rem;
+  margin: 0 0 1rem 0;
+  text-align: left;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.bandItem p {
+  margin: 0 0 1rem 0;
+  text-align: left;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.imageContainer {
+  width: 360px;
+  height: 360px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.imageContainer img {
+  width: 360px;
+  height: 360px;
+  object-fit: cover;
+}
+
+.parallaxContainer {
+  position: relative;
+  text-align: center;
+  margin-top: 0rem;
+}
+
+.parallaxOverlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.parallax {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.scroller {
+  display: inline-flex;
+  white-space: nowrap;
+}
+
+.scroller span {
+  font-size: 2rem;
+  padding: 0 1rem;
+}
+
+.otherBackground {
+  background-color: rgb(7, 18, 48);
+  color: #005bb5;
+  width: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.otherBackground h2 {
+  margin-top: 5rem;
+  color: aliceblue;
+  text-transform: uppercase;
+}
+
+.otherBackground h3 {
+  margin: 2rem 0;
+}
+.bottom {
+  background: url("../../public/imgs/iStock-1387279248.jpg") center/cover
+    no-repeat;
+  width: 100%;
+  min-height: 80vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.bottom h1 {
+  font-size: 3.2rem;
+  font-weight: 700;
+  margin: 0;
+  text-transform: uppercase;
+  color: #181717;
+  position: relative;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+}
+
+.bottom h1::before,
+.bottom h1::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 40%;
+  height: 2px;
+  background-color: white;
+}
+
+.bottom h1::before {
+  left: 0;
+}
+
+.bottom h1::after {
+  right: 0;
+}
+
+.hero h1::after {
+  right: 0;
 }
 
 .likeButton {
@@ -44,8 +237,8 @@
   border: none;
   cursor: pointer;
   z-index: 100;
-  width: 24px; /* Ensure the button has a consistent size */
-  height: 24px; /* Ensure the button has a consistent size */
+  width: 24px;
+  height: 24px;
   padding: 0;
 }
 
@@ -54,13 +247,14 @@
   height: 100%;
   object-fit: contain;
 }
+
 .buttonLink {
   display: inline-block;
   padding: 10px 20px;
   margin-top: 20px;
   font-size: 16px;
   color: white;
-  background-color: #0070f3;
+  background-color: blue;
   border: none;
   border-radius: 4px;
   text-align: center;
@@ -71,6 +265,26 @@
 
 .buttonLink:hover {
   background-color: #005bb5;
+}
+
+.buttonLink2 {
+  margin-left: 1rem;
+  display: inline-block;
+  padding: 10px 20px;
+  margin-top: 20px;
+  font-size: 16px;
+  color: blue;
+  background-color: rgb(228, 140, 58);
+  border: blue 2px solid;
+  border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.buttonLink2:hover {
+  background-color: #b67118;
 }
 
 .mainBand {
@@ -85,31 +299,11 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  max-width: 100%;
-  width: var(--max-width);
-}
-
-.bandItem {
-  position: relative;
-  width: 200px;
-  height: 250px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.bandName {
-  margin: 0;
-  padding: 0;
-  color: #50c0ac;
-  text-align: center;
-  font-size: 16px;
-  background-color: yellow;
-  padding: 0.2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 0px;
+  width: 100%;
+  max-width: 1200px;
+  justify-items: center;
 }
 
 .sortBar {
@@ -133,56 +327,60 @@
   }
 
   .grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     margin-bottom: 120px;
     max-width: 320px;
     text-align: center;
+    justify-content: center;
+    align-items: center;
   }
 
   .bandItem {
-    width: 140px;
-    height: 190px; /* Adjust for mobile */
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    box-sizing: border-box;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .bandItem h3 {
+    font-size: 1.8rem;
+    margin: 0 0 1rem 0;
+    text-align: center;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+  .bandItem p {
+    margin: 0 0 1rem 0;
+    text-align: center;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
   }
 
   .imageContainer {
-    width: 100%;
-    height: 140px; /* Adjust for mobile */
+    width: 400px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
   }
 
   .imageContainer img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
   }
 
   .bandName {
     font-size: 14px;
   }
-}
-
-.imageContainerFront {
-  position: relative;
-  width: 80%;
-  max-width: 600px;
-  margin-bottom: 2rem;
-}
-
-@media (max-width: 700px) {
-  .imageContainerFront {
-    width: 90%;
-  }
-}
-
-.bandName {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  margin: 0;
-  padding: 0;
-  color: #50c0ac;
-  text-align: center;
-  font-size: 16px;
-  border: 2px solid black;
-  background-color: yellow;
-  padding: 0.2rem;
 }

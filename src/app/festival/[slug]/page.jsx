@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../page.module.css";
+import styles from "./slugpage.module.css";
 import Image from "next/image";
 import LikeButton from "../../components/LikeButton.jsx";
 import Breadcrumbs from "../../components/Breadcrumbs";

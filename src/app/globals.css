@@ -1,11 +1,17 @@
+/* globals.css */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --header-height: 0px;
+  --background-glitch-img: url("../../public/imgs/iStock-1329410603.jpg");
+}
+
 body {
-  color: rgb(var(--foreground-rgb));
-  background: var(--background-glitch-img) center/cover fixed;
-  --background-glitch-img: url("../../public/aesthetic-abstract-chromatography-art-element.jpg");
+  margin: 0;
+  font-family: system-ui, sans-serif;
 }
 
 h1 {
