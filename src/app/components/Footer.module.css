@@ -1,11 +1,43 @@
+/* components/Footer.module.css */
+
 .footer {
-  background-color: rgb(27, 27, 61);
-  color: #dd8532;
+  background-color: #333;
+  color: #fff;
   padding: 20px 0;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+}
+
+.nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav ul li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.nav ul li:last-child {
+  margin-right: 0;
+}
+
+.nav ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.info {
   text-align: center;
 }
