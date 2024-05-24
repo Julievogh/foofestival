@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
-        <p>Midlertidig Footer</p>
+        <p>Midlertidig Footer - virker den?</p>
         <p>Logo? Copyright? Names? Emails?</p>
       </div>
     </footer>
