@@ -33,7 +33,6 @@ export default function FestivalPage() {
     }
     fetchData();
   }, []);
-
   const likedBands =
     typeof window !== "undefined"
       ? JSON.parse(localStorage.getItem("likedBands")) || []

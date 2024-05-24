@@ -1,11 +1,12 @@
+// app/favorites/page.jsx
 "use client";
 import React, { useState, useEffect } from "react";
-import { motion, useAnimation, useScroll } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./favorites.module.css";
-import LikeButton from "../components/LikeButton";
-import Breadcrumbs from "../components/Breadcrumbs";
+import LikeButton from "../components/LikeButton"; // Adjusted path
+import Breadcrumbs from "../components/Breadcrumbs"; // Adjusted path
 import { Pagination } from "antd";
 import { fetchBands } from "../../lib/api/bands";
 
@@ -14,24 +15,29 @@ export default function FavoritePage() {
   const [favoriteBands, setFavoriteBands] = useState([]);
   const bandsPerPage = 12;
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     async function fetchFavoriteBands() {
-      if (typeof window !== "undefined") {
-        try {
+      try {
+        if (typeof window !== "undefined") {
           setLoading(true);
           const likedBands =
             JSON.parse(localStorage.getItem("likedBands")) || [];
+          console.log("Liked Bands:", likedBands);
           const allBands = await fetchBands();
+          console.log("All Bands:", allBands);
           const favoriteBandsData = allBands.filter((band) =>
             likedBands.includes(band.slug)
           );
+          console.log("Favorite Bands Data:", favoriteBandsData);
           setFavoriteBands(favoriteBandsData);
-        } catch (error) {
-          console.error("Error fetching favorite bands:", error);
-        } finally {
-          setLoading(false);
         }
+      } catch (error) {
+        setError("Error fetching favorite bands");
+        console.error("Error fetching favorite bands:", error);
+      } finally {
+        setLoading(false);
       }
     }
     fetchFavoriteBands();
@@ -48,10 +54,8 @@ export default function FavoritePage() {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
   return (
     <main>
       <div className={styles.breadcrumbs}>

@@ -1,11 +1,12 @@
-export const fetchBandsAndSchedule = async () => {
-  const bandsUrl = "https://abyssinian-aeolian-gazelle.glitch.me/bands";
-  const scheduleUrl = "https://abyssinian-aeolian-gazelle.glitch.me/schedule";
+// app/lib/api/bands.jsx
 
+const BASE_URL = "https://abyssinian-aeolian-gazelle.glitch.me";
+
+export const fetchBandsAndSchedule = async () => {
   try {
     const [bandsRes, scheduleRes] = await Promise.all([
-      fetch(bandsUrl),
-      fetch(scheduleUrl),
+      fetch(`${BASE_URL}/bands`),
+      fetch(`${BASE_URL}/schedule`),
     ]);
 
     if (!bandsRes.ok || !scheduleRes.ok) {
@@ -23,19 +24,27 @@ export const fetchBandsAndSchedule = async () => {
 };
 
 export const fetchBands = async () => {
-  const bandsUrl = "https://abyssinian-aeolian-gazelle.glitch.me/bands";
-
   try {
-    const bandsRes = await fetch(bandsUrl);
-
+    const bandsRes = await fetch(`${BASE_URL}/bands`);
     if (!bandsRes.ok) {
-      throw new Error("Failed to fetch bands");
+      throw new Error("Failed to fetch bands data");
     }
-
-    const bandsData = await bandsRes.json();
-    return bandsData;
+    return await bandsRes.json();
   } catch (error) {
     console.error("Error in fetchBands:", error);
+    throw error;
+  }
+};
+
+export const fetchBandBySlug = async (slug) => {
+  try {
+    const bandRes = await fetch(`${BASE_URL}/bands/${slug}`);
+    if (!bandRes.ok) {
+      throw new Error("Failed to fetch band data");
+    }
+    return await bandRes.json();
+  } catch (error) {
+    console.error("Error in fetchBandBySlug:", error);
     throw error;
   }
 };

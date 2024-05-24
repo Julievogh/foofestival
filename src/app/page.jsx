@@ -5,7 +5,7 @@ import styles from "./page.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import ParallaxText from "../app/components/Effect/Effect";
+import ParallaxText from "./components/Effect/Effect";
 import { fetchBandsAndSchedule } from "../lib/api/bands";
 
 export default function App() {

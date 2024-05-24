@@ -1,54 +1,61 @@
-import React from "react";
+// app/festival/[slug]/page.jsx
+"use client";
+import React, { useState, useEffect } from "react";
 import styles from "./slugpage.module.css";
 import Image from "next/image";
-import LikeButton from "../../components/LikeButton.jsx";
+import LikeButton from "../../components/LikeButton";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import Link from "next/link";
+import { fetchBandBySlug, fetchBandsAndSchedule } from "../../../lib/api/bands";
 
-export default async function Page({ params }) {
+export default function Page({ params }) {
   const { slug } = params;
+  const [bandData, setBandData] = useState(null);
+  const [bandSchedule, setBandSchedule] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Fetch band data
-  const bandResponse = await fetch(
-    `https://abyssinian-aeolian-gazelle.glitch.me/bands/${slug}`
-  );
-  if (!bandResponse.ok) {
-    throw new Error("Failed to fetch band data");
-  }
-  const bandData = await bandResponse.json();
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const bandData = await fetchBandBySlug(slug);
+        const { scheduleData } = await fetchBandsAndSchedule();
 
-  // Fetch schedule data
-  const scheduleResponse = await fetch(
-    "https://abyssinian-aeolian-gazelle.glitch.me/schedule"
-  );
-  if (!scheduleResponse.ok) {
-    throw new Error("Failed to fetch schedule data");
-  }
-  const scheduleData = await scheduleResponse.json();
-
-  // Function to find the band's schedule
-  const findBandSchedule = (scheduleData, bandName) => {
-    const scheduleInfo = [];
-    for (const stage in scheduleData) {
-      for (const day in scheduleData[stage]) {
-        scheduleData[stage][day].forEach((entry) => {
-          if (entry.act === bandName) {
-            scheduleInfo.push({
-              day,
-              stage,
-              start: entry.start,
-              end: entry.end,
-            });
+        const findBandSchedule = (scheduleData, bandName) => {
+          const scheduleInfo = [];
+          for (const stage in scheduleData) {
+            for (const day in scheduleData[stage]) {
+              scheduleData[stage][day].forEach((entry) => {
+                if (entry.act === bandName) {
+                  scheduleInfo.push({
+                    day,
+                    stage,
+                    start: entry.start,
+                    end: entry.end,
+                  });
+                }
+              });
+            }
           }
-        });
+          return scheduleInfo;
+        };
+
+        const bandSchedule = findBandSchedule(scheduleData, bandData.name);
+
+        setBandData(bandData);
+        setBandSchedule(bandSchedule);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
       }
     }
-    return scheduleInfo;
-  };
+    fetchData();
+  }, [slug]);
 
-  const bandSchedule = findBandSchedule(scheduleData, bandData.name);
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
-  // Breadcrumb paths
   const paths = [
     { href: "/", label: "Home" },
     { href: "/festival", label: "Festival" },
@@ -57,9 +64,7 @@ export default async function Page({ params }) {
 
   return (
     <main>
-      <div>
-        <Breadcrumbs paths={paths} />
-      </div>
+      <Breadcrumbs paths={paths} />
       <div className={styles.mainBand}>
         <h1>{bandData.name}</h1>
         <div className={styles.imageContainer}>

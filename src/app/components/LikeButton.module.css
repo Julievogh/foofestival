@@ -1,0 +1,12 @@
+/* LikeButton.module.css */
+.likeButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+.liked {
+  /* Additional styles for liked state if needed */
+}
