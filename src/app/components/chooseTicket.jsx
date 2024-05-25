@@ -4,12 +4,9 @@ import TicketSelector from "./TicketSelector";
 import FetchCampingSpots from "./FetchCampingSpots";
 import GreenCamping from "./GreenCamping";
 import TentAddOn from "./TentAddOn";
-import BlueButton from "./BlueButton";
 import Link from "next/link";
 
 const Chooseticket = ({ ticketType }) => {
-  // Remove the useSearchParams hook from here
-
   const regularPrice = 799;
   const vipPrice = 1299;
   const bookingFee = 99;
@@ -22,6 +19,10 @@ const Chooseticket = ({ ticketType }) => {
   const [isTent2Person, setIsTent2Person] = useState(false);
   const [isTent3Person, setIsTent3Person] = useState(false);
   const [warningMessage, setWarningMessage] = useState("");
+  const [formData, setFormData] = useState({
+    campingArea: "",
+  });
+  const [formSubmitted, setFormSubmitted] = useState(false); 
 
   const calculateTotalPrice = () => {
     let totalPrice = 0;
@@ -107,108 +108,147 @@ const Chooseticket = ({ ticketType }) => {
       default:
         break;
     }
-    setTimeout(() => setWarningMessage(""), 6000); // Clear the warning message after 6 seconds
+    setTimeout(() => setWarningMessage(""), 6000);
+  };
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    console.log("Form Data:", {
+      ticketAmount,
+      isGreenCamping,
+      isTent2Person,
+      isTent3Person,
+      totalPrice: calculateTotalPrice(),
+      campingArea: formData.campingArea,
+    });
+    setFormSubmitted(true);
+  };
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   return (
-    <article>
-      <div className="flex justify-between p-3">
-        <div>
-          <TicketComponent2
-            title={ticketType === "Regular" ? "Regular ticket" : "VIP ticket"}
-            price={calculateTotalPrice()}
+    <form onSubmit={handleFormSubmit}>
+      <article>
+        <div className="flex justify-between p-3">
+          <div>
+            <TicketComponent2
+              title={ticketType === "Regular" ? "Regular ticket" : "VIP ticket"}
+              price={calculateTotalPrice()}
+            />
+          </div>
+          <TicketSelector
+            value={ticketAmount}
+            onIncrement={handleIncrement}
+            onDecrement={handleDecrement}
           />
         </div>
-        <TicketSelector
-          value={ticketAmount}
-          onIncrement={handleIncrement}
-          onDecrement={handleDecrement}
+
+        <div className="p-3">
+          <h3>
+            <strong>Choose camping area</strong>
+          </h3>
+          <FetchCampingSpots>
+            {({ spots, error }) => (
+              <>
+                {error && <p>Error: {error}</p>}
+                <div className="grid grid-cols-4 gap-4">
+                  <h4>
+                    <strong>Select</strong>
+                  </h4>
+                  <h4>
+                    <strong>Areas</strong>
+                  </h4>
+                  <h4>
+                    <strong>Spots</strong>
+                  </h4>
+                  <h4>
+                    <strong>Available Spots</strong>
+                  </h4>
+                  {spots.map((spot, index) => (
+                    <React.Fragment key={index}>
+                      <div>
+                        <label htmlFor="campingArea"></label>
+                        <input
+                          type="radio"
+                          name="campingArea"
+                          value={spot.area}
+                          className="w-6 h-6"
+                          onChange={handleInputChange}
+                        />
+                      </div>
+                      {Object.values(spot).map((value, i) => (
+                        <span key={i}>{value}</span>
+                      ))}
+                    </React.Fragment>
+                  ))}
+                </div>
+              </>
+            )}
+          </FetchCampingSpots>
+        </div>
+
+        <GreenCamping
+          title="Green camping"
+          description="Help save the planet"
+          description2="buy green camping for 249,-"
+          buy="Add"
+          checked={isGreenCamping}
+          onCheckboxChange={(isChecked) =>
+            handleCheckboxChange("greenCamping", isChecked)
+          }
         />
-      </div>
 
-      <div className="p-3">
-        <h3>
-          <strong>Choose camping area</strong>
-        </h3>
-        <FetchCampingSpots>
-          {({ spots, error }) => (
-            <>
-              {error && <p>Error: {error}</p>}
-              <div className="grid grid-cols-4 gap-4">
-                <h4>
-                  <strong>Select</strong>
-                </h4>
-                <h4>
-                  <strong>Areas</strong>
-                </h4>
-                <h4>
-                  <strong>Spots</strong>
-                </h4>
-                <h4>
-                  <strong>Available Spots</strong>
-                </h4>
-                {spots.map((spot, index) => (
-                  <React.Fragment key={index}>
-                    <div>
-                      <label htmlFor="campingArea"></label>
-                      <input
-                        type="radio"
-                        name="campingArea"
-                        value={spot.area}
-                        className="w-6 h-6"
-                      />
-                    </div>
-                    {Object.values(spot).map((value, i) => (
-                      <span key={i}>{value}</span>
-                    ))}
-                  </React.Fragment>
-                ))}
-              </div>
-            </>
-          )}
-        </FetchCampingSpots>
-      </div>
+        <TentAddOn
+          title="Tent set up"
+          description="Have a tent already set up for you"
+          description2="2 person tent: 299,-"
+          description3="3 person tent: 399,-"
+          buy2person="Buy tent for 2"
+          buy3person="Buy tent for 3"
+          checked2Person={isTent2Person}
+          checked3Person={isTent3Person}
+          onCheckboxClick2Person={() => handleCheckboxClick("tent2Person")}
+          onCheckboxClick3Person={() => handleCheckboxClick("tent3Person")}
+          onCheckboxChange2Person={(isChecked) =>
+            handleCheckboxChange("tent2Person", isChecked)
+          }
+          onCheckboxChange3Person={(isChecked) =>
+            handleCheckboxChange("tent3Person", isChecked)
+          }
+        />
 
-      <GreenCamping
-        title="Green camping"
-        description="Help save the planet"
-        description2="buy green camping for 249,-"
-        buy="Add"
-        checked={isGreenCamping}
-        onCheckboxChange={(isChecked) =>
-          handleCheckboxChange("greenCamping", isChecked)
-        }
-      />
+        {warningMessage && (
+          <div className="p-3 text-red-500">{warningMessage}</div>
+        )}
 
-      <TentAddOn
-        title="Tent set up"
-        description="Have a tent already set up for you"
-        description2="2 person tent: 299,-"
-        description3="3 person tent: 399,-"
-        buy2person="Buy tent for 2"
-        buy3person="Buy tent for 3"
-        checked2Person={isTent2Person}
-        checked3Person={isTent3Person}
-        onCheckboxClick2Person={() => handleCheckboxClick("tent2Person")}
-        onCheckboxClick3Person={() => handleCheckboxClick("tent3Person")}
-        onCheckboxChange2Person={(isChecked) =>
-          handleCheckboxChange("tent2Person", isChecked)
-        }
-        onCheckboxChange3Person={(isChecked) =>
-          handleCheckboxChange("tent3Person", isChecked)
-        }
-      />
+<div className="flex flex-col items-center p-3">
+  <div>
+    <button
+      type="submit"
+      className="bg-blue-500 text-white py-2 px-4 rounded mb-3"
+    >
+      Reserve
+    </button>
+  </div>
+  {formSubmitted ? (
+    <Link href="personal-info">
+      <button className="bg-blue-500 text-white py-2 px-4 rounded">
+        Next page
+      </button>
+    </Link>
+  ) : (
+    <div className="text-red-500">Please submit the form to proceed.</div>
+  )}
+</div>
 
-      {warningMessage && (
-        <div className="p-3 text-red-500">{warningMessage}</div>
-      )}
-
-      <div className="flex justify-center p-3">
-        <Link href="personal-info">
-          <BlueButton text="Reserve" />
-        </Link>
-      </div>
-    </article>
+      </article>
+    </form>
   );
 };
 
