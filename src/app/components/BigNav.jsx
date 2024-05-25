@@ -8,11 +8,19 @@ import {
   Link,
   Button,
 } from "@nextui-org/react";
+import Image from "next/image";
 
 export default function BigNav() {
   return (
     <Navbar shouldHideOnScroll>
       <NavbarBrand>
+        <Image
+          src="/logo.png"
+          alt="Logo"
+          width={40}
+          height={40}
+          style={{ marginRight: "10px" }}
+        />
         <Link className="font-bold text-inherit" href="/">
           FooFest
         </Link>
