@@ -97,14 +97,6 @@ export default function SchedulePage() {
 
         <div className={styles.stageButtons}>
           <button onClick={() => handleStageSelect("All")}>All Stages</button>
-
-          {/* <button onClick={() => handleStageSelect("Midgard")}>Midgard</button>
-          <button onClick={() => handleStageSelect("Vanaheim")}>
-            Vanaheim
-          </button>
-          <button onClick={() => handleStageSelect("Jotunheim")}>
-            Jotunheim
-          </button> */}
         </div>
 
         <Link href="/festival" className={styles.buttonLink}>
@@ -145,7 +137,19 @@ export default function SchedulePage() {
                           key={`${band.stage}-${band.start}-${band.act}`}
                           className={styles.bandItem}
                         >
-                          <p>{band.act}</p>
+                          {band.act.toLowerCase() !== "break" ? (
+                            <Link
+                              href={`/festival/${band.act
+                                .toLowerCase()
+                                .replace(/[^\w\s-]/g, "")
+                                .replace(/[-\s]+/g, "-")}`}
+                              className={styles.bandLink}
+                            >
+                              <strong>{band.act}</strong>
+                            </Link>
+                          ) : (
+                            <strong>{band.act}</strong>
+                          )}
                           <p>
                             {band.start} - {band.end} ({band.stage})
                           </p>

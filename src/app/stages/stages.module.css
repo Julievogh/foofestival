@@ -52,6 +52,15 @@
   margin-top: 10px;
 }
 
+.bandLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.bandLink:hover {
+  text-decoration: underline;
+}
+
 .scheduleContainer {
   display: flex;
   flex-wrap: wrap;
