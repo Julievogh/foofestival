@@ -1,11 +1,90 @@
 .mainBand {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 6rem;
   min-height: 100vh;
   text-align: center;
+}
+
+.scheduleContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.scheduleDay {
+  max-width: 600px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.scheduleList {
+  list-style: none;
+  padding: 0;
+}
+
+.scheduleItem {
+  margin-bottom: 20px;
+}
+
+.bandItem {
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+}
+
+.imageStages {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.imageContainer {
+  cursor: pointer;
+  width: 200px;
+  text-align: center;
+}
+
+.imageContainer p {
+  margin-top: 10px;
+}
+
+.scheduleContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.navigation button {
+  background-color: transparent;
+  border: 2px solid #0070f3;
+  color: #0070f3;
+  padding: 10px 20px;
+  margin: 0 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.navigation button:hover {
+  background-color: #0070f3;
+  color: white;
+}
+
+.navigation button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .buttonLink {
@@ -27,10 +106,14 @@
   background-color: #005bb5;
 }
 
-.stages {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  align-items: center;
-  margin: 10px 20px;
+@media screen and (max-width: 768px) {
+  .scheduleDay {
+    max-width: 100%;
+  }
+
+  .imageContainer {
+    cursor: pointer;
+    width: 120px;
+    text-align: center;
+  }
 }
