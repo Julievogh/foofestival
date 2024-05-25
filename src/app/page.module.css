@@ -19,10 +19,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /*
- FIXED IMAGE EFFECT - does it look good?
-  background-attachment: fixed; 
-  background-size: cover; */
 }
 
 .hero h1 {
@@ -333,6 +329,11 @@
     text-align: center;
     justify-content: center;
     align-items: center;
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+    letter-spacing: 4px;
   }
 
   .bandItem {
