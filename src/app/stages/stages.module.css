@@ -6,6 +6,7 @@
   padding: 6rem;
   min-height: 100vh;
   text-align: center;
+  background: #f08018;
 }
 
 .scheduleContainer {
@@ -13,10 +14,14 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .scheduleDay {
-  max-width: 600px;
+  width: 100%;
+  max-width: 800px;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -32,14 +37,23 @@
 }
 
 .bandItem {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  padding: 10px 0;
   border-top: 1px solid #ccc;
-  padding-top: 10px;
+}
+
+.bandItem span {
+  display: flex;
+  align-items: center;
 }
 
 .imageStages {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+  gap: 20px;
 }
 
 .imageContainer {
@@ -52,20 +66,28 @@
   margin-top: 10px;
 }
 
+.breakItem {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 10px;
+  padding: 10px 0;
+  border-top: 1px solid #ccc;
+  color: rgb(233, 92, 41);
+}
+
+.breakItem span {
+  display: flex;
+  align-items: center;
+}
+
 .bandLink {
-  color: inherit;
+  color: #005bb5;
+  font-weight: bold;
   text-decoration: none;
 }
 
 .bandLink:hover {
   text-decoration: underline;
-}
-
-.scheduleContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
 }
 
 .navigation {
@@ -74,7 +96,8 @@
   margin-top: 20px;
 }
 
-.navigation button {
+.navigation button,
+.navigation select {
   background-color: transparent;
   border: 2px solid #0070f3;
   color: #0070f3;
@@ -86,7 +109,8 @@
   transition: background-color 0.3s, color 0.3s;
 }
 
-.navigation button:hover {
+.navigation button:hover,
+.navigation select:hover {
   background-color: #0070f3;
   color: white;
 }
@@ -115,14 +139,41 @@
   background-color: #005bb5;
 }
 
+.outline {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-top: 20px;
+  font-size: 16px;
+
+  border: rgb(233, 92, 41) 2px solid;
+  border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.outline:hover {
+  background-color: #eb934b;
+}
+
 @media screen and (max-width: 768px) {
   .scheduleDay {
     max-width: 100%;
   }
 
   .imageContainer {
-    cursor: pointer;
     width: 120px;
     text-align: center;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .scheduleContainer {
+    max-width: 1400px;
+  }
+
+  .scheduleDay {
+    max-width: 1000px;
   }
 }
