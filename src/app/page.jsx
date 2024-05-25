@@ -72,6 +72,7 @@ export default function App() {
       </div>
       <div className={styles.otherBackground}>
         <h2>Oplev dine favorit kunstnere</h2>
+        <p>(Some of them are apparently back from the grave)</p>
         <div className={styles.grid}>
           {randomBands.map((band) => (
             <motion.li
