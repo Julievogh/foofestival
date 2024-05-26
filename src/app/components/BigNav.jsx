@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import {
   Navbar,
@@ -27,35 +26,35 @@ export default function BigNav() {
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
-          <Link color="foreground" href="festival">
+          <Link color="foreground" href="/festival">
             Bands
           </Link>
         </NavbarItem>
         <NavbarItem isActive>
-          <Link href="calender" aria-current="page">
+          <Link href="/schedule" aria-current="page">
             Schedule
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="stages">
+          <Link color="foreground" href="/stages">
             Stages
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="map">
+          <Link color="foreground" href="/map">
             Map
           </Link>
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
-          <Link href="favorites">Favorites</Link>
+          <Link href="/favorites">Favorites</Link>
         </NavbarItem>
         <NavbarItem>
           <Button
             as={Link}
             color="primary"
-            href="ticket-frontpage"
+            href="/ticket-frontpage"
             variant="flat"
           >
             Tickets

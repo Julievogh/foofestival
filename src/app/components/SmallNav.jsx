@@ -16,13 +16,14 @@ export default function SmallNav() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const menuItems = [
-    "Bands",
-    "Schedule",
-    "Map",
-    "Ticket info",
-    "Buy Ticket",
-    "",
-    "Favorites",
+    { label: "Bands", href: "/festival" },
+    { label: "Schedule", href: "/schedule" },
+    { label: "Stages", href: "/stages" },
+    { label: "Map", href: "/map" },
+
+    { label: "Buy Ticket", href: "/ticket-frontpage" },
+    { label: "", href: "" },
+    { label: "Favorites", href: "/favorites" },
   ];
 
   return (
@@ -46,23 +47,23 @@ export default function SmallNav() {
           <p className="font-bold text-inherit">FooFest</p>
         </NavbarBrand>
         <NavbarItem>
-          <Link color="foreground" href="festival">
+          <Link color="foreground" href="/festival">
             Bands
           </Link>
         </NavbarItem>
 
         <NavbarItem isActive>
-          <Link href="schedule" aria-current="page">
+          <Link href="/schedule" aria-current="page">
             Schedule
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="stages">
+          <Link color="foreground" href="/stages">
             Stages
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="map">
+          <Link color="foreground" href="/map">
             Map
           </Link>
         </NavbarItem>
@@ -76,17 +77,16 @@ export default function SmallNav() {
           <Button
             as={Link}
             color="warning"
-            href="ticket-frontpage"
+            href="/ticket-frontpage" // Update the href attribute to "/tickets"
             variant="flat"
           >
             Tickets
           </Button>
         </NavbarItem>
       </NavbarContent>
-
       <NavbarMenu>
         {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
+          <NavbarMenuItem key={`${item.label}-${index}`}>
             <Link
               className="w-full"
               color={
@@ -96,10 +96,10 @@ export default function SmallNav() {
                   ? "danger"
                   : "foreground"
               }
-              href="#"
+              href={item.href}
               size="lg"
             >
-              {item}
+              {item.label}
             </Link>
           </NavbarMenuItem>
         ))}

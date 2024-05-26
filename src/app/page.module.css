@@ -19,21 +19,17 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /*
- FIXED IMAGE EFFECT - does it look good?
-  background-attachment: fixed; 
-  background-size: cover; */
 }
 
 .hero h1 {
-  font-size: 3.8rem;
-  font-weight: 700;
+  font-size: 4.6rem;
+  font-weight: 800;
   margin: 0;
   text-transform: uppercase;
   color: #181717;
   position: relative;
-  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.7);
-  letter-spacing: 10px;
+  text-shadow: 4px 4px 4px rgba(255, 255, 255, 0.7);
+  letter-spacing: 6px;
 }
 
 .hero h1::before,
@@ -333,6 +329,11 @@
     text-align: center;
     justify-content: center;
     align-items: center;
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+    letter-spacing: 4px;
   }
 
   .bandItem {
