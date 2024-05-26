@@ -228,23 +228,12 @@ const Chooseticket = ({ ticketType }) => {
         )}
 
 <div className="flex flex-col items-center p-3">
-  <div>
-    <button
-      type="submit"
-      className="bg-blue-500 text-white py-2 px-4 rounded mb-3"
-    >
-      Reserve
-    </button>
-  </div>
-  {formSubmitted ? (
-    <Link href="personal-info">
+    <Link href={`/personal-info?ticketAmount=${ticketAmount}`}>
       <button className="bg-blue-500 text-white py-2 px-4 rounded">
-        Next page
+        Reserve
       </button>
     </Link>
-  ) : (
-    <div className="text-red-500">Please submit the form to proceed.</div>
-  )}
+
 </div>
 
       </article>
