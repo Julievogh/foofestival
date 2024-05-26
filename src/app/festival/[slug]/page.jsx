@@ -7,6 +7,7 @@ import LikeButton from "../../components/LikeButton";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import Link from "next/link";
 import { fetchBandBySlug, fetchBandsAndSchedule } from "../../../lib/api/bands";
+import { getDominantColor } from "../../../lib/api/colorThief";
 
 export default function Page({ params }) {
   const { slug } = params;
@@ -14,6 +15,7 @@ export default function Page({ params }) {
   const [bandSchedule, setBandSchedule] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [bgColor, setBgColor] = useState("#ffffff");
 
   useEffect(() => {
     async function fetchData() {
@@ -42,6 +44,20 @@ export default function Page({ params }) {
 
         const bandSchedule = findBandSchedule(scheduleData, bandData.name);
 
+        // Get the dominant color from the band image
+        let dominantColor;
+        try {
+          dominantColor = await getDominantColor(
+            bandData.logo.startsWith("https://")
+              ? bandData.logo
+              : `https://abyssinian-aeolian-gazelle.glitch.me/logos/${bandData.logo}`
+          );
+        } catch (error) {
+          console.error("Error fetching dominant color:", error);
+          dominantColor = [255, 255, 255]; // Default to white
+        }
+        setBgColor(`rgb(${dominantColor.join(",")})`);
+
         setBandData(bandData);
         setBandSchedule(bandSchedule);
       } catch (error) {
@@ -55,6 +71,7 @@ export default function Page({ params }) {
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
+  if (!bandData) return <div>Loading...</div>;
 
   const paths = [
     { href: "/", label: "Home" },
@@ -63,7 +80,7 @@ export default function Page({ params }) {
   ];
 
   return (
-    <main>
+    <main style={{ backgroundColor: bgColor }}>
       <Breadcrumbs paths={paths} />
       <div className={styles.mainBand}>
         <h1>{bandData.name}</h1>
@@ -78,16 +95,26 @@ export default function Page({ params }) {
             alt={bandData.logoCredits}
             width={200}
             height={200}
+            onError={(e) => {
+              e.target.src = "/path/to/default-image.jpg"; // Fallback image
+            }}
           />
         </div>
-        <div>
-          <p>Genre: {bandData.genre}</p>
+        <div
+          className={styles.infoSection}
+          style={{ backgroundColor: "rgba(255, 255, 255, 0.8)" }}
+        >
+          <h6>Bio:</h6>
           <p>{bandData.bio}</p>
-          <h5>Members:</h5>
+          <h6>Members:</h6>
           <p>{bandData.members.join(", ")}</p>
+          <p>Genre: {bandData.genre}</p>
         </div>
-        <div>
-          <p>When are they playing?</p>
+        <div
+          className={styles.infoSection}
+          style={{ backgroundColor: "rgba(255, 255, 255, 0.8)" }}
+        >
+          <h6>When are they playing?</h6>
           {bandSchedule.length > 0 ? (
             bandSchedule.map((entry, index) => (
               <p key={index}>
