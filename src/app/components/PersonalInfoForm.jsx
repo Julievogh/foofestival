@@ -3,6 +3,7 @@ import BlueButton from "./BlueButton";
 import Countries from "./Countries";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
+import Link from "next/link";
 
 const PersonalInfo = () => {
   const [guestInputs, setGuestInputs] = useState([]);
@@ -328,8 +329,11 @@ const PersonalInfo = () => {
         ))}
       </section>
 
-      <div className="flex justify-center mt-2">
-        <BlueButton text="Submit" />
+      <div className="flex flex-col justify-center mt-2 mb-5">
+      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-2" type="submit">submit</button>
+        <Link href='./payment'>
+          <BlueButton text="Go to payment" />
+        </Link>
       </div>
     </form>
     <DevTool control={control} />

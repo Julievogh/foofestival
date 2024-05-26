@@ -19,6 +19,7 @@ const Chooseticket = ({ ticketType }) => {
   const [isTent2Person, setIsTent2Person] = useState(false);
   const [isTent3Person, setIsTent3Person] = useState(false);
   const [warningMessage, setWarningMessage] = useState("");
+  const [tentWarningMessage, setTentWarningMessage] = useState("");
   const [formData, setFormData] = useState({
     campingArea: "",
   });
@@ -41,16 +42,20 @@ const Chooseticket = ({ ticketType }) => {
   };
 
   const handleIncrement = () => {
-    setTicketAmount((prevAmount) => {
-      const newAmount = prevAmount + 1;
-      if (newAmount !== 2) {
-        setIsTent2Person(false);
-      }
-      if (newAmount !== 3) {
-        setIsTent3Person(false);
-      }
-      return newAmount;
-    });
+    if (ticketAmount < 5) {
+      setTicketAmount((prevAmount) => {
+        const newAmount = prevAmount + 1;
+        if (newAmount !== 2) {
+          setIsTent2Person(false);
+        }
+        if (newAmount !== 3) {
+          setIsTent3Person(false);
+        }
+        return newAmount;
+      });
+    } else {
+      setWarningMessage("Max 5 tickets can be bought at once");
+    }
   };
 
   const handleDecrement = () => {
@@ -93,14 +98,14 @@ const Chooseticket = ({ ticketType }) => {
     switch (type) {
       case "tent2Person":
         if (ticketAmount !== 2) {
-          setWarningMessage(
+          setTentWarningMessage(
             "You need to purchase 2 tickets to select this option."
           );
         }
         break;
       case "tent3Person":
         if (ticketAmount !== 3) {
-          setWarningMessage(
+          setTentWarningMessage(
             "You need to purchase 3 tickets to select this option."
           );
         }
@@ -108,8 +113,12 @@ const Chooseticket = ({ ticketType }) => {
       default:
         break;
     }
-    setTimeout(() => setWarningMessage(""), 6000);
   };
+
+  setTimeout(() => {
+    setWarningMessage("");
+    setTentWarningMessage("");
+  }, 6000);
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -153,6 +162,10 @@ const Chooseticket = ({ ticketType }) => {
             onDecrement={handleDecrement}
           />
         </div>
+
+        {warningMessage && (
+          <div className="p-3 text-red-500">{warningMessage}</div>
+        )}
 
         <div className="p-3">
           <h3>
@@ -228,8 +241,8 @@ const Chooseticket = ({ ticketType }) => {
           }
         />
 
-        {warningMessage && (
-          <div className="p-3 text-red-500">{warningMessage}</div>
+        {tentWarningMessage && (
+          <div className="p-3 text-red-500">{tentWarningMessage}</div>
         )}
 
         <div className="flex flex-col items-center p-3 mb-8">
