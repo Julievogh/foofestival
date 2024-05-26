@@ -22,7 +22,7 @@ const Chooseticket = ({ ticketType }) => {
   const [formData, setFormData] = useState({
     campingArea: "",
   });
-  const [formSubmitted, setFormSubmitted] = useState(false); 
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   const calculateTotalPrice = () => {
     let totalPrice = 0;
@@ -132,6 +132,11 @@ const Chooseticket = ({ ticketType }) => {
     }));
   };
 
+  const sendParamsToPersonalInfo = () => {
+    const totalPrice = calculateTotalPrice();
+    window.location.href = `./personal-info?ticketAmount=${ticketAmount}&totalPrice=${totalPrice}`;
+  };
+
   return (
     <form onSubmit={handleFormSubmit}>
       <article>
@@ -227,15 +232,16 @@ const Chooseticket = ({ ticketType }) => {
           <div className="p-3 text-red-500">{warningMessage}</div>
         )}
 
-<div className="flex flex-col items-center p-3 mb-8">
-    <Link href={`/personal-info?ticketAmount=${ticketAmount}`}>
-      <button className="bg-blue-500 text-white py-2 px-4 rounded">
-        Reserve
-      </button>
-    </Link>
-
-</div>
-
+        <div className="flex flex-col items-center p-3 mb-8">
+          <Link href="./personal-info">
+            <button
+              onClick={sendParamsToPersonalInfo}
+              className="bg-blue-500 text-white py-2 px-4 rounded"
+            >
+              Reserve
+            </button>
+          </Link>
+        </div>
       </article>
     </form>
   );
