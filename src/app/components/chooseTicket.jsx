@@ -227,7 +227,7 @@ const Chooseticket = ({ ticketType }) => {
           <div className="p-3 text-red-500">{warningMessage}</div>
         )}
 
-<div className="flex flex-col items-center p-3">
+<div className="flex flex-col items-center p-3 mb-8">
     <Link href={`/personal-info?ticketAmount=${ticketAmount}`}>
       <button className="bg-blue-500 text-white py-2 px-4 rounded">
         Reserve
