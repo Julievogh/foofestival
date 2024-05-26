@@ -32,7 +32,7 @@ export default function BigNav() {
           </Link>
         </NavbarItem>
         <NavbarItem isActive>
-          <Link href="calender" aria-current="page">
+          <Link href="schedule" aria-current="page">
             Schedule
           </Link>
         </NavbarItem>
