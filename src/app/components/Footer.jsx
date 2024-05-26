@@ -33,7 +33,7 @@ const Footer = () => {
   return (
     <footer className={`${styles.footer} ${showFooter ? styles.show : ""}`}>
       <div className={styles.wrapper}>
-        <Navbar isCompact variant="static">
+        <Navbar iscompact="true" variant="static">
           <NavbarContent className={styles.container} justify="center">
             <Link href="https://www.instagram.com" target="_blank">
               Follow Us on @FOOFEST
