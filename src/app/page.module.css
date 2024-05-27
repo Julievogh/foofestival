@@ -10,7 +10,7 @@
 }
 
 .hero {
-  background: var(--background-glitch-img) center/cover no-repeat;
+  background: url("/imgs/forsidebg1.jpg") center/cover no-repeat;
   width: 100%;
   height: calc(100vh - var(--header-height));
   position: relative;
@@ -182,8 +182,7 @@
   margin: 2rem 0;
 }
 .bottom {
-  background: url("../../public/imgs/iStock-1387279248.jpg") center/cover
-    no-repeat;
+  background: url("/imgs/forsidebg2.jpg") center/cover no-repeat;
   width: 100%;
   min-height: 80vh;
   position: relative;
