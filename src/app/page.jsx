@@ -7,10 +7,11 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import ParallaxText from "./components/Effect/Effect";
 import { fetchBandsAndSchedule } from "../lib/api/bands";
+import Loading from "./components/Loading";
 
 export default function App() {
   const [randomBands, setRandomBands] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     async function fetchRandomBands() {
       try {
@@ -18,12 +19,17 @@ export default function App() {
         const shuffledBands = bandsData.sort(() => 0.5 - Math.random());
         const selectedBands = shuffledBands.slice(0, 3);
         setRandomBands(selectedBands);
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
+        setIsLoading(false);
       }
     }
     fetchRandomBands();
   }, []);
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <main className={styles.main}>
