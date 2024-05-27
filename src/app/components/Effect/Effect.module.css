@@ -5,8 +5,9 @@
   margin: 0;
   white-space: nowrap;
   display: flex;
-  flex-wrap: nowrap;
   justify-content: center;
+  width: 100vw;
+  box-sizing: border-box;
   color: rgb(216, 122, 34);
 }
 
@@ -16,7 +17,6 @@
   font-size: 54px;
   display: flex;
   white-space: nowrap;
-  flex-wrap: nowrap;
 }
 
 .parallax .scroller.purpleText {

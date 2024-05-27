@@ -100,20 +100,14 @@ export default function Page({ params }) {
             }}
           />
         </div>
-        <div
-          className={styles.infoSection}
-          style={{ backgroundColor: "rgba(255, 255, 255, 0.8)" }}
-        >
+        <div className={styles.infoSection} style={{ backgroundColor: "rgba(255, 255, 255, 0.8)" }}>
           <h6>Bio:</h6>
           <p>{bandData.bio}</p>
           <h6>Members:</h6>
           <p>{bandData.members.join(", ")}</p>
           <p>Genre: {bandData.genre}</p>
         </div>
-        <div
-          className={styles.infoSection}
-          style={{ backgroundColor: "rgba(255, 255, 255, 0.8)" }}
-        >
+        <div className={styles.infoSection} style={{ backgroundColor: "rgba(255, 255, 255, 0.8)" }}>
           <h6>When are they playing?</h6>
           {bandSchedule.length > 0 ? (
             bandSchedule.map((entry, index) => (

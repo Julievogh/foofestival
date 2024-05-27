@@ -8,6 +8,7 @@ import LikeButton from "../components/LikeButton";
 import Breadcrumbs from "../components/Breadcrumbs";
 import { Pagination, Input, Select } from "antd";
 import { fetchBandsAndSchedule } from "../../lib/api/bands";
+import Loading from "../components/Loading"; // Import Loading component
 
 const { Search } = Input;
 const { Option } = Select;
@@ -18,8 +19,9 @@ export default function FestivalPage() {
   const [showFavorites, setShowFavorites] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedStage, setSelectedStage] = useState("All");
-  const bandsPerPage = 12;
+  const bandsPerPage = 16;
   const [scheduleData, setScheduleData] = useState({});
+  const [loading, setLoading] = useState(true); // Initialize loading state
 
   useEffect(() => {
     async function fetchData() {
@@ -27,16 +29,16 @@ export default function FestivalPage() {
         const { bandsData, scheduleData } = await fetchBandsAndSchedule();
         setAllBands(bandsData);
         setScheduleData(scheduleData);
+        setLoading(false); // Set loading state to false when data fetching is complete
       } catch (error) {
         console.error("Error fetching data:", error);
+        setLoading(false); // Set loading state to false in case of error
       }
     }
     fetchData();
   }, []);
-  const likedBands =
-    typeof window !== "undefined"
-      ? JSON.parse(localStorage.getItem("likedBands")) || []
-      : [];
+
+  const likedBands = typeof window !== "undefined" ? JSON.parse(localStorage.getItem("likedBands")) || [] : [];
 
   if (allBands.length === 0 || Object.keys(scheduleData).length === 0) {
     return <div>Loading...</div>;
@@ -74,24 +76,15 @@ export default function FestivalPage() {
     return null;
   };
 
-  const filteredBands = showFavorites
-    ? allBands.filter((band) => likedBands.includes(band.slug))
-    : allBands.filter((band) =>
-        band.name.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+  const filteredBands = allBands.filter((band) => {
+    const matchesSearch = band.name.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesFavorites = !showFavorites || likedBands.includes(band.slug);
+    const stage = getStageForBand(band.name);
+    const matchesStage = selectedStage === "All" || stage === selectedStage;
+    return matchesSearch && matchesFavorites && matchesStage;
+  });
 
-  const sortedBands = [...filteredBands]
-    .filter((band) => {
-      const stage = getStageForBand(band.name);
-      return selectedStage === "All" || stage === selectedStage;
-    })
-    .sort((a, b) => {
-      const stageA = getStageForBand(a.name) || "";
-      const stageB = getStageForBand(b.name) || "";
-      return stageA.localeCompare(stageB);
-    });
-
-  const bands = sortedBands.slice(indexOfFirstBand, indexOfLastBand);
+  const bands = filteredBands.slice(indexOfFirstBand, indexOfLastBand);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -99,6 +92,10 @@ export default function FestivalPage() {
     setShowFavorites((prevShowFavorites) => !prevShowFavorites);
     setCurrentPage(1);
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <main>
@@ -111,16 +108,8 @@ export default function FestivalPage() {
           <p onClick={toggleFavorites} style={{ cursor: "pointer" }}>
             Favorites
           </p>
-          <Search
-            placeholder="Search bands"
-            onChange={handleSearchChange}
-            style={{ width: 200 }}
-          />
-          <Select
-            defaultValue="All"
-            onChange={handleStageSelect}
-            style={{ width: 200, marginLeft: "1rem" }}
-          >
+          <Search placeholder="Search bands" onChange={handleSearchChange} style={{ width: 200 }} />
+          <Select defaultValue="All" onChange={handleStageSelect} style={{ width: 200, marginLeft: "1rem" }}>
             <Option value="All">All Stages</Option>
             <Option value="Midgard">Midgard</Option>
             <Option value="Vanaheim">Vanaheim</Option>
@@ -137,10 +126,7 @@ export default function FestivalPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <motion.div
-                className={styles.imageContainer}
-                whileHover={{ scale: 1.05 }}
-              >
+              <motion.div className={styles.imageContainer} whileHover={{ scale: 1.05 }}>
                 <LikeButton slug={band.slug} className={styles.likeButton} />
                 <Link href={`/festival/${band.slug}`}>
                   <Image

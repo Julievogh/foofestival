@@ -11,13 +11,16 @@ export const getDominantColor = (imgUrl) => {
       const colorThief = new ColorThief();
       try {
         const dominantColor = colorThief.getColor(img);
+        console.log("Dominant color fetched:", dominantColor);
         resolve(dominantColor);
       } catch (error) {
+        console.error("ColorThief error:", error);
         reject(error);
       }
     };
 
     img.onerror = (error) => {
+      console.error("Image loading error:", error);
       reject(error);
     };
   });
