@@ -22,7 +22,7 @@ export default function App() {
         const shuffledBands = first16Bands.sort(() => 0.5 - Math.random());
         const selectedBands = shuffledBands.slice(0, 3);
         setRandomBands(selectedBands);
-        setLoading(false); // Set loading to false once data is fetched
+        setLoading(false); 
       } catch (error) {
         console.error("Error fetching data:", error);
       }
