@@ -1,32 +1,32 @@
 import React, { useEffect, useState } from "react";
-import BlueButton from "./BlueButton";
 import Countries from "./Countries";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
-import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 const PersonalInfo = () => {
+  const searchParams = useSearchParams();
+  const type = searchParams.get("type");
+  const ticketAmount = parseInt(searchParams.get('ticketAmount'));
+  const totalPrice = parseInt(searchParams.get('totalPrice'));
+  const isGreenCamping = searchParams.get('isGreenCamping') === 'true';
+  const isTent2Person = searchParams.get('isTent2Person') === 'true';
+  const isTent3Person = searchParams.get('isTent3Person') === 'true';
+
   const [guestInputs, setGuestInputs] = useState([]);
   const form = useForm();
   const { register, control, handleSubmit, formState } = form;
   const { errors } = formState;
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
     const ticketAmount = parseInt(searchParams.get('ticketAmount'));
-  
-    // if ticketAmount is greater than 1, create input fields for guest names
     if (ticketAmount > 1) {
       const inputs = [];
-  
-      // Add h3 for guest info
       inputs.push(
         <div key="guestInfo" className="flex flex-col">
           <h3>Guest Info</h3>
         </div>
       );
-  
-      // Generate input fields for each guest name
       for (let i = 0; i < ticketAmount - 1; i++) {
         inputs.push(
           <div key={i} className="flex flex-col">
@@ -46,58 +46,21 @@ const PersonalInfo = () => {
           </div>
         );
       }
-  
       setGuestInputs(inputs);
     }
-  }, [errors, register]);
-  
-
-  const onSubmit = async (data) => {
-    const endpoint = "https://yehhhdwxrekwnvfpdaxf.supabase.co/rest/v1/foofest2";
-    const apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InllaGhoZHd4cmVrd252ZnBkYXhmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTY1NDY1NTYsImV4cCI6MjAzMjEyMjU1Nn0.LMM7xRAUn2moW9TM8A5jQSuZtpFfc6RXk0k0KHngu-Q";
-
-    const headersList = {
-      "Content-Type": "application/json",
-      "apikey": apiKey,
-      "Authorization": `Bearer ${apiKey}`,
-    };
-
-    const bodyContent = JSON.stringify(data);
-
-    try {
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: headersList,
-        body: bodyContent,
-      });
-
-      const responseText = await response.text();
-      if (!response.ok) {
-        throw new Error(`Network response was not ok: ${responseText}`);
-      }
-
-      if (responseText) {
-        try {
-          const result = JSON.parse(responseText);
-          console.log("Data submitted successfully", result);
-        } catch {
-          throw new Error(`Failed to parse JSON response: ${responseText}`);
-        }
-      } else {
-        console.log("Data submitted successfully, but no response body");
-      }
-    } catch (error) {
-      console.error("Error submitting data:", error);
-    }
-  };
+  }, [errors, register, searchParams]);
 
   const normalizePhoneNumber = (value) => value.replace(/[\s-]/g, "");
 
   return (
     <section className="w-full bg-white">
-      <form onSubmit={handleSubmit(onSubmit)} noValidate className="p-5">
-
-     
+      <form action="/payment" method="GET" noValidate className="p-5">
+        <input type="hidden" name="type" value={type} />
+        <input type="hidden" name="ticketAmount" value={ticketAmount} />
+        <input type="hidden" name="totalPrice" value={totalPrice} />
+        <input type="hidden" name="isGreenCamping" value={isGreenCamping} />
+        <input type="hidden" name="isTent2Person" value={isTent2Person} />
+        <input type="hidden" name="isTent3Person" value={isTent3Person} />
 
         <section className="flex flex-col">
           <h3>Name</h3>
@@ -105,6 +68,7 @@ const PersonalInfo = () => {
           <input
             type="text"
             id="firstname"
+            name="firstname"
             {...register("firstname", {
               required: {
                 value: true,
@@ -119,6 +83,7 @@ const PersonalInfo = () => {
           <input
             type="text"
             id="lastname"
+            name="lastname"
             {...register("lastname", {
               required: {
                 value: true,
@@ -136,6 +101,7 @@ const PersonalInfo = () => {
           <input
             type="number"
             id="day"
+            name="day"
             {...register("day", {
               required: {
                 value: true,
@@ -156,8 +122,8 @@ const PersonalInfo = () => {
 
           <label htmlFor="month">Month:</label>
           <select
-          type="text"
             id="month"
+            name="month"
             {...register("month", {
               required: {
                 value: true,
@@ -186,6 +152,7 @@ const PersonalInfo = () => {
           <input
             type="text"
             id="year"
+            name="year"
             {...register("year", {
               required: {
                 value: true,
@@ -211,6 +178,7 @@ const PersonalInfo = () => {
           <input
             type="text"
             id="address"
+            name="address"
             {...register("address", {
               required: {
                 value: true,
@@ -225,6 +193,7 @@ const PersonalInfo = () => {
           <input
             type="text"
             id="city"
+            name="city"
             {...register("city", {
               required: {
                 value: true,
@@ -237,8 +206,9 @@ const PersonalInfo = () => {
 
           <label htmlFor="zip">Zip:</label>
           <input
-            type="int2"
+            type="text"
             id="zip"
+            name="zip"
             {...register("zip", {
               required: {
                 value: true,
@@ -256,6 +226,7 @@ const PersonalInfo = () => {
           <label htmlFor="country">Country:</label>
           <select
             id="country"
+            name="country"
             {...register("country", {
               required: {
                 value: true,
@@ -266,7 +237,9 @@ const PersonalInfo = () => {
           >
             <option value="">Select a country</option>
             {Countries.map((country, index) => (
-              <option key={index} value={country.name}>{country.name}</option>
+              <option key={index} value={country.name}>
+                {country.name}
+              </option>
             ))}
           </select>
           <p className="text-red-500 m-2">{errors.country?.message}</p>
@@ -278,6 +251,7 @@ const PersonalInfo = () => {
           <input
             type="text"
             id="telephone"
+            name="telephone"
             {...register("telephone", {
               required: {
                 value: true,
@@ -287,7 +261,7 @@ const PersonalInfo = () => {
                 value: /^(\d{2}\s?){3}\d{2}$/,
                 message: "Invalid phone number format",
               },
-              setValueAs: (value) => normalizePhoneNumber(value),
+              setValueAs: normalizePhoneNumber,
             })}
             className="border border-gray-300 rounded-md"
           />
@@ -297,6 +271,7 @@ const PersonalInfo = () => {
           <input
             type="email"
             id="email"
+            name="email"
             {...register("email", {
               required: {
                 value: true,
@@ -314,33 +289,34 @@ const PersonalInfo = () => {
                   );
                 },
                 notBlackListed: (fieldValue) => {
-                  return (                    !fieldValue.endsWith("baddomain.com") ||
-                  "This domain is not supported"
-                );
+                  return (
+                    !fieldValue.endsWith("baddomain.com") ||
+                    "This domain is not supported"
+                  );
+                },
               },
-            },
-          })}
-          className="border border-gray-300 rounded-md"
-        />
-        <p className="text-red-500 m-2">{errors.email?.message}</p>
+            })}
+            className="border border-gray-300 rounded-md"
+          />
+          <p className="text-red-500 m-2">{errors.email?.message}</p>
+        </section>
 
         {guestInputs.map((input, index) => (
           <React.Fragment key={index}>{input}</React.Fragment>
         ))}
-      </section>
 
-      <div className="flex flex-col justify-center mt-2 mb-5">
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-2" type="submit">submit</button>
-        <Link href='./payment'>
-          <BlueButton text="Go to payment" />
-        </Link>
-      </div>
-    </form>
-    <DevTool control={control} />
-  </section>
-);
+        <div className="flex flex-col justify-center mt-2 mb-5">
+          <button
+            type="submit"
+            className="bg-blue-500 text-white py-2 px-4 rounded"
+          >
+            Reserve
+          </button>
+        </div>
+      </form>
+      <DevTool control={control} />
+    </section>
+  );
 };
 
 export default PersonalInfo;
-
-                   

@@ -1,11 +1,14 @@
+"use client"
+
 import React from 'react'
+import Payment from '../components/Payment'
 
  const page = () => {
 
 
   return (
     <div className='p-5'>
-        <h1>Payment</h1>
+        <Payment />
     </div>
   )
 }

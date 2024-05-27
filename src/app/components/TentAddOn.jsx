@@ -38,6 +38,7 @@ const TentAddOn = ({
             <input
               type="checkbox"
               id="tent2person"
+              name="tent2person"
               className="w-6 h-6 ml-1"
               checked={checked2Person}
               onChange={(e) => onCheckboxChange2Person(e.target.checked)}
@@ -51,6 +52,7 @@ const TentAddOn = ({
             <input
               type="checkbox"
               id="tent3person"
+              name="tent3person"
               className="w-6 h-6 ml-1"
               checked={checked3Person}
               onChange={(e) => onCheckboxChange3Person(e.target.checked)}

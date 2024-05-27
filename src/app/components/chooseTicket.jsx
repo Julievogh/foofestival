@@ -4,9 +4,12 @@ import TicketSelector from "./TicketSelector";
 import FetchCampingSpots from "./FetchCampingSpots";
 import GreenCamping from "./GreenCamping";
 import TentAddOn from "./TentAddOn";
-import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 const Chooseticket = ({ ticketType }) => {
+  const searchParams = useSearchParams();
+  const type = searchParams.get("type");
+
   const regularPrice = 799;
   const vipPrice = 1299;
   const bookingFee = 99;
@@ -120,19 +123,6 @@ const Chooseticket = ({ ticketType }) => {
     setTentWarningMessage("");
   }, 6000);
 
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    console.log("Form Data:", {
-      ticketAmount,
-      isGreenCamping,
-      isTent2Person,
-      isTent3Person,
-      totalPrice: calculateTotalPrice(),
-      campingArea: formData.campingArea,
-    });
-    setFormSubmitted(true);
-  };
-
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({
@@ -141,13 +131,14 @@ const Chooseticket = ({ ticketType }) => {
     }));
   };
 
-  const sendParamsToPersonalInfo = () => {
-    const totalPrice = calculateTotalPrice();
-    window.location.href = `./personal-info?ticketAmount=${ticketAmount}&totalPrice=${totalPrice}`;
-  };
-
   return (
-    <form onSubmit={handleFormSubmit}>
+    <form action="/personal-info" method="GET">
+      <input type="hidden" name="type" value={type} />
+      <input type="hidden" name="ticketAmount" value={ticketAmount} />
+      <input type="hidden" name="totalPrice" value={calculateTotalPrice()} />
+      <input type="hidden" name="isGreenCamping" value={isGreenCamping} />
+      <input type="hidden" name="isTent2Person" value={isTent2Person} />
+      <input type="hidden" name="isTent3Person" value={isTent3Person} />
       <article>
         <div className="flex justify-between p-3">
           <div>
@@ -246,14 +237,12 @@ const Chooseticket = ({ ticketType }) => {
         )}
 
         <div className="flex flex-col items-center p-3 mb-8">
-          <Link href="./personal-info">
-            <button
-              onClick={sendParamsToPersonalInfo}
-              className="bg-blue-500 text-white py-2 px-4 rounded"
-            >
-              Reserve
-            </button>
-          </Link>
+          <button
+            type="submit"
+            className="bg-blue-500 text-white py-2 px-4 rounded"
+          >
+            Reserve
+          </button>
         </div>
       </article>
     </form>

@@ -27,6 +27,7 @@ const GreenCamping = ({
           <input
             type="checkbox"
             id="greenCamping"
+            name="greenCamping"
             className="w-6 h-6"
             checked={checked}
             onChange={(e) => onCheckboxChange(e.target.checked)}
