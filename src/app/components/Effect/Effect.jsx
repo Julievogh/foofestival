@@ -10,7 +10,7 @@ import {
 } from "framer-motion";
 
 import { wrap } from "@motionone/utils";
-import styles from "./Effect.module.css"; // Import CSS module
+import styles from "./Effect.module.css";
 
 function ParallaxText({ children, baseVelocity = 100, index }) {
   const baseX = useMotionValue(0);
@@ -24,7 +24,7 @@ function ParallaxText({ children, baseVelocity = 100, index }) {
     clamp: false,
   });
 
-  const x = useTransform(baseX, (v) => `${wrap(-20, 20, v)}%`);
+  const x = useTransform(baseX, (v) => `${wrap(-50, 50, v)}%`);
 
   const directionFactor = useRef(1);
   useAnimationFrame((t, delta) => {
@@ -43,10 +43,7 @@ function ParallaxText({ children, baseVelocity = 100, index }) {
 
   return (
     <div className={styles.parallax}>
-      <motion.div
-        className={`${styles.scroller} ${index === 1 ? styles.purpleText : ""}`}
-        style={{ x }}
-      >
+      <motion.div className={`${styles.scroller} ${index === 1 ? styles.purpleText : ""}`} style={{ x }}>
         <span>{children}</span>
         <span>{children}</span>
         <span>{children}</span>
