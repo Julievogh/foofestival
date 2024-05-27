@@ -15,11 +15,11 @@ const PersonalInfo = () => {
     const searchParams = new URLSearchParams(window.location.search);
     const ticketAmount = parseInt(searchParams.get('ticketAmount'));
   
-    // If ticketAmount is greater than 1, create input fields for guest names
+    // if ticketAmount is greater than 1, create input fields for guest names
     if (ticketAmount > 1) {
       const inputs = [];
   
-      // Add a single heading for guest info
+      // Add h3 for guest info
       inputs.push(
         <div key="guestInfo" className="flex flex-col">
           <h3>Guest Info</h3>
@@ -49,7 +49,7 @@ const PersonalInfo = () => {
   
       setGuestInputs(inputs);
     }
-  }, [errors, register]); // Include errors and register in the dependency array
+  }, [errors, register]);
   
 
   const onSubmit = async (data) => {
