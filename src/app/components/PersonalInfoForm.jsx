@@ -1,13 +1,56 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BlueButton from "./BlueButton";
 import Countries from "./Countries";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
+import Link from "next/link";
 
 const PersonalInfo = () => {
+  const [guestInputs, setGuestInputs] = useState([]);
   const form = useForm();
   const { register, control, handleSubmit, formState } = form;
   const { errors } = formState;
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const ticketAmount = parseInt(searchParams.get('ticketAmount'));
+  
+    // if ticketAmount is greater than 1, create input fields for guest names
+    if (ticketAmount > 1) {
+      const inputs = [];
+  
+      // Add h3 for guest info
+      inputs.push(
+        <div key="guestInfo" className="flex flex-col">
+          <h3>Guest Info</h3>
+        </div>
+      );
+  
+      // Generate input fields for each guest name
+      for (let i = 0; i < ticketAmount - 1; i++) {
+        inputs.push(
+          <div key={i} className="flex flex-col">
+            <label htmlFor={`guestName${i + 1}`}>Guest {i + 1} First Name:</label>
+            <input
+              type="text"
+              id={`guestName${i + 1}`}
+              {...register(`guestName${i + 1}`, {
+                required: {
+                  value: true,
+                  message: `Guest ${i + 1} First Name is required`,
+                },
+              })}
+              className="border border-gray-300 rounded-md"
+            />
+            <p className="text-red-500 m-2">{errors[`guestName${i + 1}`]?.message}</p>
+          </div>
+        );
+      }
+  
+      setGuestInputs(inputs);
+    }
+  }, [errors, register]);
+  
 
   const onSubmit = async (data) => {
     const endpoint = "https://yehhhdwxrekwnvfpdaxf.supabase.co/rest/v1/foofest2";
@@ -53,6 +96,9 @@ const PersonalInfo = () => {
   return (
     <section className="w-full bg-white">
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="p-5">
+
+     
+
         <section className="flex flex-col">
           <h3>Name</h3>
           <label htmlFor="firstname">First Name:</label>
@@ -277,10 +323,17 @@ const PersonalInfo = () => {
           className="border border-gray-300 rounded-md"
         />
         <p className="text-red-500 m-2">{errors.email?.message}</p>
+
+        {guestInputs.map((input, index) => (
+          <React.Fragment key={index}>{input}</React.Fragment>
+        ))}
       </section>
 
-      <div className="flex justify-center mt-2">
-        <BlueButton text="Submit" />
+      <div className="flex flex-col justify-center mt-2 mb-5">
+      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-2" type="submit">submit</button>
+        <Link href='./payment'>
+          <BlueButton text="Go to payment" />
+        </Link>
       </div>
     </form>
     <DevTool control={control} />
