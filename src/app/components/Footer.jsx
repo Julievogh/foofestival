@@ -8,27 +8,18 @@ const Footer = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Calculate how far the user has scrolled from the top
       const scrollY = window.scrollY || window.pageYOffset;
-      // Calculate the total height of the document including any content that goes beyond the viewport
-      const totalHeight = document.documentElement.scrollHeight;
-      // Calculate the height of the viewport
-      const viewportHeight = window.innerHeight;
-      // Calculate the remaining height below the viewport
-      const remainingHeight = totalHeight - viewportHeight;
-      // Determine if the user has scrolled to the bottom of the page
-      const isScrolledToBottom = scrollY >= remainingHeight;
-      // Update state to show/hide the Footer based on scroll position
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const isScrolledToBottom = scrollY >= totalHeight - 10; // Adding some tolerance
+
       setShowFooter(isScrolledToBottom);
     };
 
-    // Add scroll event listener
     window.addEventListener("scroll", handleScroll);
-    // Remove event listener on component unmount
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []); // Empty dependency array ensures useEffect only runs once on component mount
+  }, []);
 
   return (
     <footer className={`${styles.footer} ${showFooter ? styles.show : ""}`}>
