@@ -51,13 +51,9 @@ export default function SchedulePage() {
   function consolidateBreaks(dayData) {
     const consolidated = {};
     for (const time in dayData) {
-      const isBreak = dayData[time].every(
-        (band) => band.act.toLowerCase() === "break"
-      );
+      const isBreak = dayData[time].every((band) => band.act.toLowerCase() === "break");
       if (isBreak) {
-        consolidated[time] = [
-          { act: "Break", start: time, end: dayData[time][0].end },
-        ];
+        consolidated[time] = [{ act: "Break", start: time, end: dayData[time][0].end }];
       } else {
         consolidated[time] = dayData[time];
       }
@@ -103,24 +99,15 @@ export default function SchedulePage() {
         <h1 className="ml-4">Schedule</h1>
 
         <div className={styles.imageStages}>
-          <div
-            className={styles.imageContainer}
-            onClick={() => handleStageSelect("Jotunheim")}
-          >
+          <div className={styles.imageContainer} onClick={() => handleStageSelect("Jotunheim")}>
             <p>Jotunheim</p>
             <Image src="/stage3.png" alt="Jotunheim" width={200} height={200} />
           </div>
-          <div
-            className={styles.imageContainer}
-            onClick={() => handleStageSelect("Vanaheim")}
-          >
+          <div className={styles.imageContainer} onClick={() => handleStageSelect("Vanaheim")}>
             <p>Vanaheim</p>
             <Image src="/stage2.png" alt="Vanaheim" width={200} height={200} />
           </div>
-          <div
-            className={styles.imageContainer}
-            onClick={() => handleStageSelect("Midgard")}
-          >
+          <div className={styles.imageContainer} onClick={() => handleStageSelect("Midgard")}>
             <p>Midgard</p>
             <Image src="/stage1.png" alt="Midgard" width={200} height={200} />
           </div>
@@ -135,10 +122,7 @@ export default function SchedulePage() {
         </Link>
 
         <div className={styles.navigation}>
-          <button
-            onClick={handlePreviousDay}
-            disabled={dayList.indexOf(selectedDay) === 0}
-          >
+          <button onClick={handlePreviousDay} disabled={dayList.indexOf(selectedDay) === 0}>
             Previous Day
           </button>
           <select value={selectedDay} onChange={handleDayChange}>
@@ -148,68 +132,57 @@ export default function SchedulePage() {
               </option>
             ))}
           </select>
-          <button
-            onClick={handleNextDay}
-            disabled={dayList.indexOf(selectedDay) === dayList.length - 1}
-          >
+          <button onClick={handleNextDay} disabled={dayList.indexOf(selectedDay) === dayList.length - 1}>
             Next Day
           </button>
         </div>
         <div className={styles.scheduleContainer}>
           {selectedDay && (
             <div key={selectedDay} className={styles.scheduleDay}>
+              <h3>{selectedStage === "All" ? "All Stages" : `${selectedStage}`}</h3>
               <h2>{dayMapping[selectedDay]}</h2>
+
               <ul className={styles.scheduleList}>
-                {Object.keys(consolidateBreaks(scheduleData[selectedDay])).map(
-                  (time) => (
-                    <li key={time} className={styles.scheduleItem}>
-                      {consolidateBreaks(scheduleData[selectedDay])[time].map(
-                        (band) =>
-                          (selectedStage === "All" ||
-                            band.stage === selectedStage ||
-                            band.act.toLowerCase() === "break") && (
-                            <div
-                              key={`${band.stage}-${band.start}-${band.act}`}
-                              className={
-                                band.act.toLowerCase() === "break"
-                                  ? styles.breakItem
-                                  : styles.bandItem
-                              }
-                            >
-                              <span>
-                                Time: {band.start} - {band.end}
-                              </span>
-                              {band.act.toLowerCase() !== "break" && (
-                                <>
-                                  <span>{band.stage}</span>
-                                  <span>
-                                    {band.act.toLowerCase() !== "break" ? (
-                                      <Link
-                                        href={`/festival/${band.act
-                                          .toLowerCase()
-                                          .replace(/[^\w\s-]/g, "")
-                                          .replace(/[-\s]+/g, "-")}`}
-                                        className={styles.bandLink}
-                                      >
-                                        {band.act}
-                                      </Link>
-                                    ) : (
-                                      <span className={styles.bandLink}>
-                                        {band.act}
-                                      </span>
-                                    )}
-                                  </span>
-                                </>
-                              )}
-                              {band.act.toLowerCase() === "break" && (
-                                <span>{band.act}</span>
-                              )}
-                            </div>
-                          )
-                      )}
-                    </li>
-                  )
-                )}
+                {Object.keys(consolidateBreaks(scheduleData[selectedDay])).map((time) => (
+                  <li key={time} className={styles.scheduleItem}>
+                    {consolidateBreaks(scheduleData[selectedDay])[time].map(
+                      (band) =>
+                        (selectedStage === "All" ||
+                          band.stage === selectedStage ||
+                          band.act.toLowerCase() === "break") && (
+                          <div
+                            key={`${band.stage}-${band.start}-${band.act}`}
+                            className={band.act.toLowerCase() === "break" ? styles.breakItem : styles.bandItem}
+                          >
+                            <span>
+                              Time: {band.start} - {band.end}
+                            </span>
+                            {band.act.toLowerCase() !== "break" && (
+                              <>
+                                <span>{band.stage}</span>
+                                <span>
+                                  {band.act.toLowerCase() !== "break" ? (
+                                    <Link
+                                      href={`/festival/${band.act
+                                        .toLowerCase()
+                                        .replace(/[^\w\s-]/g, "")
+                                        .replace(/[-\s]+/g, "-")}`}
+                                      className={styles.bandLink}
+                                    >
+                                      {band.act}
+                                    </Link>
+                                  ) : (
+                                    <span className={styles.bandLink}>{band.act}</span>
+                                  )}
+                                </span>
+                              </>
+                            )}
+                            {band.act.toLowerCase() === "break" && <span>{band.act}</span>}
+                          </div>
+                        )
+                    )}
+                  </li>
+                ))}
               </ul>
             </div>
           )}
