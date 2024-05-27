@@ -70,9 +70,12 @@
 }
 
 .mainBand h1 {
-  font-size: 36px;
-  font-weight: bold;
-  color: rgb(32, 32, 107);
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 8px;
+  border-radius: 8px;
+  margin-top: 20px;
+  color: white;
+  font-weight: 800;
 }
 
 .mainBand p {
@@ -132,14 +135,13 @@
 }
 
 .infoSection {
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  background-color: rgba(0, 0, 0, 0.5);
   padding: 20px;
   border-radius: 8px;
   margin-top: 20px;
-  color: white; /* Ensure text is readable against the dark background */
+  color: white;
 }
 
-/* Optional: Specific styles for paragraphs inside the infoSection */
 .infoSection p {
   margin: 10px 0;
 }

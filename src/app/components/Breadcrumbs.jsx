@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const Breadcrumbs = ({ paths }) => {
   return (
-    <div>
+    <div className="pt-20">
       {paths.map((path, index) => (
         <span key={index} className="inline-flex items-center ml-4 mt-2">
           <Link href={path.href}>
