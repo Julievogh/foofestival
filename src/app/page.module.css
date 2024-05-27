@@ -245,8 +245,9 @@
 
 .buttonLink {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 10px 40px;
   margin-top: 20px;
+  margin-bottom: 100px;
   font-size: 16px;
   color: white;
   background-color: blue;

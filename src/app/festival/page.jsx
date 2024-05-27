@@ -8,6 +8,7 @@ import LikeButton from "../components/LikeButton";
 import Breadcrumbs from "../components/Breadcrumbs";
 import { Pagination, Input, Select } from "antd";
 import { fetchBandsAndSchedule } from "../../lib/api/bands";
+import Loading from "../components/Loading"; // Import Loading component
 
 const { Search } = Input;
 const { Option } = Select;
@@ -20,6 +21,7 @@ export default function FestivalPage() {
   const [selectedStage, setSelectedStage] = useState("All");
   const bandsPerPage = 16;
   const [scheduleData, setScheduleData] = useState({});
+  const [loading, setLoading] = useState(true); // Initialize loading state
 
   useEffect(() => {
     async function fetchData() {
@@ -27,8 +29,10 @@ export default function FestivalPage() {
         const { bandsData, scheduleData } = await fetchBandsAndSchedule();
         setAllBands(bandsData);
         setScheduleData(scheduleData);
+        setLoading(false); // Set loading state to false when data fetching is complete
       } catch (error) {
         console.error("Error fetching data:", error);
+        setLoading(false); // Set loading state to false in case of error
       }
     }
     fetchData();
@@ -88,6 +92,10 @@ export default function FestivalPage() {
     setShowFavorites((prevShowFavorites) => !prevShowFavorites);
     setCurrentPage(1);
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <main>

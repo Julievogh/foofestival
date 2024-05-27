@@ -6,34 +6,38 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import ParallaxText from "./components/Effect/Effect";
-import { fetchBandsAndSchedule } from "../lib/api/bands";
+import { fetchBands } from "../lib/api/bands";
+import Loading from "./components/Loading";
 
 export default function App() {
   const [randomBands, setRandomBands] = useState([]);
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    async function fetchRandomBands() {
+    async function fetchData() {
       try {
-        const { bandsData } = await fetchBandsAndSchedule();
-        const shuffledBands = bandsData.sort(() => 0.5 - Math.random());
+        const bands = await fetchBands();
+
+        const first16Bands = bands.slice(0, 16);
+
+        const shuffledBands = first16Bands.sort(() => 0.5 - Math.random());
         const selectedBands = shuffledBands.slice(0, 3);
         setRandomBands(selectedBands);
+        setLoading(false); // Set loading to false once data is fetched
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     }
-    fetchRandomBands();
+    fetchData();
   }, []);
 
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <main className={styles.main}>
       <div className={styles.hero}>
         <div className={styles.header}>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-          >
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
             <motion.h1
               initial={{ y: -50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -50,12 +54,7 @@ export default function App() {
             </motion.h1>
           </motion.div>
           <div className={styles.imageContainer}>
-            <Image
-              src="/imgs/logo1.png"
-              alt="flyer-foofest"
-              width={800}
-              height={800}
-            />
+            <Image src="/imgs/logo1.png" alt="flyer-foofest" width={800} height={800} />
           </div>
           <Link href="/ticket-frontpage" className={styles.buttonLink}>
             Tickets
@@ -109,7 +108,6 @@ export default function App() {
           ))}
         </div>
       </div>
-
       <div className={styles.bottom}>
         <div>
           <h4>Who is playing right now?</h4>

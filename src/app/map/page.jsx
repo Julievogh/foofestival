@@ -1,5 +1,6 @@
+// app/map/page.jsx
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "leaflet/dist/leaflet.css";
 import styles from "./Map.module.css";
 
@@ -14,11 +15,30 @@ const Page = () => {
     Toilets: [51.515, -0.144],
   });
   const circleRef = useRef(null);
+  const [windowWidth, setWindowWidth] = useState(undefined);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+      resetMap();
+    };
+
+    if (typeof window !== "undefined") {
+      setWindowWidth(window.innerWidth);
+      window.addEventListener("resize", handleResize);
+    }
+
+    return () => {
+      if (typeof window !== "undefined") {
+        window.removeEventListener("resize", handleResize);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (typeof window !== "undefined" && !window.L) {
       import("leaflet").then((L) => {
-        const map = L.map("map").setView([51.52, -0.145], 15);
+        const map = L.map("map").setView([51.52, -0.145], calculateInitialZoom());
         mapRef.current = map;
 
         const imageUrl = "/map.png";
@@ -35,6 +55,18 @@ const Page = () => {
       });
     }
   }, []);
+
+  const calculateInitialZoom = () => {
+    return windowWidth <= 600 ? 14 : 15;
+  };
+
+  const resetMap = () => {
+    const map = mapRef.current;
+    if (map) {
+      const zoomLevel = calculateInitialZoom();
+      map.setView([51.52, -0.145], zoomLevel);
+    }
+  };
 
   const handleSpotClick = (spot) => {
     const map = mapRef.current;
@@ -63,22 +95,21 @@ const Page = () => {
   };
 
   const handleZoomOut = () => {
-    const map = mapRef.current;
-    if (map) {
-      map.setView([51.52, -0.145], 15);
-    }
+    resetMap();
   };
 
   return (
-    <div>
-      <h1>Map</h1>
+    <div className={styles.pageContainer}>
+      <h1 className={styles.h1}>Map</h1>
       <div className={styles.buttonContainer}>
         {Object.keys(markersRef.current).map((spot) => (
-          <button key={spot} onClick={() => handleSpotClick(spot)}>
+          <button key={spot} onClick={() => handleSpotClick(spot)} className={styles.button}>
             {spot}
           </button>
         ))}
-        <button onClick={handleZoomOut}>Zoom Out</button>
+        <button onClick={handleZoomOut} className={`${styles.button} ${styles.zoomOutButton}`}>
+          Zoom Out
+        </button>
       </div>
       <div className={styles.mapContainer}>
         <div id="map" className={styles.map}></div>
