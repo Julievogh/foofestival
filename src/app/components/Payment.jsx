@@ -5,7 +5,6 @@ import { useSearchParams } from "next/navigation";
 const Payment = () => {
   const searchParams = useSearchParams();
   const type = searchParams.get("type");
-  
   const ticketAmount = parseInt(searchParams.get("ticketAmount"));
   const totalPrice = parseInt(searchParams.get("totalPrice"));
   const isGreenCamping = searchParams.get("isGreenCamping") === "true";
@@ -31,6 +30,8 @@ const Payment = () => {
   const form = useForm();
 
   const onSubmit = async (data) => {
+    console.log(data);
+
     const endpoint = "https://yehhhdwxrekwnvfpdaxf.supabase.co/rest/v1/foofest2";
     const apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InllaGhoZHd4cmVrd252ZnBkYXhmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTY1NDY1NTYsImV4cCI6MjAzMjEyMjU1Nn0.LMM7xRAUn2moW9TM8A5jQSuZtpFfc6RXk0k0KHngu-Q";
 
@@ -77,30 +78,30 @@ const Payment = () => {
       >
         <h2>Payment Information</h2>
 
-        <input type="hidden" name="type" value={type} />
-        <input type="hidden" name="ticketAmount" value={ticketAmount} />
-        <input type="hidden" name="totalPrice" value={totalPrice} />
-        <input type="hidden" name="isGreenCamping" value={isGreenCamping} />
-        <input type="hidden" name="isTent2Person" value={isTent2Person} />
-        <input type="hidden" name="isTent3Person" value={isTent3Person} />
-        <input type="hidden" name="firstname" value={firstname} />
-        <input type="hidden" name="lastname" value={lastname} />
-        <input type="hidden" name="day" value={day} />
-        <input type="hidden" name="month" value={month} />
-        <input type="hidden" name="year" value={year} />
-        <input type="hidden" name="address" value={address} />
-        <input type="hidden" name="city" value={city} />
-        <input type="hidden" name="zip" value={zip} />
-        <input type="hidden" name="country" value={country} />
-        <input type="hidden" name="telephone" value={telephone} />
-        <input type="hidden" name="email" value={email} />
+        <input type="hidden" {...form.register("type")} defaultValue={type} />
+        <input type="hidden" {...form.register("ticketAmount")} defaultValue={ticketAmount} />
+        <input type="hidden" {...form.register("totalPrice")} defaultValue={totalPrice} />
+        <input type="hidden" {...form.register("isGreenCamping")} defaultValue={isGreenCamping} />
+        <input type="hidden" {...form.register("isTent2Person")} defaultValue={isTent2Person} />
+        <input type="hidden" {...form.register("isTent3Person")} defaultValue={isTent3Person} />
+        <input type="hidden" {...form.register("firstname")} defaultValue={firstname} />
+        <input type="hidden" {...form.register("lastname")} defaultValue={lastname} />
+        <input type="hidden" {...form.register("day")} defaultValue={day} />
+        <input type="hidden" {...form.register("month")} defaultValue={month} />
+        <input type="hidden" {...form.register("year")} defaultValue={year} />
+        <input type="hidden" {...form.register("address")} defaultValue={address} />
+        <input type="hidden" {...form.register("city")} defaultValue={city} />
+        <input type="hidden" {...form.register("zip")} defaultValue={zip} />
+        <input type="hidden" {...form.register("country")} defaultValue={country} />
+        <input type="hidden" {...form.register("telephone")} defaultValue={telephone} />
+        <input type="hidden" {...form.register("email")} defaultValue={email} />
 
         {guestNames.map((guestName, index) => (
           <input
             key={index}
             type="hidden"
-            name={`guestName${index + 1}`}
-            value={guestName}
+            {...form.register(`guestName${index + 1}`)}
+            defaultValue={guestName}
           />
         ))}
 
@@ -111,7 +112,6 @@ const Payment = () => {
           <input
             type="text"
             id="cardName"
-            name="cardName"
             {...form.register("cardName", {
               required: {
                 value: true,
@@ -125,7 +125,6 @@ const Payment = () => {
           <input
             type="text"
             id="cardNumber"
-            name="cardNumber"
             {...form.register("cardNumber", {
               required: {
                 value: true,
@@ -142,7 +141,6 @@ const Payment = () => {
           <label htmlFor="expMonth">Expiration Month:</label>
           <select
             id="expMonth"
-            name="expMonth"
             {...form.register("expMonth", {
               required: {
                 value: true,
@@ -152,37 +150,29 @@ const Payment = () => {
             className="border border-gray-300 rounded-md"
           >
             <option value="">Select a month</option>
-            <option value="01">01 - January</option>
-            <option value="01">01 - January</option>
-            <option value="01">01 - January</option>
-            <option value="01">01 - January</option>
-            <option value="01">01 - January</option>
-            <option value="01">01 - January</option>
-            <option value="01">01 - January</option>
-            <option value="01">01 - January</option>
-            <option value="01">01 - January</option>
-            <option value="01">01 - January</option>
-            <option value="01">01 - January</option>
-            
+            {Array.from({ length: 12 }, (_, i) => (
+              <option key={i} value={String(i + 1).padStart(2, '0')}>
+                {String(i + 1).padStart(2, '0')} - {new Date(0, i).toLocaleString('default', { month: 'long' })}
+              </option>
+            ))}
           </select>
 
           <label htmlFor="expYear">Expiration Year:</label>
           <input
             type="text"
             id="expYear"
-            name="expYear"
             {...form.register("expYear", {
               required: {
                 value: true,
                 message: "Expiration Year is required",
               },
               min: {
-                value: 2015,
-                message: "Year must be at least 2015",
+                value: new Date().getFullYear(),
+                message: `Year must be at least ${new Date().getFullYear()}`,
               },
               max: {
                 value: 2035,
-                message: `Year cannot be more than 2035`,
+                message: "Year cannot be more than 2035",
               },
             })}
             className="border border-gray-300 rounded-md"
@@ -192,7 +182,6 @@ const Payment = () => {
           <input
             type="text"
             id="cvv"
-            name="cvv"
             {...form.register("cvv", {
               required: {
                 value: true,
@@ -205,8 +194,6 @@ const Payment = () => {
             })}
             className="border border-gray-300 rounded-md"
           />
-
-
         </section>
 
         <div className="flex flex-col justify-center mt-2 mb-5">
