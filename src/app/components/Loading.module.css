@@ -1,0 +1,35 @@
+/* components/LoadingAnimation.module.css */
+@keyframes dotAnimation {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: rgb(33, 33, 93);
+  color: aliceblue;
+  font-size: 2rem;
+}
+
+.dots {
+  display: inline-flex;
+}
+
+.dot {
+  animation: dotAnimation 1s infinite;
+}
+
+.text {
+  margin-top: 10px;
+}
