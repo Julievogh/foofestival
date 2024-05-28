@@ -12,6 +12,7 @@ const PersonalInfo = () => {
   const isGreenCamping = searchParams.get('isGreenCamping') === 'true';
   const isTent2Person = searchParams.get('isTent2Person') === 'true';
   const isTent3Person = searchParams.get('isTent3Person') === 'true';
+  const reservationId = searchParams.get('reservationId');
 
   const [guestInputs, setGuestInputs] = useState([]);
   const form = useForm();
@@ -61,6 +62,8 @@ const PersonalInfo = () => {
         <input type="hidden" name="isGreenCamping" value={isGreenCamping} />
         <input type="hidden" name="isTent2Person" value={isTent2Person} />
         <input type="hidden" name="isTent3Person" value={isTent3Person} />
+        <input type="hidden" name="reservationId" value={reservationId} />
+
 
         <section className="flex flex-col">
           <h3>Name</h3>
