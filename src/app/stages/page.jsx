@@ -233,7 +233,7 @@ export default function SchedulePage() {
                               transition={{ duration: 0.5 }}
                             >
                               <span>
-                                Time: {band.start} - {band.end}
+                                {band.start} - {band.end}
                               </span>
                               {band.act.toLowerCase() !== "break" && (
                                 <>

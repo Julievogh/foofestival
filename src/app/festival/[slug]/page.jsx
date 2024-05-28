@@ -1,4 +1,3 @@
-// app/festival/[slug]/page.jsx
 "use client";
 import React, { useState, useEffect } from "react";
 import styles from "./slugpage.module.css";
@@ -83,45 +82,57 @@ export default function Page({ params }) {
     <main style={{ backgroundColor: bgColor }}>
       <Breadcrumbs paths={paths} />
       <div className={styles.mainBand}>
-        <h1>{bandData.name}</h1>
-        <div className={styles.imageContainer}>
-          <LikeButton slug={bandData.slug} className={styles.likeButton} />
-          <Image
-            src={
-              bandData.logo.startsWith("https://")
-                ? bandData.logo
-                : `https://abyssinian-aeolian-gazelle.glitch.me/logos/${bandData.logo}`
-            }
-            alt={bandData.logoCredits}
-            width={200}
-            height={200}
-            onError={(e) => {
-              e.target.src = "/path/to/default-image.jpg"; // Fallback image
-            }}
-          />
+        <h1 className={styles.bandName}>{bandData.name}</h1>
+        <div className={styles.box}>
+          <div className={styles.imageContainer}>
+            <LikeButton slug={bandData.slug} className={styles.likeButton} />
+            <Image
+              src={
+                bandData.logo.startsWith("https://")
+                  ? bandData.logo
+                  : `https://abyssinian-aeolian-gazelle.glitch.me/logos/${bandData.logo}`
+              }
+              alt={bandData.logoCredits}
+              width={200}
+              height={200}
+              onError={(e) => {
+                e.target.src = "/path/to/default-image.jpg"; // Fallback image
+              }}
+            />
+            <div className={styles.scheduleLink}>
+              <Link href="/stages" className={styles.buttonLink}>
+                Schedule
+              </Link>
+            </div>
+          </div>
+          <div className={styles.infoWrapper}>
+            <div
+              className={styles.infoSection}
+              style={{ backgroundColor: "rgba(255, 255, 255, 0.8)" }}
+            >
+              <h6>Bio:</h6>
+              <p>{bandData.bio}</p>
+              <h6>Members:</h6>
+              <p>{bandData.members.join(", ")}</p>
+              <p>Genre: {bandData.genre}</p>
+            </div>
+            <div
+              className={styles.infoSection}
+              style={{ backgroundColor: "rgba(255, 255, 255, 0.8)" }}
+            >
+              <h6>When are they playing?</h6>
+              {bandSchedule.length > 0 ? (
+                bandSchedule.map((entry, index) => (
+                  <p key={index}>
+                    {entry.day}, {entry.start} - {entry.end} at {entry.stage}
+                  </p>
+                ))
+              ) : (
+                <p>No schedule information available.</p>
+              )}
+            </div>
+          </div>
         </div>
-        <div className={styles.infoSection} style={{ backgroundColor: "rgba(255, 255, 255, 0.8)" }}>
-          <h6>Bio:</h6>
-          <p>{bandData.bio}</p>
-          <h6>Members:</h6>
-          <p>{bandData.members.join(", ")}</p>
-          <p>Genre: {bandData.genre}</p>
-        </div>
-        <div className={styles.infoSection} style={{ backgroundColor: "rgba(255, 255, 255, 0.8)" }}>
-          <h6>When are they playing?</h6>
-          {bandSchedule.length > 0 ? (
-            bandSchedule.map((entry, index) => (
-              <p key={index}>
-                {entry.day}, {entry.start} - {entry.end} at {entry.stage}
-              </p>
-            ))
-          ) : (
-            <p>No schedule information available.</p>
-          )}
-        </div>
-        <Link href="/stages" className={styles.buttonLink}>
-          Schedule
-        </Link>
       </div>
     </main>
   );
