@@ -11,15 +11,21 @@ const ChooseTicketPageWrapper = () => {
 
   return (
     <>
-      <article className="w-full bg-white mt-16 sm:mt-20 md:mt-24 lg:mt-28 xl:mt-32 mb-8 sm:mb-12 md:mb-16 lg:mb-20 xl:mb-24">
-        <TicketHeader ticketType={ticketType} />
-        <h3 className="pt-2 pl-2">
-          <strong>Choose tickets</strong>
-        </h3>
-        <div className="flex flex-col w-full justify-start mx-auto">
-          <Chooseticket ticketType={ticketType} />
+      <div className="bg-gray-100 min-h-screen">
+        <div className="container mx-auto px-4 lg:px-8 py-16">
+        <article className="bg-white rounded-lg shadow-md mx-auto lg:max-w-screen-lg xl:max-w-screen-lg 2xl:max-w-screen-lg">
+  <TicketHeader ticketType={ticketType} />
+  <h3 className="pt-2 pl-2">
+    <strong>Choose tickets</strong>
+  </h3>
+  <div className="flex flex-col justify-start">
+    <Chooseticket ticketType={ticketType} />
+  </div>
+</article>
+
+
         </div>
-      </article>
+      </div>
     </>
   );
 };

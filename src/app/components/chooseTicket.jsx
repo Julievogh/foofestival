@@ -30,6 +30,7 @@ const Chooseticket = ({ ticketType }) => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [reservationId, setReservationId] = useState(""); // State for reservation ID
   const [campingAreaSelected, setCampingAreaSelected] = useState(false); // State for camping area selection
+  const [buttonClicked, setButtonClicked] = useState(false); // State for button click
 
   const calculateTotalPrice = () => {
     let totalPrice = 0;
@@ -156,9 +157,6 @@ const Chooseticket = ({ ticketType }) => {
     };
 
     try {
-      // "http://free-simple-babcat.glitch.me/reserve-spot"
-      // "http://localhost:8080/reserve-spot"
-      // "https://abyssinian-aeolian-gazelle.glitch.me/reserve-spot"
       const response = await fetch(
         "https://abyssinian-aeolian-gazelle.glitch.me/reserve-spot",
         {
@@ -172,7 +170,6 @@ const Chooseticket = ({ ticketType }) => {
 
       if (response.ok) {
         const data = await response.json();
-        //Her forsøger jeg at gemme id'et
         setReservationId(data.id);
         setReserveMessage("Reservation successful!");
         console.log("Reservation ID:", data.id);
@@ -187,6 +184,13 @@ const Chooseticket = ({ ticketType }) => {
     }
   };
 
+  const handleClick = () => {
+    setButtonClicked(true);
+    if (campingAreaSelected) {
+      handlePutRequest();
+    }
+  };
+
   return (
     <form action="/personal-info" method="GET">
       <input type="hidden" name="type" value={type} />
@@ -198,7 +202,6 @@ const Chooseticket = ({ ticketType }) => {
       <input type="hidden" name="reservationId" value={reservationId} />
       <article>
         <div className="flex justify-between bg-gray-100 rounded-lg p-3">
-          {" "}
           <div>
             <TicketComponent2
               title={ticketType === "Regular" ? "Regular ticket" : "VIP ticket"}
@@ -260,16 +263,25 @@ const Chooseticket = ({ ticketType }) => {
           </FetchCampingSpots>
         </div>
 
-        <div
-          onClick={handlePutRequest}
-          className={`bg-green-500 text-white p-5 ${
-            !campingAreaSelected && "cursor-not-allowed opacity-50"
-          }`}
-        >
-          reserve camping
+        <div className="flex justify-center">
+          <div
+            onClick={handleClick}
+            className={`bg-green-500 text-white px-4 py-2 mt-2 mb-2 rounded-md ${
+              campingAreaSelected
+                ? "cursor-pointer"
+                : "opacity-50"
+            }`}
+          >
+            Reserve camping
+          </div>
         </div>
         {reserveMessage && (
-          <div className="p-3 text-red-500">{reserveMessage}</div>
+          <div className="p-3 text-green-500 text-center">{reserveMessage}</div>
+        )}
+        {buttonClicked && !campingAreaSelected && !reserveMessage && (
+          <div className="text-red-500 text-center mt-1">
+            Please choose a camping area before reserving
+          </div>
         )}
 
         <GreenCamping

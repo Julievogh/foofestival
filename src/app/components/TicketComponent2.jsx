@@ -3,7 +3,7 @@ import React from "react";
 const TicketComponent2 = ({ title, price }) => {
   return (
     <div className="flex justify-start mb-4">
-      <div className="flex-shrink-0 mr-4">
+      <div className="flex-shrink-0">
       </div>
       <div>
         <p className="text-lg font-semibold">{title}</p>
