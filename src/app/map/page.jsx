@@ -162,6 +162,9 @@ const Page = () => {
       <div className={styles.mapContainer}>
         <div id="map" className={styles.map}></div>
       </div>
+      <div>
+        HER ER NOGET <button>HEJSA</button>
+      </div>
     </div>
   );
 };

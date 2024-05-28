@@ -23,6 +23,8 @@
   margin-top: 20px;
   color: white;
   font-weight: 800;
+  box-shadow: 4px 12px 12px rgba(49, 48, 61, 0.5);
+  text-shadow: 2px 2px 4px rgba(67, 69, 78, 0.5);
 }
 
 .box {
@@ -31,7 +33,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: rgba(148, 145, 179, 0.5);
+  background-color: rgba(148, 145, 179, 0.2);
   border-radius: 20px;
   padding: 2rem;
   width: 100%;
@@ -39,6 +41,11 @@
   margin-bottom: 60px;
   margin-top: 20px;
   box-shadow: 4px 12px 12px rgba(0, 0, 0, 0.5);
+  transition-duration: 0.4s;
+}
+
+.box:hover {
+  background-color: rgba(50, 45, 112, 0.2);
 }
 
 .imageContainer {
@@ -53,7 +60,6 @@
   height: auto;
   object-fit: cover;
   border-radius: 8px;
-  box-shadow: 4px 12px 12px rgba(0, 0, 0, 0.5);
 }
 
 .likeButton {
@@ -76,7 +82,7 @@
 }
 
 .infoSection {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(100, 81, 81, 0.2);
   padding: 10px;
   border-radius: 8px;
   margin: 10px 0;

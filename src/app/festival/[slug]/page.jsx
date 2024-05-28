@@ -82,18 +82,7 @@ export default function Page({ params }) {
     <main style={{ backgroundColor: bgColor }}>
       <Breadcrumbs paths={paths} />
       <div className={styles.mainBand}>
-        <h1
-          style={{
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-            padding: "8px",
-            borderRadius: "8px",
-            marginTop: "20px",
-            color: "white",
-            fontWeight: "800",
-          }}
-        >
-          {bandData.name}
-        </h1>
+        <h1 className={styles.bandName}>{bandData.name}</h1>
         <div className={styles.box}>
           <div className={styles.imageContainer}>
             <LikeButton slug={bandData.slug} className={styles.likeButton} />
