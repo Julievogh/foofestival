@@ -6,16 +6,31 @@ import styles from "./Map.module.css";
 
 const Page = () => {
   const mapRef = useRef(null);
-  const markersRef = useRef({
+  const markersRef = useRef({});
+  const circleRef = useRef(null);
+  const [windowWidth, setWindowWidth] = useState(undefined);
+
+  const largeScreenMarkers = {
     FoodStalls: [51.523, -0.156],
     Exit: [51.52645, -0.1475],
     Midgard: [51.524, -0.135],
     Vanaheim: [51.5194, -0.143],
     Jotunheim: [51.523, -0.149],
     Toilets: [51.515, -0.144],
-  });
-  const circleRef = useRef(null);
-  const [windowWidth, setWindowWidth] = useState(undefined);
+  };
+
+  const smallScreenMarkers = {
+    FoodStalls: [51.523, -0.15],
+    Exit: [51.525, -0.145],
+    Midgard: [51.524, -0.132],
+    Vanaheim: [51.52, -0.141],
+    Jotunheim: [51.523, -0.145],
+    Toilets: [51.515, -0.14],
+  };
+
+  const getCurrentMarkers = () => {
+    return windowWidth <= 600 ? smallScreenMarkers : largeScreenMarkers;
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -38,26 +53,38 @@ const Page = () => {
   useEffect(() => {
     if (typeof window !== "undefined" && !window.L) {
       import("leaflet").then((L) => {
-        const map = L.map("map").setView([51.52, -0.145], calculateInitialZoom());
+        const map = L.map("map").setView(
+          [51.52, -0.145],
+          calculateInitialZoom()
+        );
         mapRef.current = map;
 
         const imageUrl = "/map.png";
-        const imageBounds = map.getBounds();
-        const imageOverlay = L.imageOverlay(imageUrl, imageBounds).addTo(map);
+        const imageBounds = [
+          [51.51, -0.16],
+          [51.53, -0.13],
+        ];
+        L.imageOverlay(imageUrl, imageBounds).addTo(map);
 
-        Object.keys(markersRef.current).forEach((spot) => {
-          const [lat, lng] = markersRef.current[spot];
-          const marker = L.marker([lat, lng]).addTo(map).bindPopup(spot);
-
-          marker.on("click", () => handleSpotClick(spot));
-          markersRef.current[spot] = marker;
-        });
+        addMarkers(L, map);
       });
     }
-  }, []);
+  }, [windowWidth]);
 
   const calculateInitialZoom = () => {
     return windowWidth <= 600 ? 14 : 15;
+  };
+
+  const addMarkers = (L, map) => {
+    const currentMarkers = getCurrentMarkers();
+
+    Object.keys(currentMarkers).forEach((spot) => {
+      const [lat, lng] = currentMarkers[spot];
+      const marker = L.marker([lat, lng]).addTo(map).bindPopup(spot);
+
+      marker.on("click", () => handleSpotClick(spot));
+      markersRef.current[spot] = marker;
+    });
   };
 
   const resetMap = () => {
@@ -65,6 +92,20 @@ const Page = () => {
     if (map) {
       const zoomLevel = calculateInitialZoom();
       map.setView([51.52, -0.145], zoomLevel);
+      clearMarkers();
+      import("leaflet").then((L) => {
+        addMarkers(L, map);
+      });
+    }
+  };
+
+  const clearMarkers = () => {
+    const map = mapRef.current;
+    if (map) {
+      Object.keys(markersRef.current).forEach((spot) => {
+        map.removeLayer(markersRef.current[spot]);
+      });
+      markersRef.current = {};
     }
   };
 
@@ -102,12 +143,19 @@ const Page = () => {
     <div className={styles.pageContainer}>
       <h1 className={styles.h1}>Map</h1>
       <div className={styles.buttonContainer}>
-        {Object.keys(markersRef.current).map((spot) => (
-          <button key={spot} onClick={() => handleSpotClick(spot)} className={styles.button}>
+        {Object.keys(largeScreenMarkers).map((spot) => (
+          <button
+            key={spot}
+            onClick={() => handleSpotClick(spot)}
+            className={styles.button}
+          >
             {spot}
           </button>
         ))}
-        <button onClick={handleZoomOut} className={`${styles.button} ${styles.zoomOutButton}`}>
+        <button
+          onClick={handleZoomOut}
+          className={`${styles.button} ${styles.zoomOutButton}`}
+        >
           Zoom Out
         </button>
       </div>

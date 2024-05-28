@@ -1,33 +1,29 @@
-"use client";
 import React, { useState, useEffect } from "react";
 import styles from "./Loading.module.css";
+import { CirclesWithBar } from "react-loader-spinner";
 
 const LoadingAnimation = () => {
-  const [loadingText, setLoadingText] = useState("Calling the bands");
+  const [loadingText, setLoadingText] = useState("");
 
   useEffect(() => {
+    const loadingMessages = [
+      "Calling the bands",
+      "Tour bus parking",
+      "Stage check",
+      "Sound check",
+      "Almost there...",
+    ];
+
+    const randomIndex = Math.floor(Math.random() * loadingMessages.length);
+    setLoadingText(loadingMessages[randomIndex]);
+
     const interval = setInterval(() => {
-      switch (loadingText) {
-        case "Calling the bands":
-          setLoadingText("The bands are driving their tour bus");
-          break;
-        case "The bands are driving their tour bus":
-          setLoadingText("The bands are a bit late");
-          break;
-        case "The bands are a bit late":
-          setLoadingText("Waiting for the bands to arrive");
-          break;
-        case "Waiting for the bands to arrive":
-          setLoadingText("Almost there...");
-          break;
-        default:
-          setLoadingText("Calling the bands");
-          break;
-      }
-    }, 2000);
+      const randomIndex = Math.floor(Math.random() * loadingMessages.length);
+      setLoadingText(loadingMessages[randomIndex]);
+    }, 1000);
 
     return () => clearInterval(interval);
-  }, [loadingText]);
+  }, []);
 
   return (
     <div className={styles.loading}>
@@ -37,6 +33,20 @@ const LoadingAnimation = () => {
         <span className={styles.dot}>.</span>
       </div>
       <div className={styles.text}>{loadingText}</div>
+      <div className={styles.circlesWrapper}>
+        <CirclesWithBar
+          height={100}
+          width={100}
+          color="#F0F8FF"
+          outerCircleColor="#F0F8FF"
+          innerCircleColor="#F0F8FF"
+          barColor="#F0F8FF"
+          ariaLabel="circles-with-bar-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+      </div>
     </div>
   );
 };

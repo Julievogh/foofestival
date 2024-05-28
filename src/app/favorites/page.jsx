@@ -5,10 +5,11 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./favorites.module.css";
-import LikeButton from "../components/LikeButton"; // Adjusted path
-import Breadcrumbs from "../components/Breadcrumbs"; // Adjusted path
+import LikeButton from "../components/LikeButton";
+import Breadcrumbs from "../components/Breadcrumbs";
 import { Pagination } from "antd";
 import { fetchBands } from "../../lib/api/bands";
+import LoadingAnimation from "../components/Loading"; // Import the LoadingAnimation component
 
 export default function FavoritePage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,13 +25,10 @@ export default function FavoritePage() {
           setLoading(true);
           const likedBands =
             JSON.parse(localStorage.getItem("likedBands")) || [];
-          console.log("Liked Bands:", likedBands);
           const allBands = await fetchBands();
-          console.log("All Bands:", allBands);
           const favoriteBandsData = allBands.filter((band) =>
             likedBands.includes(band.slug)
           );
-          console.log("Favorite Bands Data:", favoriteBandsData);
           setFavoriteBands(favoriteBandsData);
         }
       } catch (error) {
@@ -54,7 +52,7 @@ export default function FavoritePage() {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <LoadingAnimation />; // Render the loading animation component while loading
   if (error) return <div>{error}</div>;
   return (
     <main>

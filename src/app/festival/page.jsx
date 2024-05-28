@@ -1,3 +1,4 @@
+// app/festival/page.jsx
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
@@ -8,7 +9,7 @@ import LikeButton from "../components/LikeButton";
 import Breadcrumbs from "../components/Breadcrumbs";
 import { Pagination, Input, Select } from "antd";
 import { fetchBandsAndSchedule } from "../../lib/api/bands";
-import Loading from "../components/Loading"; // Import Loading component
+import LoadingAnimation from "../components/Loading"; // Import the LoadingAnimation component
 
 const { Search } = Input;
 const { Option } = Select;
@@ -38,10 +39,13 @@ export default function FestivalPage() {
     fetchData();
   }, []);
 
-  const likedBands = typeof window !== "undefined" ? JSON.parse(localStorage.getItem("likedBands")) || [] : [];
+  const likedBands =
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("likedBands")) || []
+      : [];
 
   if (allBands.length === 0 || Object.keys(scheduleData).length === 0) {
-    return <div>Loading...</div>;
+    return <LoadingAnimation />; // Render the loading animation component while loading
   }
 
   const handleSearchChange = (e) => {
@@ -77,7 +81,9 @@ export default function FestivalPage() {
   };
 
   const filteredBands = allBands.filter((band) => {
-    const matchesSearch = band.name.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = band.name
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
     const matchesFavorites = !showFavorites || likedBands.includes(band.slug);
     const stage = getStageForBand(band.name);
     const matchesStage = selectedStage === "All" || stage === selectedStage;
@@ -93,10 +99,6 @@ export default function FestivalPage() {
     setCurrentPage(1);
   };
 
-  if (loading) {
-    return <Loading />;
-  }
-
   return (
     <main>
       <div className={styles.breadcrumbs}>
@@ -108,8 +110,16 @@ export default function FestivalPage() {
           <p onClick={toggleFavorites} style={{ cursor: "pointer" }}>
             Favorites
           </p>
-          <Search placeholder="Search bands" onChange={handleSearchChange} style={{ width: 200 }} />
-          <Select defaultValue="All" onChange={handleStageSelect} style={{ width: 200, marginLeft: "1rem" }}>
+          <Search
+            placeholder="Search bands"
+            onChange={handleSearchChange}
+            style={{ width: 200 }}
+          />
+          <Select
+            defaultValue="All"
+            onChange={handleStageSelect}
+            style={{ width: 200, marginLeft: "1rem" }}
+          >
             <Option value="All">All Stages</Option>
             <Option value="Midgard">Midgard</Option>
             <Option value="Vanaheim">Vanaheim</Option>
@@ -126,7 +136,10 @@ export default function FestivalPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <motion.div className={styles.imageContainer} whileHover={{ scale: 1.05 }}>
+              <motion.div
+                className={styles.imageContainer}
+                whileHover={{ scale: 1.05 }}
+              >
                 <LikeButton slug={band.slug} className={styles.likeButton} />
                 <Link href={`/festival/${band.slug}`}>
                   <Image
