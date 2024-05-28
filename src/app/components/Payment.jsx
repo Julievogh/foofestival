@@ -35,6 +35,8 @@ const Payment = () => {
   
     const endpoint = "https://yehhhdwxrekwnvfpdaxf.supabase.co/rest/v1/foofest2";
     const fulfillEndpoint = "http://localhost:8080/fulfill-reservation";
+    // "http://free-simple-babcat.glitch.me/fulfill-reservation"
+    // "http://localhost:8080/fulfill-reservation"
     const apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InllaGhoZHd4cmVrd252ZnBkYXhmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTY1NDY1NTYsImV4cCI6MjAzMjEyMjU1Nn0.LMM7xRAUn2moW9TM8A5jQSuZtpFfc6RXk0k0KHngu-Q";
   
     const headersList = {
@@ -73,11 +75,12 @@ const Payment = () => {
       // - this one do not when trying to send to localhost8080
       // error message: Access to fetch at 'http://localhost:8080/fulfill-reservation' from origin 'http://localhost:3000' has been blocked by CORS policy
       // Im thinking it will work when i send it to the actual endpoint
+      // does not work when i send to end point 
       await fetch(fulfillEndpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "apikey": apiKey,
+          // "apikey": apiKey,
           "Authorization": `Bearer ${apiKey}`,
         },
         body: JSON.stringify({ reservationId: data.reservationId }), // Send only reservationId

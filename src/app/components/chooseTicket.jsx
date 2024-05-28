@@ -156,7 +156,9 @@ const Chooseticket = ({ ticketType }) => {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/reserve-spot", {
+      // "http://free-simple-babcat.glitch.me/reserve-spot"
+      // "http://localhost:8080/reserve-spot"
+      const response = await fetch("http://free-simple-babcat.glitch.me/reserve-spot", {
         method: "PUT",
         headers: {
           "content-type": "application/json"

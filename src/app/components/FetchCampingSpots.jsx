@@ -4,9 +4,12 @@ const FetchCampingSpots = ({ children }) => {
   const [spots, setSpots] = useState([]);
   const [error, setError] = useState(null);
 
+  
   useEffect(() => {
     const fetchCampingSpots = async () => {
       try {
+        // "http://free-simple-babcat.glitch.me/available-spots"
+        // "http://localhost:8080/available-spots"
         const response = await fetch("http://localhost:8080/available-spots");
         if (!response.ok) {
           throw new Error("Failed to fetch available spots");
