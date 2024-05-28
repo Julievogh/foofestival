@@ -260,7 +260,7 @@ const Payment = () => {
           />
         </section>
 
-        <div className="flex flex-col justify-center mt-2 mb-5">
+        <div className="flex flex-col items-center p-3 mb-8">
           <button
             type="submit"
             className="bg-blue-500 text-white py-2 px-4 rounded"
