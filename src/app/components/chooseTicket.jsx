@@ -323,7 +323,7 @@ const Chooseticket = ({ ticketType }) => {
             type="submit"
             className="bg-blue-500 text-white py-2 px-4 rounded"
           >
-            Reserve
+            Next Page
           </button>
         </div>
       </article>
