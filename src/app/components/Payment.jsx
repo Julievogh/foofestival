@@ -32,34 +32,39 @@ const Payment = () => {
 
   const onSubmit = async (data) => {
     console.log(data);
-  
-    const endpoint = "https://yehhhdwxrekwnvfpdaxf.supabase.co/rest/v1/foofest2";
-    const fulfillEndpoint = "http://localhost:8080/fulfill-reservation";
+
+    const endpoint =
+      "https://yehhhdwxrekwnvfpdaxf.supabase.co/rest/v1/foofest2";
+    const apiKey =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InllaGhoZHd4cmVrd252ZnBkYXhmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTY1NDY1NTYsImV4cCI6MjAzMjEyMjU1Nn0.LMM7xRAUn2moW9TM8A5jQSuZtpFfc6RXk0k0KHngu-Q";
+
+    const fulfillEndpoint =
+      "https://abyssinian-aeolian-gazelle.glitch.me/fulfill-reservation";
     // "http://free-simple-babcat.glitch.me/fulfill-reservation"
     // "http://localhost:8080/fulfill-reservation"
-    const apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InllaGhoZHd4cmVrd252ZnBkYXhmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTY1NDY1NTYsImV4cCI6MjAzMjEyMjU1Nn0.LMM7xRAUn2moW9TM8A5jQSuZtpFfc6RXk0k0KHngu-Q";
-  
+    // "https://abyssinian-aeolian-gazelle.glitch.me/fulfill-reservation"
+
     const headersList = {
       "Content-Type": "application/json",
-      "apikey": apiKey,
-      "Authorization": `Bearer ${apiKey}`,
+      apikey: apiKey,
+      Authorization: `Bearer ${apiKey}`,
     };
-  
+
     const bodyContent = JSON.stringify(data);
-  
+
     try {
-      // First post request
+      // First post request to our own database
       const response = await fetch(endpoint, {
         method: "POST",
         headers: headersList,
         body: bodyContent,
       });
-  
+
       const responseText = await response.text();
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${responseText}`);
       }
-  
+
       if (responseText) {
         try {
           const result = JSON.parse(responseText);
@@ -70,54 +75,88 @@ const Payment = () => {
       } else {
         console.log("Data submitted successfully, but no response body");
       }
-  
-      // Second post request to fulfill reservation 
-      // - this one do not when trying to send to localhost8080
-      // error message: Access to fetch at 'http://localhost:8080/fulfill-reservation' from origin 'http://localhost:3000' has been blocked by CORS policy
-      // Im thinking it will work when i send it to the actual endpoint
-      // does not work when i send to end point 
+
+      // Second post request to fulfill reservation
       await fetch(fulfillEndpoint, {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          // "apikey": apiKey,
-          "Authorization": `Bearer ${apiKey}`,
         },
-        body: JSON.stringify({ reservationId: data.reservationId }), // Send only reservationId
+        body: JSON.stringify({ reservationId: data.reservationId }),
       });
-  
+
       console.log("Reservation fulfilled successfully");
     } catch (error) {
       console.error("Error submitting data:", error);
     }
   };
-  
 
   return (
     <section className="w-full bg-white">
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="p-5"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="p-5">
         <h2>Payment Information</h2>
 
         <input type="hidden" {...form.register("type")} defaultValue={type} />
-        <input type="hidden" {...form.register("ticketAmount")} defaultValue={ticketAmount} />
-        <input type="hidden" {...form.register("totalPrice")} defaultValue={totalPrice} />
-        <input type="hidden" {...form.register("isGreenCamping")} defaultValue={isGreenCamping} />
-        <input type="hidden" {...form.register("isTent2Person")} defaultValue={isTent2Person} />
-        <input type="hidden" {...form.register("isTent3Person")} defaultValue={isTent3Person} />
-        <input type="hidden" {...form.register("reservationId")} defaultValue={reservationId} />
-        <input type="hidden" {...form.register("firstname")} defaultValue={firstname} />
-        <input type="hidden" {...form.register("lastname")} defaultValue={lastname} />
+        <input
+          type="hidden"
+          {...form.register("ticketAmount")}
+          defaultValue={ticketAmount}
+        />
+        <input
+          type="hidden"
+          {...form.register("totalPrice")}
+          defaultValue={totalPrice}
+        />
+        <input
+          type="hidden"
+          {...form.register("isGreenCamping")}
+          defaultValue={isGreenCamping}
+        />
+        <input
+          type="hidden"
+          {...form.register("isTent2Person")}
+          defaultValue={isTent2Person}
+        />
+        <input
+          type="hidden"
+          {...form.register("isTent3Person")}
+          defaultValue={isTent3Person}
+        />
+        <input
+          type="hidden"
+          {...form.register("reservationId")}
+          defaultValue={reservationId}
+        />
+        <input
+          type="hidden"
+          {...form.register("firstname")}
+          defaultValue={firstname}
+        />
+        <input
+          type="hidden"
+          {...form.register("lastname")}
+          defaultValue={lastname}
+        />
         <input type="hidden" {...form.register("day")} defaultValue={day} />
         <input type="hidden" {...form.register("month")} defaultValue={month} />
         <input type="hidden" {...form.register("year")} defaultValue={year} />
-        <input type="hidden" {...form.register("address")} defaultValue={address} />
+        <input
+          type="hidden"
+          {...form.register("address")}
+          defaultValue={address}
+        />
         <input type="hidden" {...form.register("city")} defaultValue={city} />
         <input type="hidden" {...form.register("zip")} defaultValue={zip} />
-        <input type="hidden" {...form.register("country")} defaultValue={country} />
-        <input type="hidden" {...form.register("telephone")} defaultValue={telephone} />
+        <input
+          type="hidden"
+          {...form.register("country")}
+          defaultValue={country}
+        />
+        <input
+          type="hidden"
+          {...form.register("telephone")}
+          defaultValue={telephone}
+        />
         <input type="hidden" {...form.register("email")} defaultValue={email} />
 
         {guestNames.map((guestName, index) => (
@@ -175,8 +214,9 @@ const Payment = () => {
           >
             <option value="">Select a month</option>
             {Array.from({ length: 12 }, (_, i) => (
-              <option key={i} value={String(i + 1).padStart(2, '0')}>
-                {String(i + 1).padStart(2, '0')} - {new Date(0, i).toLocaleString('default', { month: 'long' })}
+              <option key={i} value={String(i + 1).padStart(2, "0")}>
+                {String(i + 1).padStart(2, "0")} -{" "}
+                {new Date(0, i).toLocaleString("default", { month: "long" })}
               </option>
             ))}
           </select>

@@ -10,7 +10,9 @@ const FetchCampingSpots = ({ children }) => {
       try {
         // "http://free-simple-babcat.glitch.me/available-spots"
         // "http://localhost:8080/available-spots"
-        const response = await fetch("http://localhost:8080/available-spots");
+        //  "https://abyssinian-aeolian-gazelle.glitch.me/available-spots"
+
+        const response = await fetch("https://abyssinian-aeolian-gazelle.glitch.me/available-spots");
         if (!response.ok) {
           throw new Error("Failed to fetch available spots");
         }
