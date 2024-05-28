@@ -159,13 +159,16 @@ const Chooseticket = ({ ticketType }) => {
       // "http://free-simple-babcat.glitch.me/reserve-spot"
       // "http://localhost:8080/reserve-spot"
       // "https://abyssinian-aeolian-gazelle.glitch.me/reserve-spot"
-      const response = await fetch("https://abyssinian-aeolian-gazelle.glitch.me/reserve-spot", {
-        method: "PUT",
-        headers: {
-          "content-type": "application/json"
-        },
-        body: JSON.stringify(reservationData),
-      });
+      const response = await fetch(
+        "https://abyssinian-aeolian-gazelle.glitch.me/reserve-spot",
+        {
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(reservationData),
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -194,7 +197,9 @@ const Chooseticket = ({ ticketType }) => {
       <input type="hidden" name="isTent3Person" value={isTent3Person} />
       <input type="hidden" name="reservationId" value={reservationId} />
       <article>
-        <div className="flex justify-between p-3">          <div>
+        <div className="flex justify-between bg-gray-100 rounded-lg p-3">
+          {" "}
+          <div>
             <TicketComponent2
               title={ticketType === "Regular" ? "Regular ticket" : "VIP ticket"}
               price={calculateTotalPrice()}
@@ -255,11 +260,17 @@ const Chooseticket = ({ ticketType }) => {
           </FetchCampingSpots>
         </div>
 
-        <div onClick={handlePutRequest} className={`bg-green-500 text-white p-5 ${!campingAreaSelected && 'cursor-not-allowed opacity-50'}`}>reserve camping</div>
+        <div
+          onClick={handlePutRequest}
+          className={`bg-green-500 text-white p-5 ${
+            !campingAreaSelected && "cursor-not-allowed opacity-50"
+          }`}
+        >
+          reserve camping
+        </div>
         {reserveMessage && (
           <div className="p-3 text-red-500">{reserveMessage}</div>
         )}
-
 
         <GreenCamping
           title="Green camping"
@@ -309,5 +320,3 @@ const Chooseticket = ({ ticketType }) => {
 };
 
 export default Chooseticket;
-
-         
