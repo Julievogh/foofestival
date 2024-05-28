@@ -65,6 +65,7 @@ const PersonalInfo = () => {
         noValidate
         className="w-full max-w-2xl mx-auto bg-white shadow-md rounded-lg p-6"
       >
+        <h2 className="class="text-2xl font-bold mb-5>Personal Info</h2>
         <input type="hidden" name="type" value={type} />
         <input type="hidden" name="ticketAmount" value={ticketAmount} />
         <input type="hidden" name="totalPrice" value={totalPrice} />
