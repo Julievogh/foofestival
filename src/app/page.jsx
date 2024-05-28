@@ -1,6 +1,7 @@
 // app/page.jsx
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+
 import styles from "./page.module.css";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,17 +9,18 @@ import { motion } from "framer-motion";
 import ParallaxText from "./components/Effect/Effect";
 import { fetchBands } from "../lib/api/bands";
 import Loading from "./components/Loading";
-
 export default function App() {
   const [randomBands, setRandomBands] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const heroRef = useRef(null);
+  const bottomRef = useRef(null);
+
   useEffect(() => {
     async function fetchData() {
       try {
         const bands = await fetchBands();
-
         const first16Bands = bands.slice(0, 16);
-
         const shuffledBands = first16Bands.sort(() => 0.5 - Math.random());
         const selectedBands = shuffledBands.slice(0, 3);
         setRandomBands(selectedBands);
@@ -27,17 +29,45 @@ export default function App() {
         console.error("Error fetching data:", error);
       }
     }
+
     fetchData();
+
+    const handleScroll = () => {
+      const scrollPos = window.scrollY;
+      const parallaxFactor = 0.4; // Adjust this value for the desired parallax effect
+      const hero = heroRef.current;
+      const bottom = bottomRef.current;
+
+      if (hero) {
+        hero.style.backgroundPositionY = -scrollPos * parallaxFactor + "px";
+      }
+
+      if (bottom) {
+        bottom.style.backgroundPositionY =
+          -scrollPos * parallaxFactor * 0.5 + "px";
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   if (loading) {
     return <Loading />;
   }
+
   return (
     <main className={styles.main}>
-      <div className={styles.hero}>
+      <div className={styles.hero} ref={heroRef}>
         <div className={styles.header}>
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+          >
             <motion.h1
               initial={{ y: -50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -54,7 +84,12 @@ export default function App() {
             </motion.h1>
           </motion.div>
           <div className={styles.imageContainer}>
-            <Image src="/imgs/logo1.png" alt="flyer-foofest" width={800} height={800} />
+            <Image
+              src="/imgs/logo7.png"
+              alt="flyer-foofest"
+              width={800}
+              height={800}
+            />
           </div>
           <Link href="/ticket-frontpage" className={styles.buttonLink}>
             Tickets
@@ -108,7 +143,7 @@ export default function App() {
           ))}
         </div>
       </div>
-      <div className={styles.bottom}>
+      <div className={styles.bottom} ref={bottomRef}>
         <div>
           <h4>Who is playing right now?</h4>
           <Link href="/stages" className={styles.buttonLink}>

@@ -14,7 +14,7 @@ export default function BigNav() {
     <Navbar shouldHideOnScroll>
       <NavbarBrand>
         <Image
-          src="/logo.png"
+          src="/imgs/logo8.png"
           alt="Logo"
           width={40}
           height={40}
