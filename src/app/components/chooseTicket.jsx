@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TicketComponent2 from "./TicketComponent2";
 import TicketSelector from "./TicketSelector";
 import FetchCampingSpots from "./FetchCampingSpots";
@@ -29,7 +29,7 @@ const Chooseticket = ({ ticketType }) => {
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [reservationId, setReservationId] = useState(""); // State for reservation ID
-
+  const [campingAreaSelected, setCampingAreaSelected] = useState(false); // State for camping area selection
 
   const calculateTotalPrice = () => {
     let totalPrice = 0;
@@ -121,10 +121,20 @@ const Chooseticket = ({ ticketType }) => {
     }
   };
 
-  setTimeout(() => {
-    setWarningMessage("");
-    setTentWarningMessage("");
-  }, 6000);
+  useEffect(() => {
+    // Check if camping area is selected
+    setCampingAreaSelected(formData.campingArea !== "");
+  }, [formData.campingArea]);
+
+  useEffect(() => {
+    // Reset warning messages after 6 seconds
+    const timer = setTimeout(() => {
+      setWarningMessage("");
+      setTentWarningMessage("");
+    }, 6000);
+
+    return () => clearTimeout(timer);
+  }, [warningMessage, tentWarningMessage]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -135,6 +145,11 @@ const Chooseticket = ({ ticketType }) => {
   };
 
   const handlePutRequest = async () => {
+    if (!campingAreaSelected) {
+      setReserveMessage("Please select a camping area.");
+      return;
+    }
+
     const reservationData = {
       area: formData.campingArea,
       amount: ticketAmount,
@@ -156,7 +171,6 @@ const Chooseticket = ({ ticketType }) => {
         setReserveMessage("Reservation successful!");
         console.log("Reservation ID:", data.id);
 
-
         return data.id;
       } else {
         setReserveMessage("Reservation failed. Please try again.");
@@ -177,8 +191,7 @@ const Chooseticket = ({ ticketType }) => {
       <input type="hidden" name="isTent3Person" value={isTent3Person} />
       <input type="hidden" name="reservationId" value={reservationId} />
       <article>
-        <div className="flex justify-between p-3">
-          <div>
+        <div className="flex justify-between p-3">          <div>
             <TicketComponent2
               title={ticketType === "Regular" ? "Regular ticket" : "VIP ticket"}
               price={calculateTotalPrice()}
@@ -239,7 +252,7 @@ const Chooseticket = ({ ticketType }) => {
           </FetchCampingSpots>
         </div>
 
-        <div onClick={handlePutRequest} className="bg-green-500 text-white p-5">reserve camping</div>
+        <div onClick={handlePutRequest} className={`bg-green-500 text-white p-5 ${!campingAreaSelected && 'cursor-not-allowed opacity-50'}`}>reserve camping</div>
         {reserveMessage && (
           <div className="p-3 text-red-500">{reserveMessage}</div>
         )}
@@ -293,3 +306,5 @@ const Chooseticket = ({ ticketType }) => {
 };
 
 export default Chooseticket;
+
+         
