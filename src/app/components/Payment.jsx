@@ -32,30 +32,32 @@ const Payment = () => {
 
   const onSubmit = async (data) => {
     console.log(data);
-
+  
     const endpoint = "https://yehhhdwxrekwnvfpdaxf.supabase.co/rest/v1/foofest2";
+    const fulfillEndpoint = "http://localhost:8080/fulfill-reservation";
     const apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InllaGhoZHd4cmVrd252ZnBkYXhmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTY1NDY1NTYsImV4cCI6MjAzMjEyMjU1Nn0.LMM7xRAUn2moW9TM8A5jQSuZtpFfc6RXk0k0KHngu-Q";
-
+  
     const headersList = {
       "Content-Type": "application/json",
       "apikey": apiKey,
       "Authorization": `Bearer ${apiKey}`,
     };
-
+  
     const bodyContent = JSON.stringify(data);
-
+  
     try {
+      // First post request
       const response = await fetch(endpoint, {
         method: "POST",
         headers: headersList,
         body: bodyContent,
       });
-
+  
       const responseText = await response.text();
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${responseText}`);
       }
-
+  
       if (responseText) {
         try {
           const result = JSON.parse(responseText);
@@ -66,10 +68,27 @@ const Payment = () => {
       } else {
         console.log("Data submitted successfully, but no response body");
       }
+  
+      // Second post request to fulfill reservation 
+      // - this one do not when trying to send to localhost8080
+      // error message: Access to fetch at 'http://localhost:8080/fulfill-reservation' from origin 'http://localhost:3000' has been blocked by CORS policy
+      // Im thinking it will work when i send it to the actual endpoint
+      await fetch(fulfillEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": apiKey,
+          "Authorization": `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({ reservationId: data.reservationId }), // Send only reservationId
+      });
+  
+      console.log("Reservation fulfilled successfully");
     } catch (error) {
       console.error("Error submitting data:", error);
     }
   };
+  
 
   return (
     <section className="w-full bg-white">
