@@ -7,9 +7,11 @@ import PersonalInfoForm from "@/app/components/PersonalInfoForm";
 const PersonalInfo = () => {
   return (
     <>
-      <h3>Personal info</h3>
-      <Timer duration={10 * 60 * 1000} />
-      <PersonalInfoForm />
+      <div className="mt-4 mb-8">
+        <h3>Personal info</h3>
+        <Timer duration={5 * 60 * 1000} />
+        <PersonalInfoForm />
+      </div>
     </>
   );
 };
