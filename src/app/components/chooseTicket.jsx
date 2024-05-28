@@ -23,6 +23,7 @@ const Chooseticket = ({ ticketType }) => {
   const [isTent3Person, setIsTent3Person] = useState(false);
   const [warningMessage, setWarningMessage] = useState("");
   const [tentWarningMessage, setTentWarningMessage] = useState("");
+  const [reserveMessage, setReserveMessage] = useState("");
   const [formData, setFormData] = useState({
     campingArea: "",
   });
@@ -131,6 +132,39 @@ const Chooseticket = ({ ticketType }) => {
     }));
   };
 
+  const handlePutRequest = async () => {
+    const reservationData = {
+      area: formData.campingArea,
+      amount: ticketAmount,
+    };
+
+    try {
+      const response = await fetch("http://localhost:8080/reserve-spot", {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json"
+        },
+        body: JSON.stringify(reservationData),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        //Her forsøger jeg at gemme det id'et
+        // setReservationId(data.id);
+        setReserveMessage("Reservation successful!");
+        console.log("Reservation ID:", data.id);
+
+
+        return data.id;
+      } else {
+        setReserveMessage("Reservation failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setReserveMessage("Error occurred. Please try again.");
+    }
+  };
+
   return (
     <form action="/personal-info" method="GET">
       <input type="hidden" name="type" value={type} />
@@ -201,6 +235,12 @@ const Chooseticket = ({ ticketType }) => {
             )}
           </FetchCampingSpots>
         </div>
+
+        <div onClick={handlePutRequest} className="bg-green-500 text-white p-5">reserve camping</div>
+        {reserveMessage && (
+          <div className="p-3 text-red-500">{reserveMessage}</div>
+        )}
+
 
         <GreenCamping
           title="Green camping"
