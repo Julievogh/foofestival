@@ -28,6 +28,8 @@ const Chooseticket = ({ ticketType }) => {
     campingArea: "",
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [reservationId, setReservationId] = useState(""); // State for reservation ID
+
 
   const calculateTotalPrice = () => {
     let totalPrice = 0;
@@ -149,8 +151,8 @@ const Chooseticket = ({ ticketType }) => {
 
       if (response.ok) {
         const data = await response.json();
-        //Her forsøger jeg at gemme det id'et
-        // setReservationId(data.id);
+        //Her forsøger jeg at gemme id'et
+        setReservationId(data.id);
         setReserveMessage("Reservation successful!");
         console.log("Reservation ID:", data.id);
 
@@ -173,6 +175,7 @@ const Chooseticket = ({ ticketType }) => {
       <input type="hidden" name="isGreenCamping" value={isGreenCamping} />
       <input type="hidden" name="isTent2Person" value={isTent2Person} />
       <input type="hidden" name="isTent3Person" value={isTent3Person} />
+      <input type="hidden" name="reservationId" value={reservationId} />
       <article>
         <div className="flex justify-between p-3">
           <div>
