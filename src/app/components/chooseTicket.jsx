@@ -267,9 +267,7 @@ const Chooseticket = ({ ticketType }) => {
           <div
             onClick={handleClick}
             className={`bg-green-500 text-white px-4 py-2 mt-7 mb-2 rounded-md ${
-              campingAreaSelected
-                ? "cursor-pointer"
-                : "opacity-50"
+              campingAreaSelected ? "cursor-pointer" : "opacity-50"
             }`}
           >
             Reserve camping
@@ -280,7 +278,7 @@ const Chooseticket = ({ ticketType }) => {
         )}
         {buttonClicked && !campingAreaSelected && !reserveMessage && (
           <div className="text-red-500 text-center mt-1">
-            Please choose a camping area before reserving
+            Select a camping area before making a reservation
           </div>
         )}
 

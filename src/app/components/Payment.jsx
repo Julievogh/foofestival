@@ -92,9 +92,12 @@ const Payment = () => {
   };
 
   return (
-    <section className="w-full bg-white">
-      <form onSubmit={form.handleSubmit(onSubmit)} className="p-5">
-        <h2>Payment Information</h2>
+    <section className="w-full bg-white flex justify-center items-center py-10">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="p-5 w-full max-w-lg bg-gray-50 shadow-md rounded-lg"
+      >
+        <h2 className="text-2xl font-bold mb-5">Payment Information</h2>
 
         <input type="hidden" {...form.register("type")} defaultValue={type} />
         <input
@@ -168,40 +171,42 @@ const Payment = () => {
           />
         ))}
 
-        <section className="flex flex-col">
-          <h3>Credit Card Information</h3>
+        <section className="flex flex-col mb-5">
+          <h3 className="text-lg font-semibold mb-3">
+            Credit Card Information
+          </h3>
 
-          <label htmlFor="cardName">Name on Card:</label>
+          <label htmlFor="cardName" className="mb-2">
+            Name on Card:
+          </label>
           <input
             type="text"
             id="cardName"
             {...form.register("cardName", {
-              required: {
-                value: true,
-                message: "Name on card is required",
-              },
+              required: { value: true, message: "Name on card is required" },
             })}
-            className="border border-gray-300 rounded-md"
+            className="border border-gray-300 rounded-md mb-3 p-2"
           />
 
-          <label htmlFor="cardNumber">Card Number:</label>
+          <label htmlFor="cardNumber" className="mb-2">
+            Card Number:
+          </label>
           <input
             type="text"
             id="cardNumber"
             {...form.register("cardNumber", {
-              required: {
-                value: true,
-                message: "Card number is required",
-              },
+              required: { value: true, message: "Card number is required" },
               pattern: {
                 value: /^\d{16}$/,
                 message: "Card number must be 16 digits",
               },
             })}
-            className="border border-gray-300 rounded-md"
+            className="border border-gray-300 rounded-md mb-3 p-2"
           />
 
-          <label htmlFor="expMonth">Expiration Month:</label>
+          <label htmlFor="expMonth" className="mb-2">
+            Expiration Month:
+          </label>
           <select
             id="expMonth"
             {...form.register("expMonth", {
@@ -210,7 +215,7 @@ const Payment = () => {
                 message: "Expiration month is required",
               },
             })}
-            className="border border-gray-300 rounded-md"
+            className="border border-gray-300 rounded-md mb-3 p-2"
           >
             <option value="">Select a month</option>
             {Array.from({ length: 12 }, (_, i) => (
@@ -221,49 +226,44 @@ const Payment = () => {
             ))}
           </select>
 
-          <label htmlFor="expYear">Expiration Year:</label>
+          <label htmlFor="expYear" className="mb-2">
+            Expiration Year:
+          </label>
           <input
             type="text"
             id="expYear"
             {...form.register("expYear", {
-              required: {
-                value: true,
-                message: "Expiration Year is required",
-              },
+              required: { value: true, message: "Expiration Year is required" },
               min: {
                 value: new Date().getFullYear(),
                 message: `Year must be at least ${new Date().getFullYear()}`,
               },
-              max: {
-                value: 2035,
-                message: "Year cannot be more than 2035",
-              },
+              max: { value: 2035, message: "Year cannot be more than 2035" },
             })}
-            className="border border-gray-300 rounded-md"
+            className="border border-gray-300 rounded-md mb-3 p-2"
           />
 
-          <label htmlFor="cvv">CVV:</label>
+          <label htmlFor="cvv" className="mb-2">
+            CVV:
+          </label>
           <input
             type="text"
             id="cvv"
             {...form.register("cvv", {
-              required: {
-                value: true,
-                message: "CVV is required",
-              },
+              required: { value: true, message: "CVV is required" },
               pattern: {
                 value: /^\d{3,4}$/,
                 message: "CVV must be 3 or 4 digits",
               },
             })}
-            className="border border-gray-300 rounded-md"
+            className="border border-gray-300 rounded-md mb-3 p-2"
           />
         </section>
 
         <div className="flex flex-col items-center p-3 mb-8">
           <button
             type="submit"
-            className="bg-blue-500 text-white py-2 px-4 rounded"
+            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-200"
           >
             Pay Now
           </button>
