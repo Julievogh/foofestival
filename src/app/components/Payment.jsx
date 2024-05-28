@@ -10,6 +10,7 @@ const Payment = () => {
   const isGreenCamping = searchParams.get("isGreenCamping") === "true";
   const isTent2Person = searchParams.get("isTent2Person") === "true";
   const isTent3Person = searchParams.get("isTent3Person") === "true";
+  const reservationId = searchParams.get("reservationId");
   const firstname = searchParams.get("firstname");
   const lastname = searchParams.get("lastname");
   const day = searchParams.get("day");
@@ -84,6 +85,7 @@ const Payment = () => {
         <input type="hidden" {...form.register("isGreenCamping")} defaultValue={isGreenCamping} />
         <input type="hidden" {...form.register("isTent2Person")} defaultValue={isTent2Person} />
         <input type="hidden" {...form.register("isTent3Person")} defaultValue={isTent3Person} />
+        <input type="hidden" {...form.register("reservationId")} defaultValue={reservationId} />
         <input type="hidden" {...form.register("firstname")} defaultValue={firstname} />
         <input type="hidden" {...form.register("lastname")} defaultValue={lastname} />
         <input type="hidden" {...form.register("day")} defaultValue={day} />
