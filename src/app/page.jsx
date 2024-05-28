@@ -15,16 +15,21 @@ export default function App() {
 
   const heroRef = useRef(null);
   const bottomRef = useRef(null);
-
   useEffect(() => {
     async function fetchData() {
       try {
+        console.log("Fetching bands data...");
         const bands = await fetchBands();
-        const first16Bands = bands.slice(0, 16);
-        const shuffledBands = first16Bands.sort(() => 0.5 - Math.random());
-        const selectedBands = shuffledBands.slice(0, 3);
-        setRandomBands(selectedBands);
-        setLoading(false);
+        if (bands && bands.length > 0) {
+          const first16Bands = bands.slice(0, 16);
+          const shuffledBands = first16Bands.sort(() => 0.5 - Math.random());
+          const selectedBands = shuffledBands.slice(0, 3);
+          setRandomBands(selectedBands);
+          console.log("Bands data fetched successfully:", selectedBands);
+          setLoading(false); // Set loading to false only if data is successfully fetched
+        } else {
+          throw new Error("No bands data returned from API");
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -79,6 +84,7 @@ export default function App() {
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.6 }}
+              className={styles.h1span}
             >
               FOOFEST
             </motion.h1>
