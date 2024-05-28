@@ -85,7 +85,7 @@ export default function App() {
           </motion.div>
           <div className={styles.imageContainer}>
             <Image
-              src="/imgs/logo7.png"
+              src="/imgs/foofestival2.png"
               alt="flyer-foofest"
               width={800}
               height={800}

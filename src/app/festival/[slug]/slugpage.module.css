@@ -38,6 +38,7 @@
   max-width: 1200px;
   margin-bottom: 60px;
   margin-top: 20px;
+  box-shadow: 4px 12px 12px rgba(0, 0, 0, 0.5);
 }
 
 .imageContainer {
@@ -52,6 +53,7 @@
   height: auto;
   object-fit: cover;
   border-radius: 8px;
+  box-shadow: 4px 12px 12px rgba(0, 0, 0, 0.5);
 }
 
 .likeButton {
@@ -74,11 +76,11 @@
 }
 
 .infoSection {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.2);
   padding: 10px;
   border-radius: 8px;
   margin: 10px 0;
-  color: white;
+  color: rgb(45, 40, 121);
   width: 100%;
 }
 
