@@ -266,7 +266,7 @@ const Chooseticket = ({ ticketType }) => {
         <div className="flex justify-center">
           <div
             onClick={handleClick}
-            className={`bg-green-500 text-white px-4 py-2 mt-2 mb-2 rounded-md ${
+            className={`bg-green-500 text-white px-4 py-2 mt-7 mb-2 rounded-md ${
               campingAreaSelected
                 ? "cursor-pointer"
                 : "opacity-50"

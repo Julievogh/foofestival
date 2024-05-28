@@ -11,7 +11,7 @@ const ChooseTicketPageWrapper = () => {
 
   return (
     <>
-      <div className="bg-gray-100 min-h-screen">
+      <div className="bg-gray-100">
         <div className="container mx-auto lg:px-8 py-16">
         <article className="bg-white rounded-lg shadow-md lg:max-w-screen-lg xl:max-w-screen-lg 2xl:max-w-screen-lg lg:mx-auto xl:mx-auto 2xl:mx-auto md:mx-0">
   <TicketHeader ticketType={ticketType} />
