@@ -4,7 +4,10 @@ const BASE_URL = "https://abyssinian-aeolian-gazelle.glitch.me";
 
 export const fetchBandsAndSchedule = async () => {
   try {
-    const [bandsRes, scheduleRes] = await Promise.all([fetch(`${BASE_URL}/bands`), fetch(`${BASE_URL}/schedule`)]);
+    const [bandsRes, scheduleRes] = await Promise.all([
+      fetch(`${BASE_URL}/bands`),
+      fetch(`${BASE_URL}/schedule`),
+    ]);
 
     if (!bandsRes.ok || !scheduleRes.ok) {
       throw new Error("Failed to fetch data");

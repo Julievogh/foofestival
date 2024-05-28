@@ -1,14 +1,15 @@
 // app/page.jsx
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-
+import Loading from "./components/Loading";
 import styles from "./page.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import ParallaxText from "./components/Effect/Effect";
 import { fetchBands } from "../lib/api/bands";
-import Loading from "./components/Loading";
+
+import CurrentPlaying from "./components/CurrentPlaying";
 export default function App() {
   const [randomBands, setRandomBands] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -150,16 +151,13 @@ export default function App() {
         </div>
       </div>
       <div className={styles.bottom} ref={bottomRef}>
+        <CurrentPlaying />
         <div>
-          <h4>Who is playing right now?</h4>
+          <h4>Schedule</h4>
           <Link href="/stages" className={styles.buttonLink}>
-            Schedule
+            Full Schedule
           </Link>
-          <p>(Link til api and show who is playing now?) Add Image?</p>
-        </div>
-
-        <div>
-          <p>Add news if anyone has cancelled /events</p>
+          <p>(Add news if anyone has cancelled /events)</p>
         </div>
       </div>
     </main>

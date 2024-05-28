@@ -1,10 +1,13 @@
+/* slugpage.module.css */
 .main {
   padding: 0;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #833131;
+  background: linear-gradient(135deg, #833131, #532635);
+  color: #fff;
+  font-family: "Roboto", sans-serif;
 }
 
 .mainBand {
@@ -18,10 +21,11 @@
 
 .bandName {
   background-color: rgba(0, 0, 0, 0.5);
-  padding: 8px;
+  padding: 8px 16px;
   border-radius: 8px;
   margin-top: 20px;
   color: white;
+  font-family: "Montserrat", sans-serif;
   font-weight: 800;
   box-shadow: 4px 12px 12px rgba(49, 48, 61, 0.5);
   text-shadow: 2px 2px 4px rgba(67, 69, 78, 0.5);
@@ -41,11 +45,11 @@
   margin-bottom: 60px;
   margin-top: 20px;
   box-shadow: 4px 12px 12px rgba(0, 0, 0, 0.5);
-  transition-duration: 0.4s;
+  transition: background-color 0.4s ease;
 }
 
 .box:hover {
-  background-color: rgba(50, 45, 112, 0.2);
+  background-color: rgba(50, 45, 112, 0.4);
 }
 
 .imageContainer {
@@ -60,6 +64,11 @@
   height: auto;
   object-fit: cover;
   border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.imageContainer img:hover {
+  transform: scale(1.05);
 }
 
 .likeButton {
@@ -81,22 +90,37 @@
   object-fit: contain;
 }
 
+.infoWrapper {
+  width: 100%;
+}
+
 .infoSection {
-  background-color: rgba(100, 81, 81, 0.2);
-  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
   border-radius: 8px;
   margin: 10px 0;
-  color: rgb(45, 40, 121);
+  color: #333;
+  text-align: left;
   width: 100%;
+}
+
+.infoSection h6 {
+  margin-top: 0;
 }
 
 .infoSection p {
   margin: 10px 0;
-  color: #333;
 }
 
 .scheduleLink {
   text-align: center;
+  margin-top: 20px;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
   margin-top: 20px;
 }
 
@@ -111,11 +135,19 @@
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
 .buttonLink:hover {
   background-color: #005bb5;
+}
+
+.festivalButtonLink {
+  background-color: #f39c12;
+}
+
+.festivalButtonLink:hover {
+  background-color: #e67e22;
 }
 
 @media screen and (max-width: 768px) {

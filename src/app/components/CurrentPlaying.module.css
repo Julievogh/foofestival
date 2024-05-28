@@ -1,0 +1,58 @@
+/* app/components/CurrentPlaying.module.css */
+.currentPlaying {
+  background: #f0f8ff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}
+
+.currentPlaying h4 {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.currentTime,
+.timeSlot {
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.bandList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bandItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.bandName {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.bandName a {
+  color: #0070f3;
+  text-decoration: none;
+}
+
+.bandName a:hover {
+  text-decoration: underline;
+}
+
+.stageName {
+  flex: 1;
+  text-align: right;
+  font-size: 0.9rem;
+  color: #666;
+}

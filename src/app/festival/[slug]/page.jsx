@@ -99,9 +99,15 @@ export default function Page({ params }) {
                 e.target.src = "/path/to/default-image.jpg"; // Fallback image
               }}
             />
-            <div className={styles.scheduleLink}>
+            <div className={styles.buttonContainer}>
               <Link href="/stages" className={styles.buttonLink}>
                 Schedule
+              </Link>
+              <Link
+                href="/festival"
+                className={`${styles.buttonLink} ${styles.festivalButtonLink}`}
+              >
+                Festival
               </Link>
             </div>
           </div>
