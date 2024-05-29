@@ -4,13 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import styles from "./page.module.css";
-import { fetchBands } from "../lib/api/bands";
+import { fetchBands, fetchEvents } from "../lib/api/bands";
 import Loading from "./components/Loading";
 import ParallaxText from "./components/Effect/Effect";
 import CurrentPlaying from "./components/CurrentPlaying";
-
 export default function App() {
   const [randomBands, setRandomBands] = useState([]);
+  const [events, setEvents] = useState([]); // State for events data
   const [loading, setLoading] = useState(true);
   const heroRef = useRef(null);
   const bottomRef = useRef(null);
@@ -35,7 +35,19 @@ export default function App() {
       }
     }
 
+    async function fetchEventData() {
+      try {
+        console.log("Fetching events data...");
+        const eventsData = await fetchEvents();
+        setEvents(eventsData);
+        console.log("Events data fetched successfully:", eventsData);
+      } catch (error) {
+        console.error("Error fetching events data:", error);
+      }
+    }
+
     fetchData();
+    fetchEventData();
 
     const handleScroll = () => {
       const scrollPos = window.scrollY;
@@ -164,7 +176,21 @@ export default function App() {
           <Link href="/map" className={styles.buttonLink2}>
             Map
           </Link>
-          <p>(Add news if anyone has cancelled /events)</p>
+          <div className={styles.eventsContainer}>
+            <h5>Events</h5>
+            <ul>
+              {events.map((event, index) => (
+                <li key={index}>
+                  <p>Scene: {event.scene}</p>
+                  <p>Day: {event.day}</p>
+                  <p>Act: {event.act.act}</p>
+                  <p>Start Time: {event.act.start}</p>
+                  <p>End Time: {event.act.end}</p>
+                  <p>Cancelled: {event.act.cancelled ? "Yes" : "No"}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
       <div></div>

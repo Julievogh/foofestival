@@ -257,6 +257,30 @@
   right: 0;
 }
 
+.eventsContainer {
+  overflow-x: auto;
+  white-space: nowrap;
+  max-height: 150px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.eventsContainer h5 {
+  margin-bottom: 5px;
+}
+
+.eventsContainer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0px;
+}
+
+.eventsContainer li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
 .hero h1::after {
   right: 0;
 }
