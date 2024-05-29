@@ -17,7 +17,7 @@ const PersonalInfo = () => {
 
   const [guestInputs, setGuestInputs] = useState([]);
   const [timeLeft, setTimeLeft] = useState(300000);
-  const { register, handleSubmit, control, formState: { errors } } = useForm();
+  const { register, control, formState: { errors }, trigger } = useForm();
 
   const updateTimeLeft = (newTimeLeft) => {
     setTimeLeft(newTimeLeft);
@@ -57,20 +57,21 @@ const PersonalInfo = () => {
       }
       setGuestInputs(inputs);
     }
-  }, [errors, register, searchParams]);
+  }, [errors, register, searchParams, ticketAmount, trigger]);
 
   const normalizePhoneNumber = (value) => value.replace(/[\s-]/g, "");
 
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+  // const onSubmit = (data) => {
+  //   console.log(data);
+  // };
 
   return (
     <>
       <Timer duration={timeLeft} onTimeUpdate={updateTimeLeft} />
       <section className="w-full bg-gray-50 p-4 md:p-8">
         <form
-          onSubmit={handleSubmit(onSubmit)}
+          // onSubmit={handleSubmit(onSubmit)}
+          action="/payment"
           noValidate
           className="w-full max-w-2xl mx-auto bg-white shadow-md rounded-lg p-6"
         >
