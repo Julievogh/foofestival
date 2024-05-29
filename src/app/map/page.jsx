@@ -3,6 +3,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import "leaflet/dist/leaflet.css";
 import styles from "./Map.module.css";
+import Link from "next/link";
+import Carousel from "../components/Carousel";
 
 const Page = () => {
   const mapRef = useRef(null);
@@ -162,8 +164,14 @@ const Page = () => {
       <div className={styles.mapContainer}>
         <div id="map" className={styles.map}></div>
       </div>
-      <div>
-        HER ER NOGET <button>HEJSA</button>
+      <div className={styles.spots}>
+        <h3>SOME OF THE TENTS AND PLACES</h3>
+      </div>
+      <Carousel />
+      <div className={styles.bottomP}>
+        <p>
+          See you at <span>FooFest</span> 2024!
+        </p>
       </div>
     </div>
   );

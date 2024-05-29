@@ -9,7 +9,7 @@ import LikeButton from "../components/LikeButton";
 import Breadcrumbs from "../components/Breadcrumbs";
 import { Pagination, Input, Select } from "antd";
 import { fetchBandsAndSchedule } from "../../lib/api/bands";
-import LoadingAnimation from "../components/Loading"; // Import the LoadingAnimation component
+import LoadingAnimation from "../components/Loading";
 
 const { Search } = Input;
 const { Option } = Select;
@@ -22,7 +22,7 @@ export default function FestivalPage() {
   const [selectedStage, setSelectedStage] = useState("All");
   const bandsPerPage = 16;
   const [scheduleData, setScheduleData] = useState({});
-  const [loading, setLoading] = useState(true); // Initialize loading state
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
@@ -30,10 +30,10 @@ export default function FestivalPage() {
         const { bandsData, scheduleData } = await fetchBandsAndSchedule();
         setAllBands(bandsData);
         setScheduleData(scheduleData);
-        setLoading(false); // Set loading state to false when data fetching is complete
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
-        setLoading(false); // Set loading state to false in case of error
+        setLoading(false);
       }
     }
     fetchData();
@@ -45,7 +45,7 @@ export default function FestivalPage() {
       : [];
 
   if (allBands.length === 0 || Object.keys(scheduleData).length === 0) {
-    return <LoadingAnimation />; // Render the loading animation component while loading
+    return <LoadingAnimation />;
   }
 
   const handleSearchChange = (e) => {
@@ -106,25 +106,33 @@ export default function FestivalPage() {
       </div>
       <div className={styles.mainBand}>
         <h1 className="ml-4">BANDS</h1>
+
         <div className={styles.sortBar}>
-          <p onClick={toggleFavorites} style={{ cursor: "pointer" }}>
-            Favorites
-          </p>
           <Search
             placeholder="Search bands"
             onChange={handleSearchChange}
-            style={{ width: 200 }}
+            style={{ width: 160 }}
           />
           <Select
             defaultValue="All"
             onChange={handleStageSelect}
-            style={{ width: 200, marginLeft: "1rem" }}
+            style={{ width: 160, marginLeft: "1rem" }}
           >
             <Option value="All">All Stages</Option>
             <Option value="Midgard">Midgard</Option>
             <Option value="Vanaheim">Vanaheim</Option>
             <Option value="Jotunheim">Jotunheim</Option>
           </Select>
+          <div>
+            {" "}
+            <p
+              className={styles.favoriteButton}
+              onClick={toggleFavorites}
+              style={{ cursor: "pointer" }}
+            >
+              Favorites
+            </p>
+          </div>
         </div>
         <ul className={styles.grid}>
           {bands.map((band) => (

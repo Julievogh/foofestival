@@ -48,3 +48,16 @@ export const fetchBandBySlug = async (slug) => {
     throw error;
   }
 };
+
+export const fetchEvents = async () => {
+  try {
+    const eventsRes = await fetch(`${BASE_URL}/events`);
+    if (!eventsRes.ok) {
+      throw new Error("Failed to fetch events data");
+    }
+    return await eventsRes.json();
+  } catch (error) {
+    console.error("Error in fetchEvents:", error);
+    throw error;
+  }
+};

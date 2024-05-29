@@ -1,21 +1,20 @@
-// app/page.jsx
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import Loading from "./components/Loading";
-import styles from "./page.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import styles from "./page.module.css";
+import { fetchBands, fetchEvents } from "../lib/api/bands";
+import Loading from "./components/Loading";
 import ParallaxText from "./components/Effect/Effect";
-import { fetchBands } from "../lib/api/bands";
-
 import CurrentPlaying from "./components/CurrentPlaying";
 export default function App() {
   const [randomBands, setRandomBands] = useState([]);
+  const [events, setEvents] = useState([]); // State for events data
   const [loading, setLoading] = useState(true);
-
   const heroRef = useRef(null);
   const bottomRef = useRef(null);
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -27,7 +26,7 @@ export default function App() {
           const selectedBands = shuffledBands.slice(0, 3);
           setRandomBands(selectedBands);
           console.log("Bands data fetched successfully:", selectedBands);
-          setLoading(false); // Set loading to false only if data is successfully fetched
+          setLoading(false);
         } else {
           throw new Error("No bands data returned from API");
         }
@@ -36,11 +35,24 @@ export default function App() {
       }
     }
 
+    async function fetchEventData() {
+      try {
+        console.log("Fetching events data...");
+        const eventsData = await fetchEvents();
+        setEvents(eventsData);
+        console.log("Events data fetched successfully:", eventsData);
+      } catch (error) {
+        console.error("Error fetching events data:", error);
+      }
+    }
+
     fetchData();
+    fetchEventData();
 
     const handleScroll = () => {
       const scrollPos = window.scrollY;
-      const parallaxFactor = 0.4; // Adjust this value for the desired parallax effect
+      const parallaxFactor = 0.3;
+      const parallaxFactor2 = 0.08;
       const hero = heroRef.current;
       const bottom = bottomRef.current;
 
@@ -49,8 +61,7 @@ export default function App() {
       }
 
       if (bottom) {
-        bottom.style.backgroundPositionY =
-          -scrollPos * parallaxFactor * 0.5 + "px";
+        bottom.style.backgroundPositionY = scrollPos * parallaxFactor2 + "px"; // Reverse the direction for the bottom
       }
     };
 
@@ -91,12 +102,15 @@ export default function App() {
             </motion.h1>
           </motion.div>
           <div className={styles.imageContainer}>
-            <Image
-              src="/imgs/foofestival2.png"
-              alt="flyer-foofest"
-              width={800}
-              height={800}
-            />
+            <Link href="/stages">
+              <Image
+                src="/imgs/foofestival2.png"
+                alt="flyer-foofest"
+                width={800}
+                height={800}
+                className={styles.heroLogo}
+              />
+            </Link>
           </div>
           <Link href="/ticket-frontpage" className={styles.buttonLink}>
             Tickets
@@ -108,12 +122,14 @@ export default function App() {
       </div>
       <div className={styles.parallaxContainer}>
         <div className={styles.parallaxOverlay}>
-          <ParallaxText></ParallaxText>
+          <ParallaxText />
         </div>
       </div>
       <div className={styles.otherBackground}>
-        <h2>Oplev dine favorit kunstnere</h2>
-        <p>(Some of them are apparently back from the grave)</p>
+        <h2>Oplev dine favoritkunstnere</h2>
+        <p className={styles.otherP}>
+          (Some of them are apparently back from the grave)
+        </p>
         <div className={styles.grid}>
           {randomBands.map((band) => (
             <motion.li
@@ -150,16 +166,34 @@ export default function App() {
           ))}
         </div>
       </div>
+
       <div className={styles.bottom} ref={bottomRef}>
         <CurrentPlaying />
-        <div>
-          <h4>Schedule</h4>
+        <div className={styles.bottomButtons}>
           <Link href="/stages" className={styles.buttonLink}>
             Full Schedule
           </Link>
-          <p>(Add news if anyone has cancelled /events)</p>
+          <Link href="/map" className={styles.buttonLink2}>
+            Map
+          </Link>
+          <div className={styles.eventsContainer}>
+            <h5>Events</h5>
+            <ul>
+              {events.map((event, index) => (
+                <li key={index}>
+                  <p>Scene: {event.scene}</p>
+                  <p>Day: {event.day}</p>
+                  <p>Act: {event.act.act}</p>
+                  <p>Start Time: {event.act.start}</p>
+                  <p>End Time: {event.act.end}</p>
+                  <p>Cancelled: {event.act.cancelled ? "Yes" : "No"}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
+      <div></div>
     </main>
   );
 }

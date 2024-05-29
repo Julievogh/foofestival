@@ -11,8 +11,9 @@
 
 .hero {
   background: url("/imgs/forsidebg1.jpg") center/cover no-repeat;
+  background-color: rgb(7, 18, 48);
   width: 100%;
-  height: calc(100vh - var(--header-height));
+  min-height: calc(100vh - var(--header-height));
   position: relative;
   top: var(--header-height);
   display: flex;
@@ -33,7 +34,7 @@
 }
 
 .hero .h1span {
-  color: #922984;
+  color: purple;
   position: relative;
   z-index: 1;
 }
@@ -86,6 +87,14 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.heroLogo {
+  transition: transform 0.3s ease;
+}
+
+.heroLogo:hover {
+  transform: scale(1.03);
 }
 
 .bandItem {
@@ -187,15 +196,37 @@
 .otherBackground h3 {
   margin: 2rem 0;
 }
+
+.otherP {
+  color: rgb(83, 105, 165);
+  margin-bottom: 20px;
+  margin-top: 10px;
+  position: relative;
+}
+
+.otherP::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  width: 180px;
+  height: 2px;
+  background-color: rgb(38, 56, 104);
+  transform: translateX(-50%);
+}
+
 .bottom {
-  background: url("/imgs/forsidebg2.jpg") center/cover no-repeat;
+  background: url("/imgs/forsidebg2.jpg") center bottom/cover no-repeat;
+  background-attachment: fixed; /* Ensure the background is fixed for parallax */
+  background-color: rgb(7, 18, 48);
   width: 100%;
-  min-height: 80vh;
+  height: 72vh; /* Make sure it covers the full viewport height */
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-bottom: 80px;
 }
 
 .bottom h1 {
@@ -226,6 +257,30 @@
   right: 0;
 }
 
+.eventsContainer {
+  overflow-x: auto;
+  white-space: nowrap;
+  max-height: 150px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.eventsContainer h5 {
+  margin-bottom: 5px;
+}
+
+.eventsContainer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0px;
+}
+
+.eventsContainer li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
 .hero h1::after {
   right: 0;
 }
@@ -251,9 +306,9 @@
 
 .buttonLink {
   display: inline-block;
-  padding: 10px 40px;
+  padding: 10px 20px;
   margin-top: 20px;
-  margin-bottom: 100px;
+  margin-bottom: 10px;
   font-size: 16px;
   color: white;
   background-color: blue;
@@ -272,8 +327,8 @@
 .buttonLink2 {
   margin-left: 1rem;
   display: inline-block;
-  padding: 10px 20px;
-  margin-top: 20px;
+  padding: 10px 18px;
+  margin-top: 0px;
   font-size: 16px;
   color: blue;
   background-color: rgb(228, 140, 58);
@@ -287,6 +342,30 @@
 
 .buttonLink2:hover {
   background-color: #b67118;
+}
+
+.bottomButtons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.bottomButtons .buttonLink {
+  width: 140px;
+  padding: 10px 18px;
+  margin-bottom: 10px;
+}
+
+.bottomButtons .buttonLink2 {
+  width: 80px;
+  padding: 10px 18px;
+  margin-bottom: 10px;
+}
+
+.bottomButtons p {
+  margin-top: 10px;
+  color: white;
 }
 
 .mainBand {
@@ -340,6 +419,18 @@
   .hero h1 {
     font-size: 3rem;
     letter-spacing: 4px;
+  }
+
+  .otherBackground {
+    margin-bottom: -60px;
+  }
+
+  .otherBackground h2 {
+    font-size: 2rem;
+  }
+
+  .otherP {
+    font-size: 0.9rem;
   }
 
   .bandItem {
