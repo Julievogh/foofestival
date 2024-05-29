@@ -30,7 +30,8 @@ const Chooseticket = ({ ticketType }) => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [reservationId, setReservationId] = useState(""); 
   const [campingAreaSelected, setCampingAreaSelected] = useState(false); 
-  const [buttonClicked, setButtonClicked] = useState(false); 
+  const [campingDivClicked, setcampingDivClicked] = useState(false); 
+  const [nextPageWarning, setNextPageWarning] = useState("");
 
   const calculateTotalPrice = () => {
     let totalPrice = 0;
@@ -174,6 +175,8 @@ const Chooseticket = ({ ticketType }) => {
         setReserveMessage("Reservation successful!");
         console.log("Reservation ID:", data.id);
 
+        setNextPageWarning("");
+
         return data.id;
       } else {
         setReserveMessage("Reservation failed. Please try again.");
@@ -185,9 +188,16 @@ const Chooseticket = ({ ticketType }) => {
   };
 
   const handleClick = () => {
-    setButtonClicked(true);
+    setcampingDivClicked(true);
     if (campingAreaSelected) {
       handlePutRequest();
+    }
+  };
+
+  const handleNextPageClick = (event) => {
+    if (!reservationId) {
+      event.preventDefault();
+      setNextPageWarning("You must complete a reservation before proceeding.");
     }
   };
 
@@ -276,7 +286,7 @@ const Chooseticket = ({ ticketType }) => {
         {reserveMessage && (
           <div className="p-3 text-green-500 text-center">{reserveMessage}</div>
         )}
-        {buttonClicked && !campingAreaSelected && !reserveMessage && (
+        {campingDivClicked && !campingAreaSelected && !reserveMessage && (
           <div className="text-red-500 text-center mt-1">
             Select a camping area before making a reservation
           </div>
@@ -320,9 +330,13 @@ const Chooseticket = ({ ticketType }) => {
           <button
             type="submit"
             className="bg-blue-500 text-white py-2 px-4 rounded"
+            onClick={handleNextPageClick}
           >
             Next Page
           </button>
+          {nextPageWarning && (
+            <div className="p-3 text-red-500 text-center">{nextPageWarning}</div>
+          )}
         </div>
       </article>
     </form>

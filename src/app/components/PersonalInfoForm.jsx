@@ -17,16 +17,13 @@ const PersonalInfo = () => {
 
   const [guestInputs, setGuestInputs] = useState([]);
   const [timeLeft, setTimeLeft] = useState(300000);
-  const form = useForm();
-  const { register, control, formState } = form;
-  const { errors } = formState;
+  const { register, handleSubmit, control, formState: { errors } } = useForm();
 
   const updateTimeLeft = (newTimeLeft) => {
     setTimeLeft(newTimeLeft);
   };
 
   useEffect(() => {
-    const ticketAmount = parseInt(searchParams.get("ticketAmount"));
     if (ticketAmount > 1) {
       const inputs = [];
       inputs.push(
@@ -50,6 +47,7 @@ const PersonalInfo = () => {
                 },
               })}
               className="border border-gray-300 rounded-md"
+              onBlur={() => trigger(`guestName${i + 1}`)}
             />
             <p className="text-red-500 m-2">
               {errors[`guestName${i + 1}`]?.message}
@@ -63,19 +61,20 @@ const PersonalInfo = () => {
 
   const normalizePhoneNumber = (value) => value.replace(/[\s-]/g, "");
 
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
   return (
     <>
       <Timer duration={timeLeft} onTimeUpdate={updateTimeLeft} />
       <section className="w-full bg-gray-50 p-4 md:p-8">
         <form
-          action="/payment"
-          method="GET"
+          onSubmit={handleSubmit(onSubmit)}
           noValidate
           className="w-full max-w-2xl mx-auto bg-white shadow-md rounded-lg p-6"
         >
-          <h2 className="class=" text-2xl font-bold mb-5>
-            Personal Info
-          </h2>
+          <h2 className="text-2xl font-bold mb-5">Personal Info</h2>
           <input type="hidden" name="type" value={type} />
           <input type="hidden" name="ticketAmount" value={ticketAmount} />
           <input type="hidden" name="totalPrice" value={totalPrice} />
@@ -94,11 +93,11 @@ const PersonalInfo = () => {
               <input
                 type="text"
                 id="firstname"
-                name="firstname"
                 {...register("firstname", {
                   required: "First Name is required",
                 })}
                 className="border border-gray-300 rounded-md mb-3 p-2"
+                onBlur={() => trigger("firstname")}
               />
               <p className="text-red-500 m-2">{errors.firstname?.message}</p>
 
@@ -108,9 +107,9 @@ const PersonalInfo = () => {
               <input
                 type="text"
                 id="lastname"
-                name="lastname"
                 {...register("lastname", { required: "Last Name is required" })}
                 className="border border-gray-300 rounded-md mb-3 p-2"
+                onBlur={() => trigger("lastname")}
               />
               <p className="text-red-500 m-2">{errors.lastname?.message}</p>
             </div>
@@ -123,13 +122,13 @@ const PersonalInfo = () => {
               <input
                 type="number"
                 id="day"
-                name="day"
                 {...register("day", {
                   required: "Day is required",
                   min: { value: 1, message: "Day must be at least 1" },
                   max: { value: 31, message: "Day cannot be more than 31" },
                 })}
                 className="border border-gray-300 rounded-md mb-3 p-2"
+                onBlur={() => trigger("day")}
               />
               <p className="text-red-500 m-2">{errors.day?.message}</p>
 
@@ -138,9 +137,9 @@ const PersonalInfo = () => {
               </label>
               <select
                 id="month"
-                name="month"
                 {...register("month", { required: "Month is required" })}
                 className="border border-gray-300 rounded-md mb-3 p-2"
+                onBlur={() => trigger("month")}
               >
                 <option value="">Select a month</option>
                 <option value="1">January</option>
@@ -164,7 +163,7 @@ const PersonalInfo = () => {
               <input
                 type="text"
                 id="year"
-                name="year"
+                maxLength={4}
                 {...register("year", {
                   required: "Year is required",
                   min: { value: 1900, message: "Year must be at least 1900" },
@@ -174,6 +173,7 @@ const PersonalInfo = () => {
                   },
                 })}
                 className="border border-gray-300 rounded-md mb-3 p-2"
+                onBlur={() => trigger("year")}
               />
               <p className="text-red-500 m-2">{errors.year?.message}</p>
             </div>
@@ -188,9 +188,9 @@ const PersonalInfo = () => {
               <input
                 type="text"
                 id="address"
-                name="address"
                 {...register("address", { required: "Address is required" })}
                 className="border border-gray-300 rounded-md mb-3 p-2"
+                onBlur={() => trigger("address")}
               />
               <p className="text-red-500 m-2">{errors.address?.message}</p>
 
@@ -200,9 +200,9 @@ const PersonalInfo = () => {
               <input
                 type="text"
                 id="city"
-                name="city"
                 {...register("city", { required: "City is required" })}
                 className="border border-gray-300 rounded-md mb-3 p-2"
+                onBlur={() => trigger("city")}
               />
               <p className="text-red-500 m-2">{errors.city?.message}</p>
 
@@ -212,7 +212,6 @@ const PersonalInfo = () => {
               <input
                 type="text"
                 id="zip"
-                name="zip"
                 {...register("zip", {
                   required: "Zip/Postal code is required",
                   pattern: {
@@ -221,6 +220,7 @@ const PersonalInfo = () => {
                   },
                 })}
                 className="border border-gray-300 rounded-md mb-3 p-2"
+                onBlur={() => trigger("zip")}
               />
               <p className="text-red-500 m-2">{errors.zip?.message}</p>
 
@@ -229,9 +229,9 @@ const PersonalInfo = () => {
               </label>
               <select
                 id="country"
-                name="country"
                 {...register("country", { required: "Country is required" })}
                 className="border border-gray-300 rounded-md mb-3 p-2"
+                onBlur={() => trigger("country")}
               >
                 <option value="">Select a country</option>
                 {Countries.map((country, index) => (
@@ -251,7 +251,6 @@ const PersonalInfo = () => {
               <input
                 type="text"
                 id="telephone"
-                name="telephone"
                 {...register("telephone", {
                   required: "Telephone number is required",
                   pattern: {
@@ -261,6 +260,7 @@ const PersonalInfo = () => {
                   setValueAs: normalizePhoneNumber,
                 })}
                 className="border border-gray-300 rounded-md mb-3 p-2"
+                onBlur={() => trigger("telephone")}
               />
               <p className="text-red-500 m-2">{errors.telephone?.message}</p>
 
@@ -270,7 +270,6 @@ const PersonalInfo = () => {
               <input
                 type="email"
                 id="email"
-                name="email"
                 {...register("email", {
                   required: "Email is required",
                   pattern: {
@@ -287,6 +286,7 @@ const PersonalInfo = () => {
                   },
                 })}
                 className="border border-gray-300 rounded-md mb-3 p-2"
+                onBlur={() => trigger("email")}
               />
               <p className="text-red-500 m-2">{errors.email?.message}</p>
             </div>
