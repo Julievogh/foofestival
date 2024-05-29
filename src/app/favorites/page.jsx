@@ -55,7 +55,7 @@ export default function FavoritePage() {
   if (loading) return <LoadingAnimation />; // Render the loading animation component while loading
   if (error) return <div>{error}</div>;
   return (
-    <main>
+    <main className={styles.main}>
       <div className={styles.breadcrumbs}>
         <Breadcrumbs paths={paths} />
       </div>
@@ -91,9 +91,9 @@ export default function FavoritePage() {
                         alt={band.name}
                         layout="fill"
                       />
+                      <h5 className={styles.bandName}>{band.name}</h5>
                     </Link>
                   </div>
-                  <h5 className={styles.bandName}>{band.name}</h5>
                 </li>
               </motion.div>
             </motion.li>

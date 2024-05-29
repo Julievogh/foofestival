@@ -1,11 +1,33 @@
+.main {
+  background: rgb(121, 121, 218);
+  padding-bottom: 60px;
+}
+
 .mainBand {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 6rem;
+  padding: 2rem 4rem;
   min-height: 100vh;
   text-align: center;
+}
+
+.mainBand h1 {
+  color: rgb(227, 232, 238);
+  margin-bottom: -40px;
+  position: relative;
+}
+
+.mainBand h1::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  width: 220px;
+  height: 2px;
+  background-color: white;
+  transform: translateX(-50%);
 }
 
 .grid {
@@ -73,4 +95,21 @@
 
 .ml-4 {
   margin-left: 1rem;
+}
+
+@media (max-width: 700px) {
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    max-width: 100%;
+    width: var(--max-width);
+  }
+
+  .mainBand h1 {
+    color: rgb(227, 232, 238);
+    margin-bottom: 16px;
+  }
 }

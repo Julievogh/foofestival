@@ -4,10 +4,9 @@ const Breadcrumbs = ({ paths }) => {
   return (
     <div>
       {" "}
-      {/* Adjust margin-top as needed */}
       {paths.map((path, index) => (
         <span
-          style={{ marginTop: "80px", marginLeft: "40px" }}
+          style={{ marginTop: "80px", marginLeft: "40px", color: "white" }}
           key={index}
           className="inline-flex items-center ml-4 mt-2"
         >

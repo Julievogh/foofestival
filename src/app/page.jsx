@@ -1,21 +1,20 @@
-// app/page.jsx
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import Loading from "./components/Loading";
-import styles from "./page.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import ParallaxText from "./components/Effect/Effect";
+import styles from "./page.module.css";
 import { fetchBands } from "../lib/api/bands";
-
+import Loading from "./components/Loading";
+import ParallaxText from "./components/Effect/Effect";
 import CurrentPlaying from "./components/CurrentPlaying";
+
 export default function App() {
   const [randomBands, setRandomBands] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const heroRef = useRef(null);
   const bottomRef = useRef(null);
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -27,7 +26,7 @@ export default function App() {
           const selectedBands = shuffledBands.slice(0, 3);
           setRandomBands(selectedBands);
           console.log("Bands data fetched successfully:", selectedBands);
-          setLoading(false); // Set loading to false only if data is successfully fetched
+          setLoading(false);
         } else {
           throw new Error("No bands data returned from API");
         }
@@ -40,7 +39,8 @@ export default function App() {
 
     const handleScroll = () => {
       const scrollPos = window.scrollY;
-      const parallaxFactor = 0.4; // Adjust this value for the desired parallax effect
+      const parallaxFactor = 0.3;
+      const parallaxFactor2 = 0.08;
       const hero = heroRef.current;
       const bottom = bottomRef.current;
 
@@ -49,8 +49,7 @@ export default function App() {
       }
 
       if (bottom) {
-        bottom.style.backgroundPositionY =
-          -scrollPos * parallaxFactor * 0.5 + "px";
+        bottom.style.backgroundPositionY = scrollPos * parallaxFactor2 + "px"; // Reverse the direction for the bottom
       }
     };
 
@@ -108,12 +107,14 @@ export default function App() {
       </div>
       <div className={styles.parallaxContainer}>
         <div className={styles.parallaxOverlay}>
-          <ParallaxText></ParallaxText>
+          <ParallaxText />
         </div>
       </div>
       <div className={styles.otherBackground}>
-        <h2>Oplev dine favorit kunstnere</h2>
-        <p>(Some of them are apparently back from the grave)</p>
+        <h2>Oplev dine favoritkunstnere</h2>
+        <p className={styles.otherP}>
+          (Some of them are apparently back from the grave)
+        </p>
         <div className={styles.grid}>
           {randomBands.map((band) => (
             <motion.li
@@ -150,16 +151,20 @@ export default function App() {
           ))}
         </div>
       </div>
+
       <div className={styles.bottom} ref={bottomRef}>
         <CurrentPlaying />
-        <div>
-          <h4>Schedule</h4>
+        <div className={styles.bottomButtons}>
           <Link href="/stages" className={styles.buttonLink}>
             Full Schedule
+          </Link>
+          <Link href="/map" className={styles.buttonLink2}>
+            Map
           </Link>
           <p>(Add news if anyone has cancelled /events)</p>
         </div>
       </div>
+      <div></div>
     </main>
   );
 }
