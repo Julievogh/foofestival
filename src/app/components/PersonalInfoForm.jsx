@@ -18,7 +18,7 @@ const PersonalInfo = () => {
   const [guestInputs, setGuestInputs] = useState([]);
   const [timeLeft, setTimeLeft] = useState(300000);
   const form = useForm();
-  const { register, control, handleSubmit, formState } = form;
+  const { register, control, formState } = form;
   const { errors } = formState;
 
   const updateTimeLeft = (newTimeLeft) => {
@@ -62,22 +62,6 @@ const PersonalInfo = () => {
   }, [errors, register, searchParams]);
 
   const normalizePhoneNumber = (value) => value.replace(/[\s-]/g, "");
-
-  const onSubmit = (data) => {
-    const queryParams = new URLSearchParams({
-      type,
-      ticketAmount: ticketAmount.toString(),
-      totalPrice: totalPrice.toString(),
-      isGreenCamping: isGreenCamping.toString(),
-      isTent2Person: isTent2Person.toString(),
-      isTent3Person: isTent3Person.toString(),
-      reservationId,
-      timeLeft: timeLeft.toString(),
-    ...data,
-  }).toString();
-
-    window.location.href = `/payment?${queryParams}`;
-  };
 
   return (
     <>
