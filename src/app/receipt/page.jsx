@@ -1,11 +1,13 @@
-import React from 'react'
+"use client"
+import React from "react";
+import Receipt from "../components/Receipt";
 
-export const page = () => {
+const page = () => {
   return (
-    <section>
-        <h1>FooFestival</h1>
-        <h2>Receipt</h2>
-        <p>Thanks for your order!</p>
+    <section className="mt-16 mb-8 rounded-lg shadow-md lg:max-w-screen-lg xl:max-w-screen-lg 2xl:max-w-screen-lg lg:mx-auto xl:mx-auto 2xl:mx-auto md:mx-0">
+      <Receipt />
     </section>
-  )
-}
+  );
+};
+
+export default page;

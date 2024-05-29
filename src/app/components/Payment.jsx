@@ -89,12 +89,25 @@ const Payment = () => {
     } catch (error) {
       console.error("Error submitting data:", error);
     }
+
+    const queryParams = new URLSearchParams({
+      type,
+      ticketAmount: ticketAmount.toString(),
+      totalPrice: totalPrice.toString(),
+      isGreenCamping: isGreenCamping.toString(),
+      isTent2Person: isTent2Person.toString(),
+      isTent3Person: isTent3Person.toString(),
+      reservationId,
+    }).toString();
+
+    window.location.href = `/receipt?${queryParams}`;
   };
 
   return (
     <section className="w-full bg-white flex justify-center items-center py-10">
       <form
         onSubmit={form.handleSubmit(onSubmit)}
+        action="/reciept"
         className="p-5 w-full max-w-lg bg-gray-50 shadow-md rounded-lg"
       >
         <h2 className="text-2xl font-bold mb-5">Payment Information</h2>
