@@ -89,6 +89,14 @@
   object-fit: cover;
 }
 
+.heroLogo {
+  transition: transform 0.3s ease;
+}
+
+.heroLogo:hover {
+  transform: scale(1.03);
+}
+
 .bandItem {
   width: 360px;
   display: flex;

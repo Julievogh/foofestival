@@ -90,12 +90,15 @@ export default function App() {
             </motion.h1>
           </motion.div>
           <div className={styles.imageContainer}>
-            <Image
-              src="/imgs/foofestival2.png"
-              alt="flyer-foofest"
-              width={800}
-              height={800}
-            />
+            <Link href="/stages">
+              <Image
+                src="/imgs/foofestival2.png"
+                alt="flyer-foofest"
+                width={800}
+                height={800}
+                className={styles.heroLogo}
+              />
+            </Link>
           </div>
           <Link href="/ticket-frontpage" className={styles.buttonLink}>
             Tickets
