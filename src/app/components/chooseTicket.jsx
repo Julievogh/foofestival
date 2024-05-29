@@ -28,9 +28,9 @@ const Chooseticket = ({ ticketType }) => {
     campingArea: "",
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [reservationId, setReservationId] = useState(""); // State for reservation ID
-  const [campingAreaSelected, setCampingAreaSelected] = useState(false); // State for camping area selection
-  const [buttonClicked, setButtonClicked] = useState(false); // State for button click
+  const [reservationId, setReservationId] = useState(""); 
+  const [campingAreaSelected, setCampingAreaSelected] = useState(false); 
+  const [buttonClicked, setButtonClicked] = useState(false); 
 
   const calculateTotalPrice = () => {
     let totalPrice = 0;
