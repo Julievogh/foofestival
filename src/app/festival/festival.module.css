@@ -1,7 +1,24 @@
 .main {
   padding: 0rem;
-
+  color: aliceblue;
   background: rgb(214, 174, 121);
+}
+
+.main h1 {
+  color: #e3e8ee;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.main h1::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  width: 220px;
+  height: 2px;
+  background-color: white;
+  transform: translateX(-50%);
 }
 
 .header {
