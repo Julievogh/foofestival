@@ -78,7 +78,7 @@ const CurrentPlaying = () => {
       <h4>Who is playing right now?</h4>
       <div className={styles.currentTime}>Current Time: {currentTime}</div>
       <div className={styles.timeSlot}>
-        Time Slot: {currentTimeSlot.start} - {currentTimeSlot.end}
+        {currentTimeSlot.start} - {currentTimeSlot.end}
       </div>
       <ul className={styles.bandList}>
         {currentBands.map((band) => (
