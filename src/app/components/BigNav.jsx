@@ -14,7 +14,7 @@ export default function BigNav() {
     <Navbar shouldHideOnScroll>
       <NavbarBrand>
         <Image
-          src="/logo.png"
+          src="/imgs/logo8.png"
           alt="Logo"
           width={40}
           height={40}
@@ -31,15 +31,11 @@ export default function BigNav() {
           </Link>
         </NavbarItem>
         <NavbarItem isActive>
-          <Link href="/schedule" aria-current="page">
+          <Link href="/stages" aria-current="page">
             Schedule
           </Link>
         </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="/stages">
-            Stages
-          </Link>
-        </NavbarItem>
+
         <NavbarItem>
           <Link color="foreground" href="/map">
             Map

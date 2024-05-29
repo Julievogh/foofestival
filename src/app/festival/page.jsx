@@ -100,7 +100,7 @@ export default function FestivalPage() {
   };
 
   return (
-    <main>
+    <main className={styles.main}>
       <div className={styles.breadcrumbs}>
         <Breadcrumbs paths={paths} />
       </div>
