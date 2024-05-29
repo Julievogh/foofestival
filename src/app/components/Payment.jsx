@@ -40,7 +40,7 @@ const Payment = () => {
     console.log(data);
 
     const endpoint = "https://yehhhdwxrekwnvfpdaxf.supabase.co/rest/v1/foofest2";
-    // Udkommenteret apiKey'en fordi det måske er ulovligt at gemme kreditkort data??!
+    // Udkommenteret apiKey
     // const apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InllaGhoZHd4cmVrd252ZnBkYXhmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTY1NDY1NTYsImV4cCI6MjAzMjEyMjU1Nn0.LMM7xRAUn2moW9TM8A5jQSuZtpFfc6RXk0k0KHngu-Q";
 
     const fulfillEndpoint = "https://abyssinian-aeolian-gazelle.glitch.me/fulfill-reservation";
