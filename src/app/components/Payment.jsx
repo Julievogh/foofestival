@@ -23,9 +23,7 @@ const Payment = () => {
   const country = searchParams.get("country");
   const telephone = searchParams.get("telephone");
   const email = searchParams.get("email");
-  const [timeLeft, setTimeLeft] = useState(
-    parseInt(searchParams.get("timeLeft"))
-  );
+  const [timeLeft, setTimeLeft] = useState(parseInt(searchParams.get("timeLeft")));
 
   const updateTimeLeft = (newTimeLeft) => {
     setTimeLeft(newTimeLeft);
@@ -36,23 +34,16 @@ const Payment = () => {
     guestNames.push(searchParams.get(`guestName${i + 1}`));
   }
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    trigger,
-  } = useForm();
+  const { register, handleSubmit, formState: { errors }, trigger } = useForm();
 
   const onSubmit = async (data) => {
     console.log(data);
 
-    const endpoint =
-      "https://yehhhdwxrekwnvfpdaxf.supabase.co/rest/v1/foofest2";
-    const apiKey =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InllaGhoZHd4cmVrd252ZnBkYXhmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTY1NDY1NTYsImV4cCI6MjAzMjEyMjU1Nn0.LMM7xRAUn2moW9TM8A5jQSuZtpFfc6RXk0k0KHngu-Q";
+    const endpoint = "https://yehhhdwxrekwnvfpdaxf.supabase.co/rest/v1/foofest2";
+    // Udkommenteret apiKey'en fordi det måske er ulovligt at gemme kreditkort data??!
+    // const apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InllaGhoZHd4cmVrd252ZnBkYXhmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTY1NDY1NTYsImV4cCI6MjAzMjEyMjU1Nn0.LMM7xRAUn2moW9TM8A5jQSuZtpFfc6RXk0k0KHngu-Q";
 
-    const fulfillEndpoint =
-      "https://abyssinian-aeolian-gazelle.glitch.me/fulfill-reservation";
+    const fulfillEndpoint = "https://abyssinian-aeolian-gazelle.glitch.me/fulfill-reservation";
 
     const headersList = {
       "Content-Type": "application/json",
@@ -120,70 +111,25 @@ const Payment = () => {
           action="/reciept"
           className="p-5 w-full max-w-lg bg-gray-50 shadow-md rounded-lg"
         >
-          {/* <h2 className="text-2xl font-bold mb-5">Payment Information</h2> */}
-          <h2 className="text-2xl font-bold mb-5">Some Information</h2>
+          <h2 className="text-2xl font-bold mb-5">Payment Information</h2>
 
           <input type="hidden" {...register("type")} defaultValue={type} />
-          <input
-            type="hidden"
-            {...register("ticketAmount")}
-            defaultValue={ticketAmount}
-          />
-          <input
-            type="hidden"
-            {...register("totalPrice")}
-            defaultValue={totalPrice}
-          />
-          <input
-            type="hidden"
-            {...register("isGreenCamping")}
-            defaultValue={isGreenCamping}
-          />
-          <input
-            type="hidden"
-            {...register("isTent2Person")}
-            defaultValue={isTent2Person}
-          />
-          <input
-            type="hidden"
-            {...register("isTent3Person")}
-            defaultValue={isTent3Person}
-          />
-          <input
-            type="hidden"
-            {...register("reservationId")}
-            defaultValue={reservationId}
-          />
-          <input
-            type="hidden"
-            {...register("firstname")}
-            defaultValue={firstname}
-          />
-          <input
-            type="hidden"
-            {...register("lastname")}
-            defaultValue={lastname}
-          />
+          <input type="hidden" {...register("ticketAmount")} defaultValue={ticketAmount} />
+          <input type="hidden" {...register("totalPrice")} defaultValue={totalPrice} />
+          <input type="hidden" {...register("isGreenCamping")} defaultValue={isGreenCamping} />
+          <input type="hidden" {...register("isTent2Person")} defaultValue={isTent2Person} />
+          <input type="hidden" {...register("isTent3Person")} defaultValue={isTent3Person} />
+          <input type="hidden" {...register("reservationId")} defaultValue={reservationId} />
+          <input type="hidden" {...register("firstname")} defaultValue={firstname} />
+          <input type="hidden" {...register("lastname")} defaultValue={lastname} />
           <input type="hidden" {...register("day")} defaultValue={day} />
           <input type="hidden" {...register("month")} defaultValue={month} />
           <input type="hidden" {...register("year")} defaultValue={year} />
-          <input
-            type="hidden"
-            {...register("address")}
-            defaultValue={address}
-          />
+          <input type="hidden" {...register("address")} defaultValue={address} />
           <input type="hidden" {...register("city")} defaultValue={city} />
           <input type="hidden" {...register("zip")} defaultValue={zip} />
-          <input
-            type="hidden"
-            {...register("country")}
-            defaultValue={country}
-          />
-          <input
-            type="hidden"
-            {...register("telephone")}
-            defaultValue={telephone}
-          />
+          <input type="hidden" {...register("country")} defaultValue={country} />
+          <input type="hidden" {...register("telephone")} defaultValue={telephone} />
           <input type="hidden" {...register("email")} defaultValue={email} />
 
           {guestNames.map((guestName, index) => (
@@ -196,11 +142,10 @@ const Payment = () => {
           ))}
 
           <section className="flex flex-col mb-5">
-            {/* <h3 className="text-lg font-semibold mb-3">Credit Card Information</h3> */}
-            <h3 className="text-lg font-semibold mb-3">Some Information</h3>
+            <h3 className="text-lg font-semibold mb-3">Credit Card Information</h3>
 
             <label htmlFor="cardName" className="mb-2">
-              Name on Something:
+              Name on Card:
             </label>
             <input
               type="text"
@@ -211,12 +156,10 @@ const Payment = () => {
               onBlur={() => trigger("cardName")}
               className="border border-gray-300 rounded-md mb-3 p-2"
             />
-            {errors.cardName && (
-              <p className="text-red-500">{errors.cardName.message}</p>
-            )}
+            {errors.cardName && <p className="text-red-500">{errors.cardName.message}</p>}
 
             <label htmlFor="cardNumber" className="mb-2">
-              Something Number:
+              Card Number:
             </label>
             <input
               type="text"
@@ -232,9 +175,7 @@ const Payment = () => {
               onBlur={() => trigger("cardNumber")}
               className="border border-gray-300 rounded-md mb-3 p-2"
             />
-            {errors.cardNumber && (
-              <p className="text-red-500">{errors.cardNumber.message}</p>
-            )}
+            {errors.cardNumber && <p className="text-red-500">{errors.cardNumber.message}</p>}
 
             <label htmlFor="expMonth" className="mb-2">
               Expiration Month:
@@ -258,9 +199,7 @@ const Payment = () => {
                 </option>
               ))}
             </select>
-            {errors.expMonth && (
-              <p className="text-red-500">{errors.expMonth.message}</p>
-            )}
+            {errors.expMonth && <p className="text-red-500">{errors.expMonth.message}</p>}
 
             <label htmlFor="expYear" className="mb-2">
               Expiration Year:
@@ -270,10 +209,7 @@ const Payment = () => {
               id="expYear"
               maxLength={4}
               {...register("expYear", {
-                required: {
-                  value: true,
-                  message: "Expiration Year is required",
-                },
+                required: { value: true, message: "Expiration Year is required" },
                 min: {
                   value: new Date().getFullYear(),
                   message: `Year must be at least ${new Date().getFullYear()}`,
@@ -283,13 +219,10 @@ const Payment = () => {
               onBlur={() => trigger("expYear")}
               className="border border-gray-300 rounded-md mb-3 p-2"
             />
-            {errors.expYear && (
-              <p className="text-red-500">{errors.expYear.message}</p>
-            )}
+            {errors.expYear && <p className="text-red-500">{errors.expYear.message}</p>}
 
             <label htmlFor="cvv" className="mb-2">
-              {/* CVV: */}
-              Something
+              CVV:
             </label>
             <input
               type="text"
@@ -312,7 +245,6 @@ const Payment = () => {
             <button
               type="submit"
               className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-200"
-              disabled
             >
               Pay Now
             </button>
