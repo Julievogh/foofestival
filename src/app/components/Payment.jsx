@@ -47,8 +47,8 @@ const Payment = () => {
 
     const headersList = {
       "Content-Type": "application/json",
-      apikey: apiKey,
-      Authorization: `Bearer ${apiKey}`,
+      // apikey: apiKey,
+      // Authorization: `Bearer ${apiKey}`,
     };
 
     const bodyContent = JSON.stringify(data);
