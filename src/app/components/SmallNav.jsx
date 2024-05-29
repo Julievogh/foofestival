@@ -17,8 +17,8 @@ export default function SmallNav() {
 
   const menuItems = [
     { label: "Bands", href: "/festival" },
-    { label: "Schedule", href: "/schedule" },
-    { label: "Stages", href: "/stages" },
+    { label: "Schedule", href: "/stages" },
+
     { label: "Map", href: "/map" },
 
     { label: "Buy Ticket", href: "/ticket-frontpage" },
@@ -53,15 +53,11 @@ export default function SmallNav() {
         </NavbarItem>
 
         <NavbarItem isActive>
-          <Link href="/schedule" aria-current="page">
+          <Link href="/stages" aria-current="page">
             Schedule
           </Link>
         </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="/stages">
-            Stages
-          </Link>
-        </NavbarItem>
+
         <NavbarItem>
           <Link color="foreground" href="/map">
             Map
