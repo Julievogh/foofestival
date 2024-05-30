@@ -176,7 +176,7 @@ export default function App() {
           <Link href="/map" className={styles.buttonLink2}>
             Map
           </Link>
-          <div className={styles.eventsContainer}>
+          {/*<div className={styles.eventsContainer}>
             <h5>Events</h5>
             <ul>
               {events.map((event, index) => (
@@ -190,7 +190,7 @@ export default function App() {
                 </li>
               ))}
             </ul>
-          </div>
+          </div>*/}
         </div>
       </div>
       <div></div>
