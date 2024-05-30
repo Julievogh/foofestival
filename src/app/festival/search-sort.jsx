@@ -58,17 +58,17 @@ export default function FestivalPage() {
 
   const toggleFavorites = () => {
     setShowFavorites((prevShowFavorites) => !prevShowFavorites);
-    setCurrentPage(1); // Reset to the first page when toggling
+    setCurrentPage(1);
   };
 
   const handleSortChange = (value) => {
     setSortMethod(value);
-    setCurrentPage(1); // Reset to the first page when sorting changes
+    setCurrentPage(1);
   };
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
-    setCurrentPage(1); // Reset to the first page when searching
+    setCurrentPage(1);
   };
 
   return (

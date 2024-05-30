@@ -16,7 +16,7 @@ const SchedulerPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      let initialSchedulerData; // Define initialSchedulerData here
+      let initialSchedulerData;
       try {
         const { bandsData, scheduleData } = await fetchBandsAndSchedule();
         console.log("Fetched bandsData:", bandsData);

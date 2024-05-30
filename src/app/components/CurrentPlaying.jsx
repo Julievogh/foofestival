@@ -1,4 +1,3 @@
-// app/components/CurrentPlaying.jsx
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "./CurrentPlaying.module.css";

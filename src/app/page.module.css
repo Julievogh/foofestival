@@ -1,5 +1,3 @@
-/* page.module.css */
-
 .main {
   padding: 0;
   text-align: center;
@@ -217,10 +215,10 @@
 
 .bottom {
   background: url("/imgs/forsidebg2.jpg") center bottom/cover no-repeat;
-  background-attachment: fixed; /* Ensure the background is fixed for parallax */
+  background-attachment: fixed;
   background-color: rgb(7, 18, 48);
   width: 100%;
-  height: 72vh; /* Make sure it covers the full viewport height */
+  height: 72vh;
   position: relative;
   display: flex;
   flex-direction: column;

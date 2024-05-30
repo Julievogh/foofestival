@@ -43,7 +43,6 @@ export default function Page({ params }) {
 
         const bandSchedule = findBandSchedule(scheduleData, bandData.name);
 
-        // Get the dominant color from the band image
         let dominantColor;
         try {
           dominantColor = await getDominantColor(
@@ -53,7 +52,7 @@ export default function Page({ params }) {
           );
         } catch (error) {
           console.error("Error fetching dominant color:", error);
-          dominantColor = [255, 255, 255]; // Default to white
+          dominantColor = [255, 255, 255];
         }
         setBgColor(`rgb(${dominantColor.join(",")})`);
 
@@ -96,7 +95,7 @@ export default function Page({ params }) {
               width={200}
               height={200}
               onError={(e) => {
-                e.target.src = "/path/to/default-image.jpg"; // Fallback image
+                e.target.src = "/path/to/default-image.jpg";
               }}
             />
             <div className={styles.buttonContainer}>

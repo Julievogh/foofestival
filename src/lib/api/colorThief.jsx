@@ -1,4 +1,3 @@
-// app/lib/colorThief.js
 import ColorThief from "colorthief";
 
 export const getDominantColor = (imgUrl) => {

@@ -1,4 +1,3 @@
-// app/favorites/page.jsx
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
@@ -9,7 +8,7 @@ import LikeButton from "../components/LikeButton";
 import Breadcrumbs from "../components/Breadcrumbs";
 import { Pagination } from "antd";
 import { fetchBands } from "../../lib/api/bands";
-import LoadingAnimation from "../components/Loading"; // Import the LoadingAnimation component
+import LoadingAnimation from "../components/Loading";
 
 export default function FavoritePage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -52,7 +51,7 @@ export default function FavoritePage() {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  if (loading) return <LoadingAnimation />; // Render the loading animation component while loading
+  if (loading) return <LoadingAnimation />;
   if (error) return <div>{error}</div>;
   return (
     <main className={styles.main}>

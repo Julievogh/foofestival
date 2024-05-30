@@ -1,5 +1,3 @@
-// app/lib/api/bands.jsx
-
 const BASE_URL = "https://abyssinian-aeolian-gazelle.glitch.me";
 
 export const fetchBandsAndSchedule = async () => {

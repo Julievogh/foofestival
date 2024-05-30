@@ -19,7 +19,7 @@ export default function SchedulePage() {
 
         const formattedData = formatScheduleData(data);
         setScheduleData(formattedData);
-        setSelectedDay(Object.keys(formattedData)[0]); // Default to the first day
+        setSelectedDay(Object.keys(formattedData)[0]);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -27,7 +27,6 @@ export default function SchedulePage() {
     fetchData();
   }, []);
 
-  // Function to format schedule data
   function formatScheduleData(data) {
     const formattedData = {};
     for (const stage in data) {
@@ -54,7 +53,7 @@ export default function SchedulePage() {
       <div className={styles.mainBand}>
         <h1 className="ml-4">Schedule</h1>
         <h2>Stages</h2>
-        {/* Dropdown menu for selecting a day */}
+
         <select
           value={selectedDay}
           onChange={(e) => setSelectedDay(e.target.value)}
