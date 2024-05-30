@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import styles from "../page.module.css"; // Assuming styles are imported from the same file
+import styles from "../page.module.css";
 
 const LikeButton = ({ slug, className }) => {
   const [isLiked, setIsLiked] = useState(false);
