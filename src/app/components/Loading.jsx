@@ -20,7 +20,7 @@ const LoadingAnimation = () => {
     const interval = setInterval(() => {
       const randomIndex = Math.floor(Math.random() * loadingMessages.length);
       setLoadingText(loadingMessages[randomIndex]);
-    }, 1000);
+    }, 1500);
 
     return () => clearInterval(interval);
   }, []);

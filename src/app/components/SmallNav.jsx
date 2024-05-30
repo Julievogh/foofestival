@@ -1,4 +1,4 @@
-"use client"; // Add this at the top if it's a client component
+"use client";
 import React from "react";
 import {
   Navbar,
@@ -27,7 +27,12 @@ export default function SmallNav() {
   ];
 
   return (
-    <Navbar isBordered isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
+    <Navbar
+      isBordered
+      isMenuOpen={isMenuOpen}
+      onMenuOpenChange={setIsMenuOpen}
+      style={{ zIndex: 2000, position: "relative" }}
+    >
       <NavbarContent className="sm:hidden" justify="start">
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -73,7 +78,7 @@ export default function SmallNav() {
           <Button
             as={Link}
             color="warning"
-            href="/ticket-frontpage" // Update the href attribute to "/tickets"
+            href="/ticket-frontpage"
             variant="flat"
           >
             Tickets
