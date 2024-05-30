@@ -7,7 +7,7 @@ const BandPage = ({ slug }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    console.log("Current slug:", slug); // Log the current slug for debugging
+    console.log("Current slug:", slug);
 
     const fetchBandData = async () => {
       try {
@@ -26,7 +26,6 @@ const BandPage = ({ slug }) => {
     fetchBandData();
   }, [slug]);
 
-  // Log the band data for debugging
   console.log("Band data:", band);
 
   if (!band) {
@@ -38,7 +37,11 @@ const BandPage = ({ slug }) => {
       <h1>{band.name}</h1>
       <div>
         <Image
-          src={band.logo.startsWith("https://") ? band.logo : `http://localhost:8080/logos/${band.logo}`}
+          src={
+            band.logo.startsWith("https://")
+              ? band.logo
+              : `http://localhost:8080/logos/${band.logo}`
+          }
           alt={band.name}
           width={200}
           height={200}
