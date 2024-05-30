@@ -8,7 +8,7 @@
 }
 
 .hero {
-  background: url("/imgs/forsidebg1.jpg") center/cover no-repeat;
+  background: url("/imgs/forsidebg1.webp") center/cover no-repeat;
   background-color: rgb(7, 18, 48);
   width: 100%;
   min-height: calc(100vh - var(--header-height));
@@ -214,7 +214,7 @@
 }
 
 .bottom {
-  background: url("/imgs/forsidebg2.jpg") center bottom/cover no-repeat;
+  background: url("/imgs/forsidebg2.webp") center bottom/cover no-repeat;
   background-attachment: fixed;
   background-color: rgb(7, 18, 48);
   width: 100%;
